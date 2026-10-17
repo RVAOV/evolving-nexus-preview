@@ -922,7 +922,7 @@
     <div class="shell">
       <p class="mark" aria-hidden="true">◆</p>
       <h2 class="eyebrow" id="questions-h">Before you join</h2>
-      <p class="h2">The questions people actually ask.</p>
+      <p class="h2">Questions frequently asked about Evolving Nexus.</p>
 
       <!-- Objection handling. Every answer is the client's own position, from
            their About page and course pages.
@@ -1182,10 +1182,17 @@
       status.className = 'capture__status is-' + kind;
     }
     function showDone() {
+      /* Close the on-screen keyboard. The field still has focus at this point,
+         so on a phone the keyboard stays up over the confirmation. */
+      if (input && typeof input.blur === 'function') input.blur();
       if (!done) { setStatus('Thank you. Please check your inbox to confirm.', 'success'); return; }
       form.hidden = true;
       done.hidden = false;
       done.focus({ preventScroll: true });
+      var box = done.getBoundingClientRect();
+      if (box.bottom > window.innerHeight || box.top < 0) {
+        done.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+      }
     }
     function clearStatus() {
       status.hidden = true;
