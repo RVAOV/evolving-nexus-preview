@@ -482,7 +482,7 @@
       <!-- The field itself, not a link to one. "Stay Connected" as a button
            said nothing about what pressing it does; asking for the address
            here removes a step and states the offer plainly. -->
-      <form class="capture js-join" method="post"
+      <form class="capture js-join" data-demo="true" method="post"
             action="https://example.com/REPLACE-WITH-MAILERLITE-ENDPOINT"
             data-endpoint="https://example.com/REPLACE-WITH-MAILERLITE-ENDPOINT"
             novalidate>
@@ -562,10 +562,53 @@
       </div>
     </div>
   </section>
+  <!-- Who it is for. A reader decides "is this me" before anything else, and
+       the page had no answer. Every line is lifted from the audience sections
+       of the client's own four course pages. -->
+  <section class="section section--tint" id="audience" aria-labelledby="audience-h">
+    <div class="shell">
+      <p class="mark" aria-hidden="true">&#9670;</p>
+      <h2 class="eyebrow" id="audience-h">Who it’s for</h2>
+      <p class="h2">The people who take this on.</p>
+
+      <ul class="who" role="list">
+        <li>
+          <strong>Coaches, consultants and facilitators</strong>
+          You have outgrown the frameworks in general circulation and need
+          something with more resolution to work from.
+        </li>
+        <li>
+          <strong>Leaders and managers</strong>
+          You want to understand why teams, cultures and organizations develop
+          the way they do rather than the way the plan said.
+        </li>
+        <li>
+          <strong>Contemplative practitioners</strong>
+          You have a serious practice and no map that explains what keeps
+          happening inside it.
+        </li>
+        <li>
+          <strong>Interfaith and religious practitioners</strong>
+          You want a comparative, developmental lens on your own tradition
+          without being asked to leave it.
+        </li>
+        <li>
+          <strong>Therapists, educators and researchers</strong>
+          You work with how people make meaning and want the structure
+          underneath it.
+        </li>
+        <li>
+          <strong>The widely read</strong>
+          You have found every account partial and are ready to do the harder
+          reading rather than the next summary.
+        </li>
+      </ul>
+    </div>
+  </section>
 
   <!-- ═══════════ PROGRAMMES ═══════════
        "Features tell, benefits sell": what the reader gets, not a syllabus. -->
-  <section class="section section--tint" id="programs" aria-labelledby="programs-h">
+  <section class="section" id="programs" aria-labelledby="programs-h">
     <div class="shell">
       <p class="mark" aria-hidden="true">◆</p>
       <h2 class="eyebrow" id="programs-h">What&rsquo;s our focus</h2>
@@ -638,53 +681,6 @@
     </div>
   </section>
 
-
-  <!-- ═══════════ HOW IT WORKS ═══════════
-       "People won't call if they don't know what happens next." -->
-  <!-- Who it is for. A reader decides "is this me" before anything else, and
-       the page had no answer. Every line is lifted from the audience sections
-       of the client's own four course pages. -->
-  <section class="section" id="audience" aria-labelledby="audience-h">
-    <div class="shell">
-      <p class="mark" aria-hidden="true">&#9670;</p>
-      <h2 class="eyebrow" id="audience-h">Who it’s for</h2>
-      <p class="h2">The people who take this on.</p>
-
-      <ul class="who" role="list">
-        <li>
-          <strong>Coaches, consultants and facilitators</strong>
-          You have outgrown the frameworks in general circulation and need
-          something with more resolution to work from.
-        </li>
-        <li>
-          <strong>Leaders and managers</strong>
-          You want to understand why teams, cultures and organizations develop
-          the way they do rather than the way the plan said.
-        </li>
-        <li>
-          <strong>Contemplative practitioners</strong>
-          You have a serious practice and no map that explains what keeps
-          happening inside it.
-        </li>
-        <li>
-          <strong>Interfaith and religious practitioners</strong>
-          You want a comparative, developmental lens on your own tradition
-          without being asked to leave it.
-        </li>
-        <li>
-          <strong>Therapists, educators and researchers</strong>
-          You work with how people make meaning and want the structure
-          underneath it.
-        </li>
-        <li>
-          <strong>The widely read</strong>
-          You have found every account partial and are ready to do the harder
-          reading rather than the next summary.
-        </li>
-      </ul>
-    </div>
-  </section>
-
   <!-- Results, not mechanics. This described joining a mailing list: confirm
        your address, hear the dates, pick a path, attend. None of that is a
        reason to enrol. It now describes what changes for the reader, drawn
@@ -736,10 +732,36 @@
     </div>
   </section>
 
+  <section class="section" id="proof" aria-labelledby="proof-h">
+    <div class="shell">
+      <p class="mark" aria-hidden="true">◆</p>
+      <h2 class="eyebrow" id="proof-h">What industry experts say</h2>
+      <!-- Every other section opens with an .h2, so this one does too. The
+           line is Evolving Nexus's own, from the earlier recognition lede. -->
+      <p class="h2">Recognized by leading thinkers in the field.</p>
+
+      <figure class="endorse">
+        <blockquote><p>&ldquo;This is a superb book, highly recommended.&rdquo;</p></blockquote>
+        <blockquote><p>&ldquo;I can vouch that the authors thoroughly and deeply understand
+          Integral Theory and represent it accurately.&rdquo;</p></blockquote>
+        <figcaption class="endorse__by">
+          <span class="endorse__name">Ken Wilber</span>
+          <span class="endorse__role">Founder of Integral Theory</span>
+          <span class="endorse__note">
+            From his endorsement of <cite>The Book of Becoming: An Integral Nondual
+            Manifesto for a World in Transition</cite>, co-authored by Nish Dubashia
+            with Hans Plasqui and Daniela Bomatter.
+          </span>
+        </figcaption>
+      </figure>
+
+    </div>
+  </section>
+
 
   <!-- ═══════════ PROOF ═══════════
        "When someone ELSE says you're good, it's 10x more believable." -->
-  <section class="section" id="testimonials" aria-labelledby="testimonials-h">
+  <section class="section section--tint" id="testimonials" aria-labelledby="testimonials-h">
     <div class="shell">
       <p class="mark" aria-hidden="true">&#9670;</p>
       <h2 class="eyebrow" id="testimonials-h">What participants say</h2>
@@ -794,32 +816,6 @@
         Participants join us from across the United States, Europe and all over
         the world.
       </p>
-    </div>
-  </section>
-
-  <section class="section section--tint" id="proof" aria-labelledby="proof-h">
-    <div class="shell">
-      <p class="mark" aria-hidden="true">◆</p>
-      <h2 class="eyebrow" id="proof-h">What industry experts say</h2>
-      <!-- Every other section opens with an .h2, so this one does too. The
-           line is Evolving Nexus's own, from the earlier recognition lede. -->
-      <p class="h2">Recognized by leading thinkers in the field.</p>
-
-      <figure class="endorse">
-        <blockquote><p>&ldquo;This is a superb book, highly recommended.&rdquo;</p></blockquote>
-        <blockquote><p>&ldquo;I can vouch that the authors thoroughly and deeply understand
-          Integral Theory and represent it accurately.&rdquo;</p></blockquote>
-        <figcaption class="endorse__by">
-          <span class="endorse__name">Ken Wilber</span>
-          <span class="endorse__role">Founder of Integral Theory</span>
-          <span class="endorse__note">
-            From his endorsement of <cite>The Book of Becoming: An Integral Nondual
-            Manifesto for a World in Transition</cite>, co-authored by Nish Dubashia
-            with Hans Plasqui and Daniela Bomatter.
-          </span>
-        </figcaption>
-      </figure>
-
     </div>
   </section>
 
@@ -1019,7 +1015,7 @@
         and events.
       </p>
 
-      <form class="capture js-join" method="post"
+      <form class="capture js-join" data-demo="true" method="post"
             action="https://example.com/REPLACE-WITH-MAILERLITE-ENDPOINT"
             data-endpoint="https://example.com/REPLACE-WITH-MAILERLITE-ENDPOINT"
             novalidate>
@@ -1081,11 +1077,11 @@
     -->
     <ul class="footer__links" role="list">
       <li><a href="#about">About</a></li>
-      <li><a href="#programs">Programs</a></li>
       <li><a href="#audience">Audience</a></li>
+      <li><a href="#programs">Programs</a></li>
       <li><a href="#outcomes">Outcomes</a></li>
-      <li><a href="#testimonials">Testimonials</a></li>
       <li><a href="#proof">Recognition</a></li>
+      <li><a href="#testimonials">Testimonials</a></li>
       <li><a href="#founders">Founders</a></li>
       <li><a href="#questions">Questions</a></li>
       <li><a href="#join">Join</a></li>
@@ -1106,6 +1102,23 @@
 
   var year = document.getElementById('year');
   if (year) year.textContent = new Date().getFullYear();
+
+  /* --- Anchor offset tracks the bar's real height ------------------------ */
+  /* A fixed bar covers the top of whatever an anchor scrolls to. The offset
+     has to equal the bar's height exactly or the previous section shows
+     through above the heading, which a hardcoded rem value cannot do: the bar
+     measures 70px on a phone and 73px on a desktop, and changes again once the
+     webfont swaps in. */
+  var navEl = document.getElementById('nav');
+  if (navEl) {
+    var setNavH = function () {
+      document.documentElement.style.setProperty('--nav-h', navEl.offsetHeight + 'px');
+    };
+    setNavH();
+    if ('ResizeObserver' in window) new ResizeObserver(setNavH).observe(navEl);
+    else window.addEventListener('resize', setNavH);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(setNavH);
+  }
 
   /* --- The nav waits until the opening is behind us ---------------------- */
   var nav = document.getElementById('nav');
@@ -1168,6 +1181,12 @@
       status.hidden = false;
       status.className = 'capture__status is-' + kind;
     }
+    function showDone() {
+      if (!done) { setStatus('Thank you. Please check your inbox to confirm.', 'success'); return; }
+      form.hidden = true;
+      done.hidden = false;
+      done.focus({ preventScroll: true });
+    }
     function clearStatus() {
       status.hidden = true;
       status.textContent = '';
@@ -1194,8 +1213,26 @@
         return;
       }
 
-      /* Not wired up yet: let the native POST happen rather than fake success. */
-      if (!CONFIGURED || typeof window.fetch !== 'function') return;
+      /* No endpoint set yet. Letting the native POST run sent the reader to the
+         placeholder URL and took the page with it, which looks like a crash.
+         Hold the page and say plainly that it is not connected: a fake success
+         would be worse, because shipped unconfigured it would swallow every
+         sign-up silently. */
+      if (!CONFIGURED) {
+        event.preventDefault();
+        /* The review build sets data-demo so the client can see the real
+           confirmation. Production never has it, and a page shipped without an
+           endpoint says so plainly rather than faking a success that would
+           swallow every sign-up. */
+        if (form.getAttribute('data-demo') === 'true') {
+          form.reset(); clearStatus(); showDone();
+        } else {
+          setStatus('Sign-up is not connected yet. Set the mailing list endpoint on both forms.', 'error');
+        }
+        return;
+      }
+      /* No fetch: let the browser post the form the old-fashioned way. */
+      if (typeof window.fetch !== 'function') return;
 
       event.preventDefault();
       input.removeAttribute('aria-invalid');
@@ -1212,13 +1249,7 @@
           if (!response.ok) throw new Error('HTTP ' + response.status);
           form.reset();
           clearStatus();
-          if (done) {
-            form.hidden = true;
-            done.hidden = false;
-            done.focus();
-          } else {
-            setStatus('Thank you. Please check your inbox to confirm.', 'success');
-          }
+          showDone();
         })
         .catch(function () {
           setStatus('Something went wrong on our end. Please try again in a moment.', 'error');
