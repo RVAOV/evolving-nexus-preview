@@ -95,6 +95,9 @@
 
   --shell:  72rem;
   --gutter: clamp(1.4rem, 1rem + 2.2vw, 3rem);
+  /* A notch in landscape takes a bite out of the sides too. */
+  --edge-l: env(safe-area-inset-left, 0px);
+  --edge-r: env(safe-area-inset-right, 0px);
 
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
 }
@@ -230,7 +233,7 @@ p { text-wrap: pretty; }
   width: 100%;
   max-width: var(--shell);
   margin-inline: auto;
-  padding-inline: var(--gutter);
+  padding-inline: calc(var(--gutter) + var(--edge-l)) calc(var(--gutter) + var(--edge-r));
 }
 .shell--narrow { max-width: 52rem; }
 
@@ -274,6 +277,7 @@ p { text-wrap: pretty; }
      nothing to gain from the transparency and a real legibility bug to lose. */
   background: var(--void);
   border-bottom: 1px solid var(--hairline-faint);
+  padding-top: env(safe-area-inset-top, 0px);
   transform: translateY(-100%); opacity: 0; visibility: hidden;
   transition: transform 320ms var(--ease), opacity 320ms var(--ease), visibility 320ms;
 }
@@ -345,7 +349,13 @@ p { text-wrap: pretty; }
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  padding-block: var(--space-l) var(--space-xl);
+  /* viewport-fit=cover runs the layout viewport under the notch and the status
+     bar so the background reaches the screen edges. Without these insets the
+     content goes under there too, and on a fresh load, where the page sits at
+     its topmost position, that takes the emblem with it. No emulator reports
+     real insets, which is why this never showed up in testing. */
+  padding-block: calc(var(--space-l) + env(safe-area-inset-top, 0px))
+                 calc(var(--space-xl) + env(safe-area-inset-bottom, 0px));
 }
 .hero__mark {
   width: clamp(5.5rem, 4rem + 6vw, 9.5rem);
@@ -389,7 +399,10 @@ p { text-wrap: pretty; }
 /* Short viewports. A 1366x768 laptop is as tight as a phone vertically, and
    the headline is where the height comes from. */
 @media (max-height: 50rem) {
-  .hero { padding-block: var(--space-m) var(--space-l); }
+  .hero {
+    padding-block: calc(var(--space-m) + env(safe-area-inset-top, 0px))
+                   calc(var(--space-l) + env(safe-area-inset-bottom, 0px));
+  }
   .hero__mark { width: clamp(4rem, 3rem + 4vw, 7rem); margin-bottom: var(--space-s); }
   .hero__title { font-size: clamp(1.85rem, 1.15rem + 1.3vw, 2.4rem); }
   .hero__sub { margin-top: var(--space-s); font-size: var(--step-0); line-height: 1.45; }
@@ -403,7 +416,8 @@ p { text-wrap: pretty; }
 @media (max-width: 48rem) {
   .hero {
     --hero-eyebrow: clamp(0.88rem, min(4vw, 2.3svh), 1.2rem);
-    padding-block: clamp(0.7rem, 3svh, 4rem) clamp(0.9rem, 3.6svh, 5rem);
+    padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
+                   calc(clamp(0.9rem, 3.6svh, 5rem) + env(safe-area-inset-bottom, 0px));
   }
   .hero__mark {
     width: clamp(3rem, min(24vw, 11.4svh), 11rem);
@@ -723,7 +737,7 @@ p { text-wrap: pretty; }
 .signature__role { display: block; margin-top: 0.15rem; font-size: var(--step--1); color: var(--fog); }
 
 /* -- Footer -------------------------------------------------------------- */
-.footer { padding-block: var(--space-l); border-top: 1px solid var(--hairline-faint); font-size: var(--step--1); line-height: 1.6; color: var(--fog); }
+.footer { padding-block: var(--space-l) calc(var(--space-l) + env(safe-area-inset-bottom, 0px)); border-top: 1px solid var(--hairline-faint); font-size: var(--step--1); line-height: 1.6; color: var(--fog); }
 .footer__links { display: flex; flex-wrap: wrap; gap: var(--space-2xs) var(--space-m); justify-content: center; margin-top: 0; list-style: none; padding: 0; }
 .footer__links a { color: var(--fog); text-decoration: none; }
 .footer__links a:hover { color: var(--ember-gold); }
@@ -750,7 +764,7 @@ p { text-wrap: pretty; }
    The emblem is the way back, so there is nothing else in it. */
 .masthead {
   position: sticky; top: 0; z-index: 50;
-  padding-block: var(--space-m);
+  padding-block: calc(var(--space-m) + env(safe-area-inset-top, 0px)) var(--space-m);
   background: var(--void);
   border-bottom: 1px solid var(--hairline-faint);
 }
