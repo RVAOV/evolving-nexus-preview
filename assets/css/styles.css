@@ -741,6 +741,16 @@ p { text-wrap: pretty; }
 .footer__links a:hover { color: var(--ember-gold); }
 .footer__legal { margin-top: var(--space-s); }
 
+/* The emblem closing the page. Small and dimmed: it is punctuation, not a
+   second logo, and it should not compete with the sign-up band above it. */
+.footer__mark {
+  display: block;
+  width: clamp(2.2rem, 4.5vw, 3rem);
+  height: auto;
+  margin: var(--space-l) auto 0;
+  opacity: 0.55;
+}
+
 /* -- Document pages ------------------------------------------------------ */
 .doc { text-align: left; }
 .doc .shell--prose { max-width: 64rem; margin-inline: auto; }
