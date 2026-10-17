@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Evolving Nexus">
+  <title>Evolving Nexus</title>
+  <!--
+    A deliberately simplified star tetrahedron. The full emblem's interior
+    construction lines turn to mud below ~48px, so the favicon keeps only what
+    survives at 16px: the enclosing circle, the hexagram, and the centre point.
+  -->
+  <rect width="64" height="64" rx="10" fill="#070D10"/>
+  <g fill="none" stroke="#E6BA75" stroke-linejoin="round" stroke-width="2.6">
+    <circle cx="32" cy="32" r="26.5" stroke-width="2"/>
+    <path d="M32 8 11.2 44h41.6z"/>
+    <path d="M32 56 52.8 20H11.2z"/>
+  </g>
+  <path d="M32 27.6 36.4 32 32 36.4 27.6 32z" fill="#E6BA75"/>
+</svg>

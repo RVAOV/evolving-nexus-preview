@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="en-US" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+<!--
+  ============================================================================
+  EVOLVING NEXUS: landing page
+  ============================================================================
+  Section order and priorities follow the client's own conversion playbook,
+  "The Ultimate Guide to Building a Landing Page That Converts", whose rule is
+  that every element must build TRUST or make it EASY to act.
+
+    nav, one CTA, sticky          hero, real photo, one action
+    trust bar of specific numbers  services as benefits
+    how it works, 4 steps          proof: endorsement then testimonials
+    who teaches it, credentials    FAQ in dropdowns
+    final call on its own band     footer with legal and contact
+
+  Domain and contact address are the client's own, taken from their v13, not
+  assumed: https://rvaov.github.io/evolving-nexus-landing. The contact address is deliberately not
+  published here, only in privacy.html where the law requires it, because a
+  mailto in a footer is harvested within days of going live.
+
+  STILL OUTSTANDING, all of them things only the client can supply:
+    1. MailerLite endpoint  data-endpoint on both forms. Until it is set the
+                            forms fall back to a native POST rather than
+                            faking a success message.
+    2. Social URLs ........ footer, and sameAs on the Organization node. Left
+                            out rather than guessed: a wrong sameAs damages
+                            search entity resolution.
+    3. Privacy controller . legal name, trading status and postal address in
+                            privacy.html, which PECR requires for marketing.
+    4. Opening date ....... no date is claimed anywhere. Add one only when the
+                            client can commit to it.
+
+  Every factual claim comes from the client's own course pages, About page, or
+  the Wilber endorsement. Nothing is invented. The rewritten copy still needs
+  Marie and Nish to approve it.
+  ============================================================================
+-->
+
+<title>Evolving Nexus | Consciousness, Meaning &amp; Reality</title>
+<meta name="description" content="Live online programs on consciousness, meaning and the structure of reality, taught by Marie Murtagh and Nish Dubashia. Endorsed by Ken Wilber.">
+<link rel="canonical" href="https://rvaov.github.io/evolving-nexus-landing/">
+
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="author" content="Evolving Nexus">
+<meta name="theme-color" content="#070D10">
+<meta name="color-scheme" content="dark">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Evolving Nexus">
+<meta property="og:locale" content="en_US">
+<meta property="og:url" content="https://rvaov.github.io/evolving-nexus-landing/">
+<meta property="og:title" content="Evolving Nexus | Consciousness, Meaning &amp; Reality">
+<meta property="og:description" content="Live online programs on consciousness, meaning and the structure of reality, taught by Marie Murtagh and Nish Dubashia. Endorsed by Ken Wilber.">
+<meta property="og:image" content="https://rvaov.github.io/evolving-nexus-landing/assets/img/og-cover.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The Evolving Nexus emblem above the words Evolving Nexus.">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Evolving Nexus | Consciousness, Meaning &amp; Reality">
+<meta name="twitter:description" content="Live online programs on consciousness, meaning and the structure of reality. Endorsed by Ken Wilber.">
+<meta name="twitter:image" content="https://rvaov.github.io/evolving-nexus-landing/assets/img/og-cover.jpg">
+<meta name="twitter:image:alt" content="The Evolving Nexus emblem.">
+
+<link rel="icon" href="assets/img/favicon.ico" sizes="32x32">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+
+<link rel="preload" href="assets/fonts/lora-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" as="image" href="assets/img/founders-700.webp" type="image/webp" fetchpriority="high">
+
+<link rel="stylesheet" href="assets/css/styles.css">
+<script>document.documentElement.classList.replace('no-js','js');</script>
+
+<!-- Structured data. The playbook calls out FAQ schema specifically, because
+     answers can surface directly in search. Testimonials are deliberately NOT
+     marked up as Review and there is no aggregateRating: self-serving review
+     markup on your own Organization is against Google's guidelines. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": [
+        "Organization",
+        "EducationalOrganization"
+      ],
+      "@id": "https://rvaov.github.io/evolving-nexus-landing/#organization",
+      "name": "Evolving Nexus",
+      "url": "https://rvaov.github.io/evolving-nexus-landing/",
+      "description": "Evolving Nexus is a transformational learning and research initiative founded by Nish Dubashia and Marie Murtagh. It brings together insights from psychology, philosophy, science, spirituality and human development to explore two fundamental questions: how is reality structured, and how do we find meaning within it?",
+      "logo": {
+        "@type": "ImageObject",
+        "@id": "https://rvaov.github.io/evolving-nexus-landing/#logo",
+        "url": "https://rvaov.github.io/evolving-nexus-landing/assets/img/emblem-nexus.png",
+        "width": 456,
+        "height": 472
+      },
+      "image": {
+        "@id": "https://rvaov.github.io/evolving-nexus-landing/#logo"
+      },
+      "founder": [
+        {
+          "@id": "https://rvaov.github.io/evolving-nexus-landing/#marie-murtagh"
+        },
+        {
+          "@id": "https://rvaov.github.io/evolving-nexus-landing/#nish-dubashia"
+        }
+      ],
+      "knowsAbout": [
+        "Consciousness studies",
+        "Integral theory",
+        "Nondualism",
+        "Philosophy of mind",
+        "Human development",
+        "Developmental psychology",
+        "Transformational learning",
+        "Philosophy of religion",
+        "The Diamond Model"
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Programs",
+        "itemListElement": [
+          {
+            "@type": "Course",
+            "name": "The Architecture of Human Consciousness",
+            "provider": {
+              "@id": "https://rvaov.github.io/evolving-nexus-landing/#organization"
+            },
+            "inLanguage": "en",
+            "courseMode": "online",
+            "teaches": "A foundational program mapping the hidden architecture behind human development, meaning-making and consciousness.",
+            "description": "A foundational program mapping the hidden architecture behind human development, meaning-making and consciousness."
+          },
+          {
+            "@type": "Course",
+            "name": "The Seven Principles",
+            "provider": {
+              "@id": "https://rvaov.github.io/evolving-nexus-landing/#organization"
+            },
+            "inLanguage": "en",
+            "courseMode": "online",
+            "teaches": "An inquiry into the universal structures through which human beings create meaning, and how they shift across cultures, religions and stages of consciousness.",
+            "description": "An inquiry into the universal structures through which human beings create meaning, and how they shift across cultures, religions and stages of consciousness."
+          },
+          {
+            "@type": "Course",
+            "name": "The Diamond Paradigm: Fundamentals",
+            "provider": {
+              "@id": "https://rvaov.github.io/evolving-nexus-landing/#organization"
+            },
+            "inLanguage": "en",
+            "courseMode": "online",
+            "teaches": "An introduction to the deep architecture underlying consciousness and reality.",
+            "description": "An introduction to the deep architecture underlying consciousness and reality."
+          },
+          {
+            "@type": "Course",
+            "name": "The Diamond Paradigm: Advanced",
+            "provider": {
+              "@id": "https://rvaov.github.io/evolving-nexus-landing/#organization"
+            },
+            "inLanguage": "en",
+            "courseMode": "online",
+            "teaches": "The advanced continuation of the Diamond Paradigm, taking it into developmental and nondual territory and applying it to personal and collective transformation.",
+            "description": "The advanced continuation of the Diamond Paradigm, taking it into developmental and nondual territory and applying it to personal and collective transformation."
+          }
+        ]
+      },
+      "slogan": "Consciousness, Meaning, Reality",
+      "areaServed": [
+        {
+          "@type": "Place",
+          "name": "United States"
+        },
+        {
+          "@type": "Place",
+          "name": "Europe"
+        }
+      ]
+    },
+    {
+      "@type": "Person",
+      "@id": "https://rvaov.github.io/evolving-nexus-landing/#marie-murtagh",
+      "name": "Marie Murtagh",
+      "givenName": "Marie",
+      "familyName": "Murtagh",
+      "jobTitle": "Co-Founder",
+      "description": "Transformation specialist and facilitator. Twenty years leading large-scale transformation programs across major financial institutions and consulting firms, and formerly Chief Operating Officer of an international training organization.",
+      "knowsAbout": [
+        {
+          "@type": "Thing",
+          "name": "Consciousness",
+          "sameAs": "https://en.wikipedia.org/wiki/Consciousness"
+        },
+        {
+          "@type": "Thing",
+          "name": "Developmental psychology",
+          "sameAs": "https://en.wikipedia.org/wiki/Developmental_psychology"
+        },
+        "Complexity science",
+        "Contemplative practice"
+      ],
+      "worksFor": {
+        "@id": "https://rvaov.github.io/evolving-nexus-landing/#organization"
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://rvaov.github.io/evolving-nexus-landing/#nish-dubashia",
+      "name": "Nish Dubashia",
+      "givenName": "Nish",
+      "familyName": "Dubashia",
+      "jobTitle": "Co-Founder",
+      "nationality": "British",
+      "description": "British author, philosopher and educator. Creator of the Diamond Model, author of four books, and a speaker at the Global Forum at MIT, UNESCO World Philosophy Day and the Integral European Conference.",
+      "knowsAbout": [
+        {
+          "@type": "Thing",
+          "name": "Integral theory",
+          "sameAs": "https://en.wikipedia.org/wiki/Integral_theory"
+        },
+        {
+          "@type": "Thing",
+          "name": "Nondualism",
+          "sameAs": "https://en.wikipedia.org/wiki/Nondualism"
+        },
+        {
+          "@type": "Thing",
+          "name": "Consciousness",
+          "sameAs": "https://en.wikipedia.org/wiki/Consciousness"
+        },
+        {
+          "@type": "Thing",
+          "name": "Spiral Dynamics",
+          "sameAs": "https://en.wikipedia.org/wiki/Spiral_Dynamics"
+        },
+        "The Diamond Model"
+      ],
+      "worksFor": {
+        "@id": "https://rvaov.github.io/evolving-nexus-landing/#organization"
+      }
+    },
+    {
+      "@type": "DefinedTerm",
+      "@id": "https://rvaov.github.io/evolving-nexus-landing/#diamond-model",
+      "name": "The Diamond Model",
+      "description": "A framework for understanding the structure of reality, created by Nish Dubashia over four decades of study across philosophy, science and the contemplative traditions. It is the basis of the Structure of Reality programs at Evolving Nexus.",
+      "inDefinedTermSet": {
+        "@type": "DefinedTermSet",
+        "name": "Evolving Nexus"
+      },
+      "creator": {
+        "@id": "https://rvaov.github.io/evolving-nexus-landing/#nish-dubashia"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://rvaov.github.io/evolving-nexus-landing/#website",
+      "url": "https://rvaov.github.io/evolving-nexus-landing/",
+      "name": "Evolving Nexus",
+      "inLanguage": "en-US",
+      "publisher": {
+        "@id": "https://rvaov.github.io/evolving-nexus-landing/#organization"
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://rvaov.github.io/evolving-nexus-landing/#webpage",
+      "url": "https://rvaov.github.io/evolving-nexus-landing/",
+      "name": "Evolving Nexus | Consciousness, Meaning & Reality",
+      "isPartOf": {
+        "@id": "https://rvaov.github.io/evolving-nexus-landing/#website"
+      },
+      "about": {
+        "@id": "https://rvaov.github.io/evolving-nexus-landing/#organization"
+      },
+      "primaryImageOfPage": {
+        "@id": "https://rvaov.github.io/evolving-nexus-landing/#logo"
+      },
+      "inLanguage": "en-US",
+      "mentions": [
+        {
+          "@type": "Thing",
+          "name": "Consciousness",
+          "sameAs": "https://en.wikipedia.org/wiki/Consciousness"
+        },
+        {
+          "@type": "Thing",
+          "name": "Meaning of life",
+          "sameAs": "https://en.wikipedia.org/wiki/Meaning_of_life"
+        },
+        {
+          "@type": "Thing",
+          "name": "Integral theory",
+          "sameAs": "https://en.wikipedia.org/wiki/Integral_theory"
+        },
+        {
+          "@type": "Thing",
+          "name": "Nondualism",
+          "sameAs": "https://en.wikipedia.org/wiki/Nondualism"
+        },
+        {
+          "@type": "Thing",
+          "name": "Developmental psychology",
+          "sameAs": "https://en.wikipedia.org/wiki/Developmental_psychology"
+        },
+        {
+          "@type": "Person",
+          "name": "Ken Wilber",
+          "sameAs": "https://en.wikipedia.org/wiki/Ken_Wilber"
+        },
+        {
+          "@id": "https://rvaov.github.io/evolving-nexus-landing/#diamond-model"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://rvaov.github.io/evolving-nexus-landing/#faq",
+      "isPartOf": {
+        "@id": "https://rvaov.github.io/evolving-nexus-landing/#webpage"
+      },
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Who is Evolving Nexus for?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Coaches, consultants and facilitators. Leaders and managers. Therapists, educators and researchers. People with a long contemplative practice. What they share is work that depends on understanding how people think, develop and make decisions. No background in philosophy or psychology is needed."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What will I learn in an Evolving Nexus program?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "How human development actually works, and what it means for what a person can see, hear and act on at any given point. The Meaning of Life stream covers consciousness, development, relationship and purpose. The Structure of Reality stream covers the deeper patterns through which consciousness and cosmos may be understood. Both are taught through the same framework, so they build on one another."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the Diamond Model?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The Diamond Model is Nish Dubashia’s own framework for understanding the structure of reality, developed over four decades of study across philosophy, science and the contemplative traditions. It is the spine of the Structure of Reality programs at Evolving Nexus, and it is his own work rather than a synthesis of other people’s."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need a background in philosophy or psychology?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. The Architecture of Human Consciousness is the starting point and assumes no prior study. If you have already read widely, people in that position usually say the reading was never the hard part. The hard part was that no single book explains how the different accounts relate."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How long are the Evolving Nexus programs?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "One live session a week, plus reading or practice in between. Courses run six or eight sessions depending on which one. They are taught as seminars rather than lectures, so the discussion carries much of the learning."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How are Evolving Nexus sessions run?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Live and remote, with both Marie Murtagh and Nish Dubashia present, in a cohort that moves through the material together. Cohorts run across the United States and Europe, and session times are set so people in both can attend live."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What happens when I join the Evolving Nexus mailing list?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "You receive occasional reflections on consciousness, meaning and reality, and word of new courses, research and events as they are announced. One email to confirm, and nothing you did not ask for."
+          }
+        }
+      ],
+      "about": {
+        "@id": "https://rvaov.github.io/evolving-nexus-landing/#organization"
+      },
+      "inLanguage": "en-US"
+    },
+    {
+      "@type": "Book",
+      "@id": "https://rvaov.github.io/evolving-nexus-landing/#book-of-becoming",
+      "name": "The Book of Becoming: An Integral Nondual Manifesto for a World in Transition",
+      "author": [
+        {
+          "@id": "https://rvaov.github.io/evolving-nexus-landing/#nish-dubashia"
+        },
+        {
+          "@type": "Person",
+          "name": "Hans Plasqui"
+        },
+        {
+          "@type": "Person",
+          "name": "Daniela Bomatter"
+        }
+      ],
+      "review": {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "Ken Wilber",
+          "sameAs": "https://en.wikipedia.org/wiki/Ken_Wilber",
+          "description": "Founder of Integral Theory"
+        },
+        "reviewBody": "This is a superb book, highly recommended. I can vouch that the authors thoroughly and deeply understand Integral Theory and represent it accurately.",
+        "itemReviewed": {
+          "@id": "https://rvaov.github.io/evolving-nexus-landing/#book-of-becoming"
+        }
+      }
+    }
+  ]
+}
+</script>
+</head>
+
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- NAV. Sticky so the action is never off-screen, one CTA, nothing else to
+     weigh up. The playbook: "Too many choices = people freeze and leave." -->
+<nav class="nav" id="nav" aria-label="Primary">
+  <div class="nav__inner">
+    <a class="lockup" href="#home" aria-label="Evolving Nexus, home">
+      <picture>
+        <source srcset="assets/img/emblem-nexus.webp" type="image/webp">
+        <img class="lockup__mark" src="assets/img/emblem-nexus.png"
+             width="456" height="472" alt="" decoding="async">
+      </picture>
+      <span class="lockup__word">Evolving Nexus</span>
+    </a>
+    <a class="btn btn--sm" href="#join">Join</a>
+  </div>
+</nav>
+
+<main id="main">
+
+  <!-- ═══════════ HERO ═══════════
+       What it is, who it is for, one action, and a real photograph of the two
+       people. The playbook: "REAL photos only. People spot stock photos
+       instantly." -->
+  <header class="hero" id="home">
+    <div class="shell">
+      <a class="hero__home" href="#home" aria-label="Evolving Nexus, home">
+        <picture>
+          <source srcset="assets/img/emblem-nexus.webp" type="image/webp">
+          <img class="hero__mark" src="assets/img/emblem-nexus.png"
+               width="456" height="472" decoding="async"
+               alt="The Evolving Nexus emblem: a star tetrahedron enclosed by a circle.">
+        </picture>
+      </a>
+
+      <p class="eyebrow">Consciousness&nbsp;&middot; Meaning&nbsp;&middot; Reality</p>
+
+      <h1 class="hero__title">A new space for exploring the deepest questions of human existence.</h1>
+
+      <!-- The client's own v13 wording, verbatim. -->
+      <p class="hero__sub">
+        Evolving Nexus is a transformational learning and research initiative
+        founded by <strong>Nish Dubashia</strong> and <strong>Marie Murtagh</strong>.
+      </p>
+
+      <!-- One calm action. Theirs ends the opening here, and for a decision
+           taken over weeks rather than minutes that is the right call: the
+           reader is not being rescued from a flooding bathroom. The form is a
+           scroll away, and the nav carries it from then on. -->
+      <!-- The field itself, not a link to one. "Stay Connected" as a button
+           said nothing about what pressing it does; asking for the address
+           here removes a step and states the offer plainly. -->
+      <form class="capture js-join" method="post"
+            action="https://example.com/REPLACE-WITH-MAILERLITE-ENDPOINT"
+            data-endpoint="https://example.com/REPLACE-WITH-MAILERLITE-ENDPOINT"
+            novalidate>
+        <div class="capture__row">
+          <label class="visually-hidden" for="email-hero">Email address</label>
+          <input class="capture__input" type="email" id="email-hero" name="email"
+                 placeholder="your@email.com" autocomplete="email" inputmode="email"
+                 spellcheck="false" required>
+          <div class="hp" aria-hidden="true">
+            <label for="company-hero">Company</label>
+            <input type="text" id="company-hero" name="company" tabindex="-1" autocomplete="off">
+          </div>
+          <button class="btn" type="submit" data-label="Join">Join</button>
+        </div>
+        <p class="capture__status" role="status" aria-live="polite" hidden></p>
+      </form>
+        <div class="capture__done" hidden tabindex="-1" role="status" aria-live="polite">
+          <p class="capture__done-mark" aria-hidden="true">&#9670;</p>
+          <p class="capture__done-title">You&rsquo;re on the list.</p>
+          <p class="capture__done-note">
+            Check your inbox: one email is on its way, and opening it confirms
+            your place. If it is not there in a few minutes, look in spam.
+          </p>
+        </div>
+
+
+    </div>
+  </header>
+
+
+  <!-- ═══════════ TRUST BAR ═══════════
+       "Specific numbers: '500+ Five-Star Reviews' beats 'Lots of great
+       reviews.' Our brains trust exact numbers." Every figure is the client's
+       own, from their About page. -->
+  <section class="trust" aria-label="Credentials">
+    <div class="trust__grid">
+      <p><span class="trust__num">40+</span><span class="trust__label">years connecting philosophy, science and spirituality</span></p>
+      <p><span class="trust__num">4</span><span class="trust__label">books published, with bestsellers and a UK Book of the Month</span></p>
+      <p><span class="trust__num">7</span><span class="trust__label">international forums, including MIT and UNESCO Paris</span></p>
+      <p><span class="trust__num">20+</span><span class="trust__label">years leading change across financial institutions</span></p>
+    </div>
+  </section>
+
+  <!-- ═══════════ MISSION ═══════════
+       The client's own v13 statement of the work, used verbatim. This is the
+       definitional paragraph both the reader and the crawler need early. -->
+  <section class="section" id="about" aria-labelledby="about-h">
+    <div class="shell">
+      <p class="mark" aria-hidden="true">◆</p>
+      <h2 class="eyebrow" id="about-h">What is Evolving Nexus</h2>
+      <p class="h2">A deeper conversation.</p>
+
+      <p class="lede">
+        We bring together insights from psychology, philosophy, science,
+        spirituality and human development to explore two fundamental questions.
+      </p>
+
+      <ul class="qpair" role="list">
+        <li><span class="qpair__q">How is reality structured?</span></li>
+        <li><span class="qpair__q">How do we find meaning within it?</span></li>
+      </ul>
+
+      <div class="prose">
+        <p>
+          Our work is grounded in the conviction that no single tradition,
+          discipline or worldview contains the whole picture. Understanding
+          ourselves and our world requires a deeper conversation, one capable of
+          holding together inner and outer, reason and spirituality, ancient
+          wisdom and contemporary knowledge, individuality and relationship,
+          being and becoming.
+        </p>
+        <p>
+          Through courses, research, writing and dialogue, Evolving Nexus is
+          developing an integrative approach to consciousness, meaning and human
+          transformation.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ PROGRAMMES ═══════════
+       "Features tell, benefits sell": what the reader gets, not a syllabus. -->
+  <section class="section section--tint" id="programs" aria-labelledby="programs-h">
+    <div class="shell">
+      <p class="mark" aria-hidden="true">◆</p>
+      <h2 class="eyebrow" id="programs-h">What&rsquo;s our focus</h2>
+      <p class="h2">Two Paths of Exploration</p>
+      <p class="lede">
+        Each path opens into its own body of work. Every program is taught
+        live and remotely by Marie and Nish, in a cohort that moves together.
+      </p>
+
+      <div class="paths">
+        <section class="path path--reality" aria-labelledby="path-reality">
+          <picture>
+            <source srcset="assets/img/emblem-reality.webp" type="image/webp">
+            <img class="path__mark" src="assets/img/emblem-reality.png"
+                 width="288" height="288" loading="lazy" decoding="async" alt="">
+          </picture>
+          <h3 class="path__name" id="path-reality">The Structure of Reality</h3>
+          <p class="path__q">How is reality structured?</p>
+          <p class="path__desc">Exploring the deeper patterns through which
+             consciousness, cosmos and reality may be understood.</p>
+
+          <ol class="courses" role="list">
+            <li class="course">
+              <h4 class="course__name">The Diamond Paradigm: Fundamentals</h4>
+              <p class="course__desc">
+                Learn to see the architecture underneath consciousness and
+                cosmos, and use it on your own experience.
+              </p>
+            </li>
+            <li class="course">
+              <h4 class="course__name">The Diamond Paradigm: Advanced</h4>
+              <p class="course__desc">
+                Take the paradigm further into developmental and nondual
+                territory, and apply it to personal and collective
+                transformation.
+              </p>
+            </li>
+          </ol>
+        </section>
+
+        <section class="path path--meaning" aria-labelledby="path-meaning">
+          <picture>
+            <source srcset="assets/img/emblem-meaning.webp" type="image/webp">
+            <img class="path__mark" src="assets/img/emblem-meaning.png"
+                 width="288" height="292" loading="lazy" decoding="async" alt="">
+          </picture>
+          <h3 class="path__name" id="path-meaning">The Meaning of Life</h3>
+          <p class="path__q">How do we find meaning?</p>
+          <p class="path__desc">Exploring consciousness, human development,
+             relationship, purpose and transformation.</p>
+
+          <ol class="courses" role="list">
+            <li class="course">
+              <h4 class="course__name">The Architecture of Human Consciousness</h4>
+              <p class="course__desc">
+                Understand how you and the people around you actually develop,
+                and why they see the world as they do.
+              </p>
+            </li>
+            <li class="course">
+              <h4 class="course__name">The Seven Principles</h4>
+              <p class="course__desc">
+                See the structures every culture has used to make meaning, and
+                recognize which ones you are living inside.
+              </p>
+            </li>
+          </ol>
+        </section>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════ HOW IT WORKS ═══════════
+       "People won't call if they don't know what happens next." -->
+  <!-- Who it is for. A reader decides "is this me" before anything else, and
+       the page had no answer. Every line is lifted from the audience sections
+       of the client's own four course pages. -->
+  <section class="section" id="audience" aria-labelledby="audience-h">
+    <div class="shell">
+      <p class="mark" aria-hidden="true">&#9670;</p>
+      <h2 class="eyebrow" id="audience-h">Who it’s for</h2>
+      <p class="h2">The people who take this on.</p>
+
+      <ul class="who" role="list">
+        <li>
+          <strong>Coaches, consultants and facilitators</strong>
+          You have outgrown the frameworks in general circulation and need
+          something with more resolution to work from.
+        </li>
+        <li>
+          <strong>Leaders and managers</strong>
+          You want to understand why teams, cultures and organizations develop
+          the way they do rather than the way the plan said.
+        </li>
+        <li>
+          <strong>Contemplative practitioners</strong>
+          You have a serious practice and no map that explains what keeps
+          happening inside it.
+        </li>
+        <li>
+          <strong>Interfaith and religious practitioners</strong>
+          You want a comparative, developmental lens on your own tradition
+          without being asked to leave it.
+        </li>
+        <li>
+          <strong>Therapists, educators and researchers</strong>
+          You work with how people make meaning and want the structure
+          underneath it.
+        </li>
+        <li>
+          <strong>The widely read</strong>
+          You have found every account partial and are ready to do the harder
+          reading rather than the next summary.
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Results, not mechanics. This described joining a mailing list: confirm
+       your address, hear the dates, pick a path, attend. None of that is a
+       reason to enrol. It now describes what changes for the reader, drawn
+       from the audience sections of the client's own course pages. -->
+  <section class="section section--tint" id="outcomes" aria-labelledby="how-h">
+    <div class="shell">
+      <p class="mark" aria-hidden="true">&#9670;</p>
+      <h2 class="eyebrow" id="how-h">What you’ll walk away with</h2>
+      <p class="h2">You stop collecting frameworks and start using one.</p>
+
+      <ol class="steps" role="list">
+        <li class="step">
+          <span class="step__num">One</span>
+          <h3 class="step__name">The pieces connect</h3>
+          <p class="step__desc">
+            You have read widely and found that every account explains part of it
+            and none explains the whole. The work begins by showing how those
+            parts actually relate.
+          </p>
+        </li>
+        <li class="step">
+          <span class="step__num">Two</span>
+          <h3 class="step__name">The structure becomes visible</h3>
+          <p class="step__desc">
+            Human development follows patterns. Once you can see them, people who
+            baffled you become legible, including the version of yourself you
+            used to be.
+          </p>
+        </li>
+        <li class="step">
+          <span class="step__num">Three</span>
+          <h3 class="step__name">Disagreement stops being noise</h3>
+          <p class="step__desc">
+            You can tell the difference between someone who is mistaken and
+            someone seeing clearly from a stage you have left, or not yet
+            reached. Most argument is the second kind.
+          </p>
+        </li>
+        <li class="step">
+          <span class="step__num">Four</span>
+          <h3 class="step__name">It shows up in the work</h3>
+          <p class="step__desc">
+            Coaches get a sharper diagnostic. Leaders understand why their teams
+            move as they do. Practitioners find their practice finally has
+            somewhere to stand.
+          </p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+
+  <!-- ═══════════ PROOF ═══════════
+       "When someone ELSE says you're good, it's 10x more believable." -->
+  <section class="section" id="testimonials" aria-labelledby="testimonials-h">
+    <div class="shell">
+      <p class="mark" aria-hidden="true">&#9670;</p>
+      <h2 class="eyebrow" id="testimonials-h">What participants say</h2>
+      <p class="h2">From people we have worked with.</p>
+
+      <!-- [[SET]] The playbook wants full names, a photo and a source logo on
+           each of these. That needs the participants' permission; the names
+           below are as the client supplied them. -->
+      <ul class="quotes" role="list">
+        <li>
+          <figure class="quote">
+            <blockquote><p>&ldquo;Nish and Marie offered a perfect balance of intellectual depth and
+              spiritual insight that made every session feel profound. Their guided
+              meditations were especially powerful, helping me integrate complex
+              ideas about consciousness into a tangible sense of peace.&rdquo;</p></blockquote>
+            <figcaption class="quote__by">
+              <span class="quote__name">Tory G.</span>
+              <span class="quote__role">United States</span>
+            </figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure class="quote">
+            <blockquote><p>&ldquo;Nish and Marie brought excellent content and graceful facilitation to a
+              series on the evolution of religion and the Divine. Their depth of
+              understanding of integral, spiritual, historical and psychological
+              theory made them trustworthy sources of information.&rdquo;</p></blockquote>
+            <figcaption class="quote__by">
+              <span class="quote__name">Jesse R.</span>
+              <span class="quote__role">United States</span>
+            </figcaption>
+          </figure>
+        </li>
+        <li>
+          <figure class="quote">
+            <blockquote><p>&ldquo;Nish and his Diamond Model provide a new and different perspective on how
+              to look at life itself in many forms and situations. The online world is
+              not always creative and safe, but exploration with Nish and Marie is
+              always kind and supportive.&rdquo;</p></blockquote>
+            <figcaption class="quote__by">
+              <span class="quote__name">Jana H.</span>
+              <span class="quote__role">Slovakia</span>
+            </figcaption>
+          </figure>
+        </li>
+      </ul>
+
+      <!-- Says the thing the attributions already prove. Cohorts run across
+           the United States and Europe, which answers the scheduling worry a
+           live program raises without needing a timetable to do it. -->
+      <p class="quotes__note">
+        Participants join us from across the United States, Europe and all over
+        the world.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--tint" id="proof" aria-labelledby="proof-h">
+    <div class="shell">
+      <p class="mark" aria-hidden="true">◆</p>
+      <h2 class="eyebrow" id="proof-h">What industry experts say</h2>
+      <!-- Every other section opens with an .h2, so this one does too. The
+           line is Evolving Nexus's own, from the earlier recognition lede. -->
+      <p class="h2">Recognized by leading thinkers in the field.</p>
+
+      <figure class="endorse">
+        <blockquote><p>&ldquo;This is a superb book, highly recommended.&rdquo;</p></blockquote>
+        <blockquote><p>&ldquo;I can vouch that the authors thoroughly and deeply understand
+          Integral Theory and represent it accurately.&rdquo;</p></blockquote>
+        <figcaption class="endorse__by">
+          <span class="endorse__name">Ken Wilber</span>
+          <span class="endorse__role">Founder of Integral Theory</span>
+          <span class="endorse__note">
+            From his endorsement of <cite>The Book of Becoming: An Integral Nondual
+            Manifesto for a World in Transition</cite>, co-authored by Nish Dubashia
+            with Hans Plasqui and Daniela Bomatter.
+          </span>
+        </figcaption>
+      </figure>
+
+    </div>
+  </section>
+
+  <!-- ═══════════ WHO TEACHES IT ═══════════ -->
+  <section class="section" id="founders" aria-labelledby="founders-h">
+    <div class="shell">
+      <p class="mark" aria-hidden="true">◆</p>
+      <h2 class="eyebrow" id="founders-h">Who teaches it</h2>
+      <p class="h2">A shared vision and an evolving conversation.</p>
+
+      <figure class="portrait">
+        <picture>
+          <source type="image/webp"
+                  sizes="(min-width: 56rem) 54rem, calc(100vw - 2.8rem)"
+                  srcset="assets/img/founders-480.webp 480w,
+                          assets/img/founders-700.webp 700w,
+                          assets/img/founders-1000.webp 1000w">
+          <img src="assets/img/founders-1000.jpg"
+               sizes="(min-width: 56rem) 54rem, calc(100vw - 2.8rem)"
+               srcset="assets/img/founders-480.jpg 480w,
+                       assets/img/founders-700.jpg 700w,
+                       assets/img/founders-1000.jpg 1000w"
+               width="1000" height="655" fetchpriority="high" decoding="async"
+               alt="Marie Murtagh and Nish Dubashia, co-founders of Evolving Nexus, photographed together.">
+        </picture>
+        <figcaption>Marie Murtagh and Nish Dubashia, co-founders</figcaption>
+      </figure>
+
+      <div class="bios">
+        <article class="bio">
+          <h3 class="bio__name">Marie Murtagh</h3>
+          <p class="bio__role">Co-Founder &middot; Researcher, Educator &amp; Transformational Thinker</p>
+          <p>
+            Marie Murtagh is a researcher, educator and integrative thinker whose
+            work explores consciousness, human development, meaning and
+            transformation. Drawing together psychological insight, philosophical
+            inquiry and contemplative understanding, she is particularly interested
+            in how our ways of knowing shape our experience of ourselves, others
+            and the world.
+          </p>
+          <dl class="creds">
+            <div>
+              <dt>Background</dt>
+              <dd>Information technology, then many years as Chief Operating
+                  Officer of an international training organization, bringing
+                  analytical thinking and organizational leadership to deep
+                  engagement with human development</dd>
+            </div>
+            <div>
+              <dt>Draws on</dt>
+              <dd>Consciousness studies, developmental psychology, complexity
+                  science and the contemplative traditions</dd>
+            </div>
+            <div>
+              <dt>Known for</dt>
+              <dd>Bridging intellectual understanding and lived experience,
+                  illuminating new possibilities for personal and collective
+                  transformation</dd>
+            </div>
+          </dl>
+        </article>
+
+        <article class="bio">
+          <h3 class="bio__name">Nish Dubashia</h3>
+          <p class="bio__role">Co-Founder &middot; Author, Philosopher &amp; Integral Thinker</p>
+          <p>
+            Nish Dubashia is a British author, philosopher and educator whose work
+            explores the meeting points of consciousness, human development,
+            science and spirituality. With a background in mathematics and more
+            than four decades of engagement with the world&rsquo;s philosophical and
+            wisdom traditions, he brings intellectual rigor and a deeply
+            integrative perspective to the great questions of existence.
+          </p>
+          <dl class="creds">
+            <div>
+              <dt>Has presented at</dt>
+              <dd>The Global Forum at MIT &middot; UNESCO World Philosophy Day, Paris
+                  &middot; the Integral European Conference, Budapest &middot; the
+                  Science of Consciousness Conference, Barcelona &middot; Humanity
+                  Rising Global Summit &middot; World Unity Week</dd>
+            </div>
+            <div>
+              <dt>Author of</dt>
+              <dd><cite>Gifted</cite>, <cite>Dancing with Angels</cite>,
+                  <cite>The Unity of Everything: A Conversation with David Bohm</cite>
+                  and <cite>A Brief History of God</cite>, with a fifth in progress.
+                  WHSmith bestseller lists; UK Book of the Month,
+                  Tredition Publishers.</dd>
+            </div>
+            <div>
+              <dt>Endorsed by</dt>
+              <dd>Ken Wilber, founder of Integral Theory</dd>
+            </div>
+          </dl>
+        </article>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════ FAQ ═══════════
+       Dropdowns, short answers, present in the DOM so Google can lift them. -->
+  <section class="section section--tint" id="questions" aria-labelledby="questions-h">
+    <div class="shell">
+      <p class="mark" aria-hidden="true">◆</p>
+      <h2 class="eyebrow" id="questions-h">Before you join</h2>
+      <p class="h2">The questions people actually ask.</p>
+
+      <!-- Objection handling. Every answer is the client's own position, from
+           their About page and course pages.
+
+           [[SET]] Two answers below are weaker than they need to be, and the
+           client holds the fix for both:
+
+             1. The Reading Journey. Their About page already offers a curated
+                twenty-book path as a PDF download, organised by stage. Giving
+                that to the list turns "why join now" from a scarcity line into
+                a concrete exchange, and it costs them nothing because it
+                already exists. Uncomment the sentence marked READING-JOURNEY
+                once they confirm.
+             2. Session times. The reach question is answered from the
+                attributions themselves: the testimonials are from the United
+                States, Virginia and Slovakia, so the page can say cohorts run
+                across the US and Europe without anyone supplying a timetable.
+                The exact times still want confirming before launch. -->
+      <div class="faq">
+        <details class="faq__item">
+          <summary>Who is Evolving Nexus for?</summary>
+          <p>Coaches, consultants and facilitators. Leaders and managers. Therapists,
+             educators and researchers. People with a long contemplative practice.
+             What they share is work that depends on understanding how people think,
+             develop and make decisions. No background in philosophy or psychology is
+             needed.</p>
+        </details>
+        <details class="faq__item">
+          <summary>What will I learn in an Evolving Nexus program?</summary>
+          <p>How human development actually works, and what it means for what a
+             person can see, hear and act on at any given point. The Meaning of Life
+             stream covers consciousness, development, relationship and purpose. The
+             Structure of Reality stream covers the deeper patterns through which
+             consciousness and cosmos may be understood. Both are taught through the
+             same framework, so they build on one another.</p>
+        </details>
+        <details class="faq__item">
+          <summary>What is the Diamond Model?</summary>
+          <p>The Diamond Model is Nish Dubashia&rsquo;s own framework for
+             understanding the structure of reality, developed over four decades of
+             study across philosophy, science and the contemplative traditions. It is
+             the spine of the Structure of Reality programs at Evolving Nexus, and it
+             is his own work rather than a synthesis of other people&rsquo;s.</p>
+        </details>
+        <details class="faq__item">
+          <summary>Do I need a background in philosophy or psychology?</summary>
+          <p>No. The Architecture of Human Consciousness is the starting point and
+             assumes no prior study. If you have already read widely, people in that
+             position usually say the reading was never the hard part. The hard part
+             was that no single book explains how the different accounts relate.</p>
+        </details>
+        <details class="faq__item">
+          <summary>How long are the Evolving Nexus programs?</summary>
+          <p>One live session a week, plus reading or practice in between. Courses
+             run six or eight sessions depending on which one. They are taught as
+             seminars rather than lectures, so the discussion carries much of the
+             learning.</p>
+        </details>
+        <details class="faq__item">
+          <summary>How are Evolving Nexus sessions run?</summary>
+          <p>Live and remote, with both Marie Murtagh and Nish Dubashia present, in a
+             cohort that moves through the material together. Cohorts run across the
+             United States and Europe, and session times are set so people in both
+             can attend live.</p>
+        </details>
+        <details class="faq__item">
+          <summary>What happens when I join the Evolving Nexus mailing list?</summary>
+          <p>You receive occasional reflections on consciousness, meaning and
+             reality, and word of new courses, research and events as they are
+             announced. One email to confirm, and nothing you did not ask for.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ FINAL CALL ═══════════
+       "Bold background colour. Make this section stand out from the rest." -->
+  <section class="final" id="join" aria-labelledby="join-h">
+    <div class="final__inner">
+      <!-- "Stay Connected" is the client's own phrase, and their v13 edit
+           unified the hero link with this heading, so it is clearly the voice
+           they want. Their subline is kept verbatim and followed by the
+           specific promise the playbook asks a call to action to make. -->
+      <p class="mark" aria-hidden="true">◆</p>
+      <h2 class="final__title" id="join-h">Stay Connected</h2>
+      <p class="final__sub">Join us as Evolving Nexus takes shape.</p>
+      <p class="final__note">
+        Receive occasional reflections on consciousness, meaning and reality,
+        together with news of our forthcoming courses, research, publications
+        and events.
+      </p>
+
+      <form class="capture js-join" method="post"
+            action="https://example.com/REPLACE-WITH-MAILERLITE-ENDPOINT"
+            data-endpoint="https://example.com/REPLACE-WITH-MAILERLITE-ENDPOINT"
+            novalidate>
+        <div class="capture__row">
+          <label class="visually-hidden" for="email-foot">Email address</label>
+          <input class="capture__input" type="email" id="email-foot" name="email"
+                 placeholder="your@email.com" autocomplete="email" inputmode="email"
+                 spellcheck="false" required aria-describedby="note-foot">
+          <div class="hp" aria-hidden="true">
+            <label for="company-foot">Company</label>
+            <input type="text" id="company-foot" name="company" tabindex="-1" autocomplete="off">
+          </div>
+          <button class="btn" type="submit" data-label="Join">Join</button>
+        </div>
+        <p class="capture__status" role="status" aria-live="polite" hidden></p>
+        <p class="capture__note" id="note-foot">
+          We respect your privacy. Your email address will be used only to send
+          you occasional updates from Evolving Nexus. We will never sell your
+          information, and you can unsubscribe at any time.
+          <a href="privacy.html">Privacy policy</a>.
+        </p>
+      </form>
+        <div class="capture__done" hidden tabindex="-1" role="status" aria-live="polite">
+          <p class="capture__done-mark" aria-hidden="true">&#9670;</p>
+          <p class="capture__done-title">You&rsquo;re on the list.</p>
+          <p class="capture__done-note">
+            Check your inbox: one email is on its way, and opening it confirms
+            your place. If it is not there in a few minutes, look in spam.
+          </p>
+        </div>
+
+
+    </div>
+  </section>
+
+  <!-- ═══════════ CODA ═══════════
+       The founders' closing word, given its own ground. Inside the sign-up
+       band it read as more fine print under the form rather than as the last
+       thing the two of them say. -->
+  <section class="coda" aria-label="A closing word from the founders">
+    <div class="shell">
+      <p class="coda__line">Join us at the nexus of what we are
+         and what we are becoming.</p>
+      <p class="signature">
+        <span class="signature__names">Nish Dubashia &amp; Marie Murtagh</span>
+        <span class="signature__role">Co-Founders, Evolving Nexus</span>
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="shell">
+    <!--
+      [[SET]] Social profiles, left out rather than guessed: a wrong sameAs
+      damages search entity resolution. Add real URLs here and mirror them into
+      a "sameAs" array on the Organization node above.
+    -->
+    <ul class="footer__links" role="list">
+      <li><a href="#about">About</a></li>
+      <li><a href="#programs">Programs</a></li>
+      <li><a href="#audience">Audience</a></li>
+      <li><a href="#outcomes">Outcomes</a></li>
+      <li><a href="#testimonials">Testimonials</a></li>
+      <li><a href="#proof">Recognition</a></li>
+      <li><a href="#founders">Founders</a></li>
+      <li><a href="#questions">Questions</a></li>
+      <li><a href="#join">Join</a></li>
+      <li><a href="privacy.html">Privacy</a></li>
+    </ul>
+    <p class="footer__legal">&copy; <span id="year">2026</span> Evolving Nexus</p>
+  </div>
+</footer>
+
+<script>
+/* ===========================================================================
+   Evolving Nexus. Scroll-in, and two capture forms sharing one handler.
+   =========================================================================== */
+(function () {
+  'use strict';
+
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  var year = document.getElementById('year');
+  if (year) year.textContent = new Date().getFullYear();
+
+  /* --- The nav waits until the opening is behind us ---------------------- */
+  var nav = document.getElementById('nav');
+  var hero = document.getElementById('home');
+  if (nav && hero && 'IntersectionObserver' in window) {
+    new IntersectionObserver(function (entries) {
+      nav.classList.toggle('is-visible', !entries[0].isIntersecting);
+    }, { rootMargin: '-120px 0px 0px 0px' }).observe(hero);
+  }
+
+  /* --- Quiet scroll-in --------------------------------------------------- */
+  document.querySelectorAll(
+    '.hero > .shell > *, .section > .shell > *, .final__inner > *, .path, .step, .quotes > li, .bio'
+  ).forEach(function (el) { el.setAttribute('data-animate', ''); });
+
+  function revealAll() {
+    document.querySelectorAll('[data-animate]').forEach(function (el) {
+      el.classList.add('is-in');
+    });
+  }
+
+  /* Failsafe. Everything marked [data-animate] starts transparent, so if the
+     observer never delivers the page is blank. A tab opened in the background
+     has rAF and IntersectionObserver throttled until it is first shown. */
+  setTimeout(revealAll, 2500);
+  document.addEventListener('visibilitychange', function () {
+    if (document.visibilityState === 'visible') setTimeout(revealAll, 300);
+  });
+
+  if (reduceMotion.matches || !('IntersectionObserver' in window)) {
+    revealAll();
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-in');
+        io.unobserve(entry.target);
+      });
+    }, { rootMargin: '0px 0px -6% 0px', threshold: 0.05 });
+    document.querySelectorAll('[data-animate]').forEach(function (el) { io.observe(el); });
+  }
+  reduceMotion.addEventListener('change', revealAll);
+
+  /* --- Capture forms ----------------------------------------------------- */
+  /* Deliberately permissive. The server is the real validator; this only
+     catches obvious typos so nobody is told a valid address is wrong. */
+  function looksLikeEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v); }
+
+  document.querySelectorAll('.js-join').forEach(function (form) {
+    var input    = form.querySelector('input[type="email"]');
+    var button   = form.querySelector('button[type="submit"]');
+    var honeypot = form.querySelector('.hp input');
+    var status   = form.querySelector('.capture__status');
+    var done     = form.parentElement.querySelector('.capture__done');
+    var endpoint = form.getAttribute('data-endpoint') || '';
+    var CONFIGURED = endpoint && endpoint.indexOf('REPLACE-WITH-MAILERLITE') === -1;
+
+    function setStatus(msg, kind) {
+      status.textContent = msg;
+      status.hidden = false;
+      status.className = 'capture__status is-' + kind;
+    }
+    function clearStatus() {
+      status.hidden = true;
+      status.textContent = '';
+      status.className = 'capture__status';
+    }
+
+    input.addEventListener('input', function () {
+      if (input.getAttribute('aria-invalid') === 'true') {
+        input.removeAttribute('aria-invalid');
+        clearStatus();
+      }
+    });
+
+    form.addEventListener('submit', function (event) {
+      if (honeypot && honeypot.value) { event.preventDefault(); return; }  // bot
+
+      var value = input.value.trim();
+      if (!value || !looksLikeEmail(value)) {
+        event.preventDefault();
+        input.setAttribute('aria-invalid', 'true');
+        setStatus(value ? 'That address doesn’t look quite right. Please check it.'
+                        : 'Please enter your email address.', 'error');
+        input.focus();
+        return;
+      }
+
+      /* Not wired up yet: let the native POST happen rather than fake success. */
+      if (!CONFIGURED || typeof window.fetch !== 'function') return;
+
+      event.preventDefault();
+      input.removeAttribute('aria-invalid');
+      button.disabled = true;
+      button.textContent = 'Joining…';
+      setStatus('One moment…', 'pending');
+
+      fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ email: value })
+      })
+        .then(function (response) {
+          if (!response.ok) throw new Error('HTTP ' + response.status);
+          form.reset();
+          clearStatus();
+          if (done) {
+            form.hidden = true;
+            done.hidden = false;
+            done.focus();
+          } else {
+            setStatus('Thank you. Please check your inbox to confirm.', 'success');
+          }
+        })
+        .catch(function () {
+          setStatus('Something went wrong on our end. Please try again in a moment.', 'error');
+        })
+        .then(function () {
+          button.disabled = false;
+          button.textContent = button.getAttribute('data-label');
+        });
+    });
+  });
+})();
+</script>
+</body>
+</html>

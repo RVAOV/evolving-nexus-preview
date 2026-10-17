@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Domain is the client's own, from their v13. Update lastmod at each deploy. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <url>
+    <loc>https://rvaov.github.io/evolving-nexus-landing/</loc>
+    <lastmod>2026-10-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://rvaov.github.io/evolving-nexus-landing/assets/img/founders-1000.jpg</image:loc>
+      <image:title>Marie Murtagh and Nish Dubashia, co-founders of Evolving Nexus</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://rvaov.github.io/evolving-nexus-landing/assets/img/emblem-nexus.png</image:loc>
+      <image:title>Evolving Nexus emblem</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://rvaov.github.io/evolving-nexus-landing/privacy.html</loc>
+    <lastmod>2026-10-17</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+</urlset>
