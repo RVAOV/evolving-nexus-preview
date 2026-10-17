@@ -1,3 +1,6 @@
-# Review build. Not the live site, and must never be indexed.
+# Review build. Not the live site.
+# Crawling is allowed ON PURPOSE so the noindex meta tag on every page
+# is read and obeyed. Disallowing would hide the noindex from the
+# crawler and let a linked URL be indexed with no description.
 User-agent: *
-Disallow: /
+Allow: /
