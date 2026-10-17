@@ -727,11 +727,6 @@ p { text-wrap: pretty; }
   border-block: 1px solid var(--hairline);
 }
 .final__inner { max-width: var(--shell); margin-inline: auto; padding: var(--space-2xl) var(--gutter); }
-.final__title { font-size: var(--step-2); text-transform: uppercase; letter-spacing: 0.1em; }
-.final__sub { margin: var(--space-s) auto 0; font-size: var(--step-1); color: var(--parchment); }
-/* What the list actually sends, set a step down from the invitation above it
-   so the two read as line then explanation rather than one long block. */
-.final__note { margin: var(--space-s) auto 0; font-size: var(--step-0); line-height: 1.7; color: var(--fog); }
 .signature { display: block; margin-top: var(--space-l); }
 .signature__names { display: block; font-family: var(--font-display); font-size: var(--step--1); letter-spacing: 0.1em; color: var(--parchment); }
 .signature__role { display: block; margin-top: 0.15rem; font-size: var(--step--1); color: var(--fog); }
@@ -823,9 +818,14 @@ p { text-wrap: pretty; }
    so the deck can take the gutter back without going near the screen edge.
    Below that the shell is still viewport-bound and this would push the text
    into the margins, which is why it is gated. */
-#questions .h2 { max-width: none; }
+/* Section decks can take the gutter back once the shell has stopped growing.
+   Past 78rem the band sits in the middle of a much wider viewport, so a deck
+   that runs a few pixels over the measure gets its line rather than breaking
+   in two, and still comes nowhere near the screen edge. Below that the shell
+   is viewport-bound and this would push text into the margins. Written once
+   rather than per section, because it kept recurring as the copy changed. */
 @media (min-width: 78rem) {
-  #questions .h2 { margin-inline: calc(var(--gutter) * -1); }
+  .section .h2 { max-width: none; margin-inline: calc(var(--gutter) * -1); }
 }
 
 /* ═══════ THE TWO QUESTIONS ═══════
