@@ -1230,6 +1230,12 @@
     form.addEventListener('submit', function (event) {
       if (honeypot && honeypot.value) { event.preventDefault(); return; }  // bot
 
+      /* Once Join is pressed the reader has finished typing, so the on-screen
+         keyboard should come down whatever happens next: success, an invalid
+         address, or a failed request. Blurring here covers every path rather
+         than only the success one. */
+      if (input && typeof input.blur === 'function') input.blur();
+
       var value = input.value.trim();
       if (!value || !looksLikeEmail(value)) {
         event.preventDefault();
