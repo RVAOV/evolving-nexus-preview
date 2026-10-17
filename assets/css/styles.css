@@ -338,7 +338,7 @@ p { text-wrap: pretty; }
   min-height: 100svh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   padding-block: var(--space-l) var(--space-xl);
 }
 .hero__mark {
@@ -424,6 +424,10 @@ p { text-wrap: pretty; }
    the hero is behind you. Cancelling the page's scroll offset here means
    #home, and a reload on #home, land on the true top of the page. */
 #home { scroll-margin-top: calc(var(--nav-h, 4.6rem) * -1); }
+
+/* Centres the opening when there is room and collapses to the top when there
+   is not, which justify-content:center cannot do: it overflows both ends. */
+.hero > .shell { margin-block: auto; width: 100%; }
 
 .hero__home { display: inline-block; text-decoration: none; }
 .hero__home:focus-visible { outline: 2px solid var(--ember-gold); outline-offset: 6px; }
@@ -793,6 +797,17 @@ p { text-wrap: pretty; }
 }
 
 
+/* The FAQ deck is the longest line on the page: it needs 1135px and the
+   shell's gutter leaves 1056, so it broke in two above 1920. Past 78rem the
+   shell has stopped growing and sits in the middle of a far wider viewport,
+   so the deck can take the gutter back without going near the screen edge.
+   Below that the shell is still viewport-bound and this would push the text
+   into the margins, which is why it is gated. */
+#questions .h2 { max-width: none; }
+@media (min-width: 78rem) {
+  #questions .h2 { margin-inline: calc(var(--gutter) * -1); }
+}
+
 /* ═══════ THE TWO QUESTIONS ═══════
    The client's v13 states the work as a pair of questions. Setting them as a
    pair rather than running them into the paragraph is the point: they are the
@@ -886,7 +901,7 @@ p { text-wrap: pretty; }
   scroll-margin-block: 5.5rem var(--space-l);
   max-width: 42rem;
   margin: var(--space-m) auto 0;
-  padding: var(--space-xl) var(--space-l);
+  padding: clamp(1.4rem, 2.6vw, 2.2rem) clamp(1.2rem, 2.4vw, 2.4rem);
   border: 1px solid var(--ember-gold);
   background: color-mix(in srgb, var(--ember-gold) 7%, transparent);
 }
@@ -901,6 +916,7 @@ p { text-wrap: pretty; }
   margin-top: var(--space-s);
   font-family: var(--font-display);
   font-size: var(--step-2);
+  line-height: 1.15;
   letter-spacing: 0.04em;
   text-wrap: balance;
   color: var(--ember-gold);

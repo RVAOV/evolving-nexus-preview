@@ -53,8 +53,12 @@
                      : performance.navigation && performance.navigation.type === 1;
     if (!reloaded) return;
     if (location.hash) history.replaceState(null, '', location.pathname + location.search);
-    addEventListener('DOMContentLoaded', function () { scrollTo(0, 0); });
-    addEventListener('load', function () { scrollTo(0, 0); });
+    var toTop = function () { scrollTo(0, 0); };
+    addEventListener('DOMContentLoaded', toTop);
+    addEventListener('load', toTop);
+    /* iOS restores the position late, and again when a page comes back from
+       the back/forward cache, after load has already fired. */
+    addEventListener('pageshow', function () { toTop(); setTimeout(toTop, 0); });
   })();
 </script>
 
@@ -520,8 +524,8 @@
           <p class="capture__done-mark" aria-hidden="true">&#9670;</p>
           <p class="capture__done-title">Welcome, you&rsquo;re on the list!</p>
           <p class="capture__done-note">
-            Check your inbox: one email is on its way, and opening it confirms
-            your place. If it is not there in a few minutes, please look in your
+            Check your inbox! <u>One email is on its way to confirm you wanted
+            to join.</u> If it is not there in a few minutes, please look in
             spam box.
           </p>
         </div>
@@ -1060,8 +1064,8 @@
           <p class="capture__done-mark" aria-hidden="true">&#9670;</p>
           <p class="capture__done-title">Welcome, you&rsquo;re on the list!</p>
           <p class="capture__done-note">
-            Check your inbox: one email is on its way, and opening it confirms
-            your place. If it is not there in a few minutes, please look in your
+            Check your inbox! <u>One email is on its way to confirm you wanted
+            to join.</u> If it is not there in a few minutes, please look in
             spam box.
           </p>
         </div>
@@ -1232,7 +1236,12 @@
         input.setAttribute('aria-invalid', 'true');
         setStatus(value ? 'That address doesn’t look quite right. Please check it.'
                         : 'Please enter your email address.', 'error');
-        input.focus();
+        /* Focus the field so it is easy to correct, but not on a touch
+           device: focus inside a tap handler raises the keyboard over the
+           page, and the error is already announced by the live region. */
+        if (!window.matchMedia || !window.matchMedia('(pointer: coarse)').matches) {
+          input.focus();
+        }
         return;
       }
 
