@@ -420,6 +420,11 @@ p { text-wrap: pretty; }
   .hero__sub { line-height: 1.35; }
 }
 
+/* The opening is the one anchor with no bar above it: the nav is hidden until
+   the hero is behind you. Cancelling the page's scroll offset here means
+   #home, and a reload on #home, land on the true top of the page. */
+#home { scroll-margin-top: calc(var(--nav-h, 4.6rem) * -1); }
+
 .hero__home { display: inline-block; text-decoration: none; }
 .hero__home:focus-visible { outline: 2px solid var(--ember-gold); outline-offset: 6px; }
 
@@ -879,9 +884,9 @@ p { text-wrap: pretty; }
    submit twice. Sized to the space the form leaves so nothing jumps. */
 .capture__done {
   scroll-margin-block: 5.5rem var(--space-l);
-  max-width: 44ch;
-  margin: var(--space-s) auto 0;
-  padding: var(--space-l) var(--space-m);
+  max-width: 42rem;
+  margin: var(--space-m) auto 0;
+  padding: var(--space-xl) var(--space-l);
   border: 1px solid var(--ember-gold);
   background: color-mix(in srgb, var(--ember-gold) 7%, transparent);
 }
@@ -895,13 +900,16 @@ p { text-wrap: pretty; }
 .capture__done-title {
   margin-top: var(--space-s);
   font-family: var(--font-display);
-  font-size: var(--step-1);
+  font-size: var(--step-2);
   letter-spacing: 0.04em;
+  text-wrap: balance;
   color: var(--ember-gold);
 }
 .capture__done-note {
-  margin-top: var(--space-xs);
-  font-size: var(--step--1);
+  margin-top: var(--space-s);
+  max-width: 46ch;
+  margin-inline: auto;
+  font-size: var(--step-0);
   line-height: 1.65;
   color: var(--parchment);
 }

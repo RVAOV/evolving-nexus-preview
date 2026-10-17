@@ -41,6 +41,23 @@
   ============================================================================
 -->
 
+<script>
+  /* A reload should put you back at the opening, not where you happened to be
+     and not part way down the hero. Browsers restore the old scroll position
+     by default, and this has to be set before that happens. A hash typed or
+     shared by someone else is still honoured: only a reload is reset. */
+  (function () {
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    var e = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+    var reloaded = e ? e.type === 'reload'
+                     : performance.navigation && performance.navigation.type === 1;
+    if (!reloaded) return;
+    if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+    addEventListener('DOMContentLoaded', function () { scrollTo(0, 0); });
+    addEventListener('load', function () { scrollTo(0, 0); });
+  })();
+</script>
+
 <title>Evolving Nexus | Consciousness, Meaning &amp; Reality</title>
 <meta name="description" content="Live online programs on consciousness, meaning and the structure of reality, taught by Marie Murtagh and Nish Dubashia. Endorsed by Ken Wilber.">
 <link rel="canonical" href="https://rvaov.github.io/evolving-nexus-preview/">
@@ -501,10 +518,11 @@
       </form>
         <div class="capture__done" hidden tabindex="-1" role="status" aria-live="polite">
           <p class="capture__done-mark" aria-hidden="true">&#9670;</p>
-          <p class="capture__done-title">You&rsquo;re on the list.</p>
+          <p class="capture__done-title">Welcome, you&rsquo;re on the list!</p>
           <p class="capture__done-note">
             Check your inbox: one email is on its way, and opening it confirms
-            your place. If it is not there in a few minutes, look in spam.
+            your place. If it is not there in a few minutes, please look in your
+            spam box.
           </p>
         </div>
 
@@ -1040,10 +1058,11 @@
       </form>
         <div class="capture__done" hidden tabindex="-1" role="status" aria-live="polite">
           <p class="capture__done-mark" aria-hidden="true">&#9670;</p>
-          <p class="capture__done-title">You&rsquo;re on the list.</p>
+          <p class="capture__done-title">Welcome, you&rsquo;re on the list!</p>
           <p class="capture__done-note">
             Check your inbox: one email is on its way, and opening it confirms
-            your place. If it is not there in a few minutes, look in spam.
+            your place. If it is not there in a few minutes, please look in your
+            spam box.
           </p>
         </div>
 
@@ -1083,7 +1102,7 @@
       <li><a href="#proof">Recognition</a></li>
       <li><a href="#testimonials">Testimonials</a></li>
       <li><a href="#founders">Founders</a></li>
-      <li><a href="#questions">Questions</a></li>
+      <li><a href="#questions">FAQs</a></li>
       <li><a href="#join">Join</a></li>
       <li><a href="privacy.html">Privacy</a></li>
     </ul>
@@ -1189,10 +1208,7 @@
       form.hidden = true;
       done.hidden = false;
       done.focus({ preventScroll: true });
-      var box = done.getBoundingClientRect();
-      if (box.bottom > window.innerHeight || box.top < 0) {
-        done.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
-      }
+      done.scrollIntoView({ block: 'center', behavior: 'smooth' });
     }
     function clearStatus() {
       status.hidden = true;
