@@ -143,7 +143,6 @@ body {
 
 img, picture, svg { display: block; max-width: 100%; height: auto; }
 a { color: var(--ember-gold); text-underline-offset: 0.18em; }
-a:hover { color: var(--parchment); }
 
 ::selection { background: var(--ember-gold); color: var(--void); }
 :focus-visible { outline: 2px solid var(--ember-gold); outline-offset: 3px; }
@@ -323,8 +322,9 @@ p { text-wrap: pretty; }
   min-height: 3.25rem;
   transition: background-color 180ms var(--ease), color 180ms var(--ease);
 }
-.btn:hover { background: transparent; color: var(--ember-gold); }
 .btn:disabled { opacity: 0.55; cursor: progress; }
+/* Press feedback for touch: :active releases on finger-up, :hover does not. */
+.btn:active:not(:disabled) { transform: translateY(1px); filter: brightness(0.92); }
 .btn--sm { padding: 0.5rem 1.1rem; min-height: 0; }
 
 /* Outlined, as theirs is. A filled gold button is what the playbook asks for,
@@ -332,7 +332,7 @@ p { text-wrap: pretty; }
    it shouts. The solid treatment is kept for the closing call, where asking
    plainly is the whole point. */
 .btn--ghost { background: transparent; color: var(--ember-gold); }
-.btn--ghost:hover { background: var(--ember-gold); color: var(--void); }
+.btn--ghost:active:not(:disabled) { transform: translateY(1px); }
 
 /* -- Hero ---------------------------------------------------------------- */
 /* Budgeted so the button clears the fold: the playbook gives three seconds,
@@ -562,7 +562,6 @@ p { text-wrap: pretty; }
   transition: border-color 180ms var(--ease);
 }
 .capture__input::placeholder { color: var(--fog); opacity: 1; }
-.capture__input:hover { border-color: var(--fog); }
 .capture__input:focus { outline: none; border-color: var(--ember-gold); }
 .capture__input[aria-invalid='true'] { border-color: #E08A6B; }
 .capture__input:-webkit-autofill,
@@ -580,7 +579,6 @@ p { text-wrap: pretty; }
    field; neither applies to a static legal line nobody reads twice. */
 .capture__note { margin: var(--space-s) auto 0; font-size: clamp(0.94rem, 0.9rem + 0.18vw, 1rem); line-height: 1.65; color: var(--fog); }
 .capture__note a { color: var(--fog); }
-.capture__note a:hover { color: var(--parchment); }
 .capture__status { max-width: 46ch; margin: var(--space-s) auto 0; font-size: var(--step--1); }
 .capture__status.is-success { color: var(--ember-gold); }
 .capture__status.is-error   { color: #E8A185; }
@@ -813,7 +811,6 @@ p { text-wrap: pretty; }
 .faq__item summary::-webkit-details-marker { display: none; }
 .faq__item summary::after { content: '+'; margin-left: auto; flex: none; font-family: var(--font-text); font-size: 1.2em; color: var(--fog); }
 .faq__item[open] summary::after { content: '\2013'; }
-.faq__item summary:hover { color: var(--parchment); }
 .faq__item p { margin: 0 0 var(--space-m); font-size: var(--step-0); line-height: 1.7; color: var(--fog); }
 
 /* -- Final call ---------------------------------------------------------- */
@@ -832,7 +829,6 @@ p { text-wrap: pretty; }
 .footer { padding-block: var(--space-l) calc(var(--space-l) + env(safe-area-inset-bottom, 0px)); border-top: 1px solid var(--hairline-faint); font-size: var(--step--1); line-height: 1.6; color: var(--fog); }
 .footer__links { display: flex; flex-wrap: wrap; gap: var(--space-2xs) var(--space-m); justify-content: center; margin-top: 0; list-style: none; padding: 0; }
 .footer__links a { color: var(--fog); text-decoration: none; }
-.footer__links a:hover { color: var(--ember-gold); }
 .footer__legal { margin-top: var(--space-s); color: var(--ember-gold); }
 
 /* The emblem closing the page. Small and dimmed: it is punctuation, not a
@@ -1098,4 +1094,17 @@ p { text-wrap: pretty; }
   .capture__done { padding: var(--space-m) var(--space-s); }
   .capture__done-mark { display: none; }
   .capture__done-title { margin-top: 0; }
+}
+
+/* Hover styling, for devices that have a pointer which can hover. Outside this
+   block a tap would leave the hover state applied until the next tap
+   somewhere else, which reads as a control that failed to reset. */
+@media (hover: hover) and (pointer: fine) {
+  a:hover { color: var(--parchment); }
+  .btn:hover { background: transparent; color: var(--ember-gold); }
+  .btn--ghost:hover { background: var(--ember-gold); color: var(--void); }
+  .capture__input:hover { border-color: var(--fog); }
+  .capture__note a:hover { color: var(--parchment); }
+  .faq__item summary:hover { color: var(--parchment); }
+  .footer__links a:hover { color: var(--ember-gold); }
 }
