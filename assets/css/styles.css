@@ -745,9 +745,9 @@ p { text-wrap: pretty; }
    second logo, and it should not compete with the sign-up band above it. */
 .footer__mark {
   display: block;
-  width: clamp(2.2rem, 4.5vw, 3rem);
+  width: clamp(1.7rem, 3.4vw, 2.3rem);
   height: auto;
-  margin: var(--space-l) auto 0;
+  margin: var(--space-m) auto 0;
   opacity: 0.55;
 }
 
