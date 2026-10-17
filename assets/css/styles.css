@@ -1030,12 +1030,10 @@ p { text-wrap: pretty; }
 
 @media (prefers-reduced-motion: reduce) {
   .coda::before { animation: none; background-position: 50% 100%, 58% 50%; }
-  .coda__line { animation: none; background-position: 30% 50%; }
 }
 
 @media (forced-colors: active) {
   .coda::before { display: none; }
-  .coda__line { background-image: none; color: CanvasText; forced-color-adjust: none; }
 }
 
 .coda__line {
@@ -1055,27 +1053,6 @@ p { text-wrap: pretty; }
   }
 }
 
-/* Same light as the opening, reversed so the two ends of the page are not
-   running the same sweep in the same direction at the same moment. Layered
-   over the solid gold above, never instead of it. */
-@supports ((background-clip: text) or (-webkit-background-clip: text)) {
-  @media (prefers-contrast: no-preference) {
-    .coda__line {
-      background-image: var(--sheen);
-      background-size: 280% 100%;
-      background-position: 100% 50%;
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      animation: hero-sheen 16s ease-in-out infinite reverse;
-    }
-  }
-}
-/* After the block above on purpose: declared before it, this lost the cascade
-   and the sheen kept moving for anyone who had asked it not to. */
-@media (prefers-reduced-motion: reduce) {
-  .coda__line { animation: none; background-position: 30% 50%; }
-}
 .coda .signature { margin-top: var(--space-l); }
 .coda .signature__names { font-size: var(--step-0); }
 .coda .signature__role { margin-top: 0.3rem; }
