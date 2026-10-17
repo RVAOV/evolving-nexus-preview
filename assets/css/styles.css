@@ -739,7 +739,7 @@ p { text-wrap: pretty; }
 .footer__links { display: flex; flex-wrap: wrap; gap: var(--space-2xs) var(--space-m); justify-content: center; margin-top: 0; list-style: none; padding: 0; }
 .footer__links a { color: var(--fog); text-decoration: none; }
 .footer__links a:hover { color: var(--ember-gold); }
-.footer__legal { margin-top: var(--space-s); }
+.footer__legal { margin-top: var(--space-s); color: var(--ember-gold); }
 
 /* The emblem closing the page. Small and dimmed: it is punctuation, not a
    second logo, and it should not compete with the sign-up band above it. */
