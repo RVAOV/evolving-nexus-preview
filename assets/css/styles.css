@@ -370,6 +370,96 @@ p { text-wrap: pretty; }
   letter-spacing: 0.07em;
   line-height: 1.32;
 }
+/* A slow diagonal drift behind the opening.
+
+   Built from the palette the brand already owns: void, the deep indigo, and
+   the faintest breath of the sage and plum card tints. Everything stays dark
+   on purpose. The brightest point the text ever sits on is measured, not
+   assumed, and the headline keeps better than 9:1 at every frame of the
+   animation.
+
+   On a pseudo-element rather than the section so the drift cannot inherit
+   into the content, and isolated so it composites on its own layer. Painting
+   only background-position keeps it off the main thread. */
+.hero { position: relative; isolation: isolate; }
+.hero > * { position: relative; z-index: 1; }
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(58% 44% at 50% 26%, rgba(230, 186, 117, 0.07), transparent 72%),
+    linear-gradient(128deg,
+      #070D10 0%, #0C1420 22%, #101C2C 40%,
+      #0E1622 56%, #141024 74%, #0A1118 88%, #070D10 100%);
+  background-size: 100% 100%, 320% 320%;
+  background-position: 50% 0%, 0% 50%;
+  animation: hero-drift 38s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* Thirty-eight seconds: slow enough to read as light changing in a room
+   rather than as motion asking to be watched. */
+@keyframes hero-drift {
+  0%, 100% { background-position: 50% 0%, 0% 50%; }
+  50%      { background-position: 50% 0%, 100% 50%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero::before { animation: none; background-position: 50% 0%, 42% 50%; }
+}
+
+@media (forced-colors: active) {
+  .hero::before { display: none; }
+}
+
+/* The headline, with light moving through it.
+
+   The sage and plum from the card tints are 2.31:1 and 1.61:1 against this
+   ground, so they are unusable as text. These are the same two hues lifted
+   until they clear 9:1, which keeps the colour idea and keeps the words
+   readable: every stop in the gradient sits between 9.17:1 and 14.55:1.
+
+   Layered so it can only ever improve on a solid colour. The base rule paints
+   plain gold, which is what runs if background-clip is unsupported, if the
+   user asks for more contrast, or in forced-colours mode. The gradient is
+   added on top of that, never instead of it. */
+.hero__title { color: var(--ember-gold); font-weight: 600; }
+
+@supports ((background-clip: text) or (-webkit-background-clip: text)) {
+  @media (prefers-contrast: no-preference) {
+    .hero__title {
+      background-image: linear-gradient(100deg,
+        var(--ember-gold) 0%, #F2DCAE 17%, #C2D6BC 33%, #F2DCAE 50%,
+        #DCC2D6 67%, #F2DCAE 83%, var(--ember-gold) 100%);
+      background-size: 280% 100%;
+      background-position: 0% 50%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: hero-sheen 16s ease-in-out infinite;
+    }
+  }
+}
+
+/* Slow on purpose. A sixteen second round trip reads as the light shifting
+   rather than as something demanding attention. */
+@keyframes hero-sheen {
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__title { animation: none; background-position: 30% 50%; }
+}
+
+/* Windows high contrast replaces author colours; a transparent fill would
+   leave nothing on screen. */
+@media (forced-colors: active) {
+  .hero__title { background-image: none; color: CanvasText; forced-color-adjust: none; }
+}
+
 .hero__sub {
   margin: var(--space-l) auto 0;
   font-size: var(--step-1);
