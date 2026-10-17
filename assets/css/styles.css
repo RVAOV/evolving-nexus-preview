@@ -604,7 +604,7 @@ p { text-wrap: pretty; }
   font-family: var(--font-display);
   /* Their own scale, pushed harder at the top end. These are the quickest
      proof on the page and on a wide screen they were reading as captions. */
-  font-size: clamp(2.3rem, 1.45rem + 3.7vw, 5.4rem);
+  font-size: clamp(2.6rem, 1.5rem + 4.2vw, 5.4rem);
   font-weight: 600;
   line-height: 1; color: var(--ember-gold);
 }
@@ -1048,7 +1048,34 @@ p { text-wrap: pretty; }
   text-wrap: balance;
   color: var(--ember-gold);
 }
-@media (max-width: 34rem) { .coda__line { font-size: clamp(1.6rem, 7.2vw, 2.1rem); } }
+@media (max-width: 34rem) {
+  .coda__line {
+    font-size: clamp(1.95rem, 8.8vw, 2.6rem);
+    margin-inline: calc(var(--gutter) * -0.3);
+  }
+}
+
+/* Same light as the opening, reversed so the two ends of the page are not
+   running the same sweep in the same direction at the same moment. Layered
+   over the solid gold above, never instead of it. */
+@supports ((background-clip: text) or (-webkit-background-clip: text)) {
+  @media (prefers-contrast: no-preference) {
+    .coda__line {
+      background-image: var(--sheen);
+      background-size: 280% 100%;
+      background-position: 100% 50%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: hero-sheen 16s ease-in-out infinite reverse;
+    }
+  }
+}
+/* After the block above on purpose: declared before it, this lost the cascade
+   and the sheen kept moving for anyone who had asked it not to. */
+@media (prefers-reduced-motion: reduce) {
+  .coda__line { animation: none; background-position: 30% 50%; }
+}
 .coda .signature { margin-top: var(--space-l); }
 .coda .signature__names { font-size: var(--step-0); }
 .coda .signature__role { margin-top: 0.3rem; }
