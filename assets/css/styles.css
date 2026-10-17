@@ -481,7 +481,10 @@ p { text-wrap: pretty; }
 .capture .btn { flex: 0 0 auto; }
 @media (max-width: 34rem) { .capture__input, .capture .btn { flex: 1 1 100%; } }
 
-.capture__note { margin: var(--space-s) auto 0; font-size: var(--step--1); line-height: 1.6; color: var(--fog); }
+/* Fine print, deliberately below the body scale. The 16px floor the rest of
+   the page keeps is about reading comfort and about iOS not zooming a form
+   field; neither applies to a static legal line nobody reads twice. */
+.capture__note { margin: var(--space-s) auto 0; font-size: clamp(0.94rem, 0.9rem + 0.18vw, 1rem); line-height: 1.65; color: var(--fog); }
 .capture__note a { color: var(--fog); }
 .capture__note a:hover { color: var(--parchment); }
 .capture__status { max-width: 46ch; margin: var(--space-s) auto 0; font-size: var(--step--1); }
