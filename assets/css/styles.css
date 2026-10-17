@@ -79,8 +79,8 @@
      2560px display got the same type as a laptop in a far wider frame, which is
      what made a large screen feel under-set. Body now reaches 21.6px and the
      smallest supporting size 18.4px. */
-  --step--1: clamp(0.9rem,  0.843rem + 0.256vw, 1.15rem);
-  --step-0:  clamp(1.08rem, 1.019rem + 0.276vw, 1.35rem);
+  --step--1: clamp(1rem,    0.952rem + 0.21vw,  1.15rem);
+  --step-0:  clamp(1.12rem, 1.054rem + 0.3vw,   1.35rem);
   --step-1:  clamp(1.22rem, 1.096rem + 0.545vw, 1.75rem);
   --step-2:  clamp(1.55rem, 1.193rem + 1.59vw,  3.1rem);
   --step-3:  clamp(1.85rem, 1.308rem + 2.41vw,  3.9rem);
@@ -336,14 +336,15 @@ p { text-wrap: pretty; }
 .hero {
   min-height: 100vh;
   min-height: 100svh;
+  --hero-eyebrow: clamp(0.85rem, min(3.6vw, 2.1svh), 1.15rem);
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding-block: var(--space-l) var(--space-xl);
+  padding-block: clamp(0.8rem, 3.4svh, 4rem) clamp(1rem, 4svh, 5rem);
 }
 .hero__mark {
-  width: clamp(5.5rem, 4rem + 6vw, 9.5rem);
-  height: auto; margin: 0 auto var(--space-l);
+  width: clamp(3rem, min(21vw, 11.5svh), 11rem);
+  height: auto; margin: 0 auto clamp(0.6rem, 2.2svh, 2.4rem);
 }
 .hero__title {
   /* Wide measure, modest size, generous tracking. Theirs holds three elegant
@@ -354,18 +355,19 @@ p { text-wrap: pretty; }
   /* Its own curve rather than --step-3, because the headline is the one thing
      whose height is bought back from the fold. Capped at 3.4rem: enough to lead
      a 2560px canvas, not so much that it pushes the field off a laptop. */
-  font-size: clamp(2rem, 1.12rem + 2.14vw, 3.4rem);
+  font-size: clamp(1.45rem, min(7.9vw, 4.7svh), 3.9rem);
   text-transform: uppercase;
   letter-spacing: 0.07em;
   line-height: 1.32;
 }
 .hero__sub {
-  margin: var(--space-l) auto 0;
-  font-size: var(--step-1); line-height: 1.6;
+  margin: clamp(0.7rem, 2.4svh, 2.4rem) auto 0;
+  font-size: clamp(1rem, min(4.3vw, 2.3svh), 1.9rem);
+  line-height: 1.5;
   color: var(--parchment);
 }
 .hero__sub strong { font-weight: 600; }
-.hero__cta { margin-top: var(--space-l); }
+.hero__cta { margin-top: clamp(0.8rem, 2.6svh, 2.4rem); }
 
 /* The photograph, framed the way their cards are framed. */
 /* The photograph, framed the way their cards are framed, with the people it
@@ -382,50 +384,24 @@ p { text-wrap: pretty; }
   font-size: var(--step--1); color: var(--fog);
 }
 
-/* Narrow screens, independent of height. A tall phone like 390x844 never hits
-   the short-viewport rules, but the subheading still wraps to four lines there
-   and pushes the button off the first screen.
-   Placed BEFORE the height rules deliberately: a 320x568 phone matches both,
-   and with equal specificity the later rule wins. Declared after, this undid
-   the height compression and cost 152px. */
-@media (max-width: 34rem) {
-  .hero__mark { width: 4rem; margin-bottom: var(--space-s); }
-  .hero .eyebrow { font-size: 0.78rem; letter-spacing: 0.14em; }
-  .hero__title { font-size: clamp(2rem, 1.15rem + 1.8vw, 2.3rem); }
-  .hero__sub { margin-top: var(--space-s); font-size: var(--step-0); line-height: 1.55; }
-  .capture { margin-top: var(--space-s); }
-}
-
-/* 50rem = 800px. A 46rem threshold missed a 1440x760 laptop by three pixels,
-   which is still the sign-up off the first screen. */
-@media (max-height: 50rem) {
-  .hero { padding-block: var(--space-m) var(--space-l); }
-  .hero__mark { width: 3rem; margin-bottom: var(--space-xs); }
-  .eyebrow { margin-bottom: var(--space-xs); }
-  .hero__title { font-size: clamp(1.85rem, 1.15rem + 1.3vw, 2.2rem); }
-  .hero__sub { margin-top: var(--space-xs); font-size: var(--step--1); line-height: 1.5; }
-  .capture { margin-top: var(--space-s); }
-  .capture__note { line-height: 1.45; }
-}
-
-/* Small phones. The photograph steps below the fold before the button does:
-   it is support, the button is the point. */
-@media (max-height: 38rem) {
-  .hero { padding-block: var(--space-s) var(--space-m); }
-  .hero__mark { width: 2.4rem; margin-bottom: var(--space-2xs); }
-  .hero__title { font-size: clamp(1.5rem, 1rem + 1.1vw, 1.8rem); letter-spacing: 0.02em; }
-  .hero__sub { margin-top: var(--space-2xs); font-size: var(--step--1); }
-  .capture { margin-top: var(--space-xs); }
-  .capture__note { font-size: var(--step--1); line-height: 1.45; }
-}
-
 /* The hero emblem as a link. Inline-block so the anchor wraps the image
    exactly and does not pick up a full-width hit area. */
+@media (max-height: 40rem) {
+  .hero__title { line-height: 1.16; }
+  .hero__sub { line-height: 1.35; }
+}
+
 .hero__home { display: inline-block; text-decoration: none; }
 .hero__home:focus-visible { outline: 2px solid var(--ember-gold); outline-offset: 6px; }
 
 /* -- Capture ------------------------------------------------------------- */
 .capture { margin: var(--space-l) auto 0; }
+.hero .capture { margin-top: clamp(0.8rem, 2.6svh, 2.6rem); }
+.hero .eyebrow {
+  font-size: var(--hero-eyebrow);
+  letter-spacing: clamp(0.04em, 1.4vw - 0.3rem, 0.26em);
+  margin-bottom: clamp(0.4rem, 1.6svh, 1.4rem);
+}
 .capture__row { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center;
                max-width: 34rem; margin-inline: auto; }
 .capture__input {
@@ -483,8 +459,8 @@ p { text-wrap: pretty; }
 }
 .trust__label {
   display: block; max-width: 24ch; margin: var(--space-xs) auto 0;
-  font-size: clamp(0.95rem, 0.88rem + 0.33vw, 1.3rem);
-  line-height: 1.5; color: var(--fog);
+  font-size: clamp(1rem, 0.93rem + 0.33vw, 1.3rem);
+  line-height: 1.55; color: var(--fog);
 }
 
 /* -- Cards: their double hairline, kept ---------------------------------- */

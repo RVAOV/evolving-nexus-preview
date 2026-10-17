@@ -1,3 +1,8 @@
+> **This is the review build.** It is blocked from search and its URLs
+> point at this GitHub Pages address. Do not deploy this copy to the live
+> site: take the production copy, which carries the real domain and a
+> robots.txt that allows crawling.
+
 # Evolving Nexus — Coming Soon landing page
 
 Two pages, no build step, no dependencies. Upload the contents of this folder to
@@ -20,17 +25,18 @@ takes that v13 wording as the source wherever it said things better.
 
 ---
 
-## This is a review build, not the live site
+## The review link is blocked from search, on purpose
 
-It is deliberately blocked from search three ways: `<meta name="robots"
-content="noindex, nofollow, noarchive, nosnippet">` on both pages, a
-`robots.txt` that disallows everything, and URLs that point at this GitHub
-Pages address rather than at a live domain.
+`vercel.json` sends `X-Robots-Tag: noindex, nofollow, noarchive, nosnippet,
+noimageindex` on every file. That header outranks `robots.txt` for indexing, so
+the preview cannot be listed by a search engine even if someone links to it.
+The canonical tag already points at `https://rvaov.github.io/evolving-nexus-preview/`, which is a
+second signal pointing away from the preview.
 
-**None of that belongs on the real site.** When the page goes live, take the
-production copy, not this one. The production copy carries the real domain in
-its canonical, `og:url`, `sitemap.xml` and JSON-LD, and a `robots.txt` that
-allows crawling.
+**Delete `vercel.json`, or remove that header from it, when the real site goes
+live.** Leaving it in place would keep the live site out of search entirely.
+`robots.txt` in this folder is written for production and is correct as it
+stands.
 
 ---
 
