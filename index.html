@@ -1185,6 +1185,57 @@
   }
   reduceMotion.addEventListener('change', revealAll);
 
+  /* --- Keep the bar out of the way while someone is typing --------------- */
+  /* Focusing a field makes the browser scroll it above the keyboard, and that
+     scroll is exactly what reveals the fixed bar, which then sits on top of
+     the field. Hiding the bar while a field has focus leaves the field clear. */
+  (function () {
+    var bar = document.getElementById('nav');
+    if (!bar) return;
+    var isField = function (el) { return el && el.matches && el.matches('input, textarea'); };
+
+    /* Where the reader can actually see, which is not the layout viewport once
+       the keyboard is up: on iOS the layout viewport stays the same size and
+       only the visual one shrinks. */
+    var seen = function () {
+      var vv = window.visualViewport;
+      return vv ? { top: vv.offsetTop, height: vv.height }
+                : { top: 0, height: window.innerHeight };
+    };
+
+    /* The browser scrolls a focused field into view on its own and gets it
+       wrong often enough to matter: too far and the field sits above the top
+       edge, not far enough and the keyboard covers it. This checks where the
+       field actually ended up and corrects by the smallest amount, or does
+       nothing when the browser got it right. */
+    var settle = function (el) {
+      var box = el.getBoundingClientRect(), view = seen(), pad = 24;
+      var above = view.top + pad - box.top;
+      var below = box.bottom - (view.top + view.height - pad);
+      var by = above > 0 ? -above : (below > 0 ? below : 0);
+      if (Math.abs(by) > 4) window.scrollBy({ top: by, behavior: 'smooth' });
+    };
+
+    document.addEventListener('focusin', function (e) {
+      if (!isField(e.target)) return;
+      bar.classList.add('is-typing');
+      var el = e.target;
+      setTimeout(function () { settle(el); }, 350);
+      if (window.visualViewport) {
+        var once = function () {
+          window.visualViewport.removeEventListener('resize', once);
+          setTimeout(function () { if (document.activeElement === el) settle(el); }, 120);
+        };
+        window.visualViewport.addEventListener('resize', once);
+      }
+    });
+    document.addEventListener('focusout', function (e) {
+      if (isField(e.target)) setTimeout(function () {
+        if (!isField(document.activeElement)) bar.classList.remove('is-typing');
+      }, 60);
+    });
+  })();
+
   /* --- Capture forms ----------------------------------------------------- */
   /* Deliberately permissive. The server is the real validator; this only
      catches obvious typos so nobody is told a valid address is wrong. */
@@ -1240,8 +1291,8 @@
       if (!value || !looksLikeEmail(value)) {
         event.preventDefault();
         input.setAttribute('aria-invalid', 'true');
-        setStatus(value ? 'That address doesn’t look quite right. Please check it.'
-                        : 'Please enter your email address.', 'error');
+        setStatus(value ? 'Oops, that email address doesn’t quite look right. Please check it and try again.'
+                        : 'Oops, please enter your email address.', 'error');
         /* Focus the field so it is easy to correct, but not on a touch
            device: focus inside a tap handler raises the keyboard over the
            page, and the error is already announced by the live region. */

@@ -278,6 +278,12 @@ p { text-wrap: pretty; }
   transition: transform 320ms var(--ease), opacity 320ms var(--ease), visibility 320ms;
 }
 .nav.is-visible { transform: none; opacity: 1; visibility: visible; }
+/* Beats .is-visible deliberately: while a field has focus the bar must stay
+   out of the way whatever the scroll position says, because the browser's
+   scroll-to-the-field is what revealed it in the first place. */
+.nav.is-visible.is-typing, .nav.is-typing {
+  transform: translateY(-100%); opacity: 0; visibility: hidden;
+}
 .no-js .nav { position: sticky; transform: none; opacity: 1; visibility: visible; }
 .nav__inner {
   display: flex; align-items: center; justify-content: space-between;
