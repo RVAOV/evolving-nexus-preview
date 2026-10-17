@@ -55,7 +55,7 @@ resolve the entity, so empty beats wrong.
 
 **4. A legal read of `privacy.html`.** It is a careful draft, not advice.
 
-The domain `https://rvaov.github.io/evolving-nexus-landing` and the address `hello@evolvingnexus.com`
+The domain `https://rvaov.github.io/evolving-nexus-preview` and the address `hello@evolvingnexus.com`
 are **not** placeholders. Both are taken from the v13 files. If the domain
 changes, update the canonical, `og:url`, `sitemap.xml` and the `@id` values in
 the JSON-LD graph together.

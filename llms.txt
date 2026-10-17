@@ -130,8 +130,8 @@ religion, the Diamond Model.
 
 ## Pages
 
-- [Home](https://rvaov.github.io/evolving-nexus-landing/): overview, programs, founders, FAQ, mailing list
-- [Privacy policy](https://rvaov.github.io/evolving-nexus-landing/privacy.html): how contact details are handled
+- [Home](https://rvaov.github.io/evolving-nexus-preview/): overview, programs, founders, FAQ, mailing list
+- [Privacy policy](https://rvaov.github.io/evolving-nexus-preview/privacy.html): how contact details are handled
 
 ## Contact
 
