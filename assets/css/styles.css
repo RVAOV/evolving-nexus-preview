@@ -102,7 +102,7 @@
   /* Hero rhythm. Scales with the viewport the way the headline does, so the
      gaps between the emblem, the words and the field hold their proportion
      instead of freezing at a laptop's values. */
-  --hero-gap: clamp(1.1rem, 2.4vw, 3.6rem);
+  --hero-gap: clamp(1.1rem, max(2.6vw, 2.6svh), 4.8rem);
 
   --sheen: linear-gradient(100deg,
     var(--ember-gold) 0%, #F2DCAE 17%, #C2D6BC 33%, #F2DCAE 50%,
@@ -369,14 +369,14 @@ p { text-wrap: pretty; }
                  calc(var(--space-xl) + env(safe-area-inset-bottom, 0px));
 }
 .hero__mark {
-  width: clamp(5.5rem, max(4rem + 6vw, 11svh), 12rem);
+  width: clamp(5.5rem, max(4rem + 7vw, 15svh), 15rem);
   height: auto; margin: 0 auto calc(var(--hero-gap) * 1.25);
 }
 .hero__title {
   /* Its own curve rather than --step-3: the headline is the one thing whose
      height is bought back from the fold. */
   margin-inline: auto;
-  font-size: clamp(2rem, max(1.12rem + 2.14vw, 4.2svh), 4.3rem);
+  font-size: clamp(2rem, max(1.12rem + 2.5vw, 6svh), 5.4rem);
   text-transform: uppercase;
   letter-spacing: 0.07em;
   line-height: 1.38;
@@ -471,7 +471,7 @@ p { text-wrap: pretty; }
 
 .hero__sub {
   margin: var(--hero-gap) auto 0;
-  font-size: var(--step-1);
+  font-size: clamp(1.08rem, max(0.95rem + 0.6vw, 1.9svh), 2.1rem);
   line-height: 1.6;
   color: var(--parchment);
 }
@@ -502,8 +502,8 @@ p { text-wrap: pretty; }
     padding-block: calc(var(--space-m) + env(safe-area-inset-top, 0px))
                    calc(var(--space-l) + env(safe-area-inset-bottom, 0px));
   }
-  .hero__mark { width: clamp(4rem, 3rem + 4vw, 7rem); margin-bottom: var(--space-s); }
-  .hero__title { font-size: clamp(1.85rem, 1.15rem + 1.3vw, 2.4rem); }
+  .hero__mark { width: clamp(4rem, max(3rem + 5vw, 15svh), 9rem); margin-bottom: var(--space-s); }
+  .hero__title { font-size: clamp(1.85rem, max(1.15rem + 2.2vw, 5svh), 3.4rem); }
   .hero__sub { margin-top: var(--space-s); font-size: var(--step-0); line-height: 1.45; }
   .hero .capture { margin-top: var(--space-s); }
 }
@@ -547,6 +547,18 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
 /* Centres the opening when there is room and collapses to the top when there
    is not, which justify-content:center cannot do: it overflows both ends. */
 .hero > .shell { margin-block: auto; width: 100%; }
+
+/* On a large screen the opening was still held to the 72rem shell, so raising
+   the type only bought more lines: five of them at 2560, stacked in a column
+   half the width of the display. The headline is the one thing here that
+   benefits from the extra width, so the opening gets its own wider measure and
+   the subheading keeps a reading measure inside it. */
+@media (min-width: 90rem) {
+  .hero > .shell { max-width: min(100rem, 88vw); }
+  .hero__title { font-size: clamp(2rem, max(1.12rem + 3.1vw, 7.2svh), 6.6rem); }
+  .hero__sub { max-width: 48ch; margin-inline: auto; }
+  .hero .capture__row { margin-inline: auto; }
+}
 .hero .eyebrow { margin-bottom: calc(var(--hero-gap) * 0.55); }
 
 .hero__home { display: inline-block; text-decoration: none; }
