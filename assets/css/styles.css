@@ -99,6 +99,11 @@
   /* Light travelling through display type. The sage and plum card tints are
      2.31:1 and 1.61:1 against this ground and cannot carry text; these are the
      same two hues lifted until every stop clears 9:1. */
+  /* Hero rhythm. Scales with the viewport the way the headline does, so the
+     gaps between the emblem, the words and the field hold their proportion
+     instead of freezing at a laptop's values. */
+  --hero-gap: clamp(1.1rem, 2.4vw, 3.6rem);
+
   --sheen: linear-gradient(100deg,
     var(--ember-gold) 0%, #F2DCAE 17%, #C2D6BC 33%, #F2DCAE 50%,
     #DCC2D6 67%, #F2DCAE 83%, var(--ember-gold) 100%);
@@ -364,17 +369,17 @@ p { text-wrap: pretty; }
                  calc(var(--space-xl) + env(safe-area-inset-bottom, 0px));
 }
 .hero__mark {
-  width: clamp(5.5rem, 4rem + 6vw, 9.5rem);
-  height: auto; margin: 0 auto var(--space-l);
+  width: clamp(5.5rem, max(4rem + 6vw, 11svh), 12rem);
+  height: auto; margin: 0 auto calc(var(--hero-gap) * 1.25);
 }
 .hero__title {
   /* Its own curve rather than --step-3: the headline is the one thing whose
      height is bought back from the fold. */
   margin-inline: auto;
-  font-size: clamp(2rem, 1.12rem + 2.14vw, 3.4rem);
+  font-size: clamp(2rem, max(1.12rem + 2.14vw, 4.2svh), 4.3rem);
   text-transform: uppercase;
   letter-spacing: 0.07em;
-  line-height: 1.32;
+  line-height: 1.38;
 }
 /* A slow diagonal drift behind the opening.
 
@@ -465,13 +470,13 @@ p { text-wrap: pretty; }
 }
 
 .hero__sub {
-  margin: var(--space-l) auto 0;
+  margin: var(--hero-gap) auto 0;
   font-size: var(--step-1);
-  line-height: 1.55;
+  line-height: 1.6;
   color: var(--parchment);
 }
 .hero__sub strong { font-weight: 600; }
-.hero__cta { margin-top: var(--space-l); }
+.hero__cta { margin-top: var(--hero-gap); }
 
 /* The photograph, framed the way their cards are framed. */
 /* The photograph, framed the way their cards are framed, with the people it
@@ -542,12 +547,14 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
 /* Centres the opening when there is room and collapses to the top when there
    is not, which justify-content:center cannot do: it overflows both ends. */
 .hero > .shell { margin-block: auto; width: 100%; }
+.hero .eyebrow { margin-bottom: calc(var(--hero-gap) * 0.55); }
 
 .hero__home { display: inline-block; text-decoration: none; }
 .hero__home:focus-visible { outline: 2px solid var(--ember-gold); outline-offset: 6px; }
 
 /* -- Capture ------------------------------------------------------------- */
 .capture { margin: var(--space-l) auto 0; }
+.hero .capture { margin-top: calc(var(--hero-gap) * 1.15); }
 
 
 .capture__row { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center;
