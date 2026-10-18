@@ -510,7 +510,7 @@ p { text-wrap: pretty; }
 @media (max-width: 48rem) {
   .hero {
     --hero-eyebrow: clamp(0.88rem, min(4vw, 2.3svh), 1.2rem);
-    padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
+padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
                    calc(clamp(0.9rem, 3.6svh, 5rem) + env(safe-area-inset-bottom, 0px));
   }
   .hero__mark {
@@ -928,8 +928,16 @@ p { text-wrap: pretty; }
    in two, and still comes nowhere near the screen edge. Below that the shell
    is viewport-bound and this would push text into the margins. Written once
    rather than per section, because it kept recurring as the copy changed. */
+/* Two different thresholds, because they guard different things. Letting the
+   deck use the shell is safe as soon as the shell is wide enough to be worth
+   using; taking back the gutter is only safe once the shell has stopped
+   growing and sits inside a much wider viewport. Tying both to 78rem left the
+   deck breaking early between 60rem and 78rem for no reason. */
+@media (min-width: 60rem) {
+  .section .h2 { max-width: none; }
+}
 @media (min-width: 78rem) {
-  .section .h2 { max-width: none; margin-inline: calc(var(--gutter) * -1); }
+  .section .h2 { margin-inline: calc(var(--gutter) * -1); }
 }
 
 /* ═══════ THE TWO QUESTIONS ═══════

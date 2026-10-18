@@ -42,22 +42,27 @@
 -->
 
 <script>
-  /* A reload should put you back at the opening, not where you happened to be
-     and not part way down the hero. Browsers restore the old scroll position
-     by default, and this has to be set before that happens. A hash typed or
-     shared by someone else is still honoured: only a reload is reset. */
+  /* Land on the opening, not part way down it.
+
+     This used to depend on detecting a reload, and that detection is not
+     reliable: iOS pull-to-refresh often reports the navigation as navigate
+     rather than reload, and some Safari versions leave the entry empty. When
+     the detection missed, the whole block bailed out and the browser's own
+     scroll restoration won, which is the top of the hero being cut off.
+
+     No detection now. If the URL carries no fragment the page belongs at the
+     top, which is equally true of a first visit and a refresh, so it goes
+     there unconditionally. A link someone shares with a fragment still works,
+     because that case is left entirely alone. */
   (function () {
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-    var e = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
-    var reloaded = e ? e.type === 'reload'
-                     : performance.navigation && performance.navigation.type === 1;
-    if (!reloaded) return;
-    if (location.hash) history.replaceState(null, '', location.pathname + location.search);
-    var toTop = function () { scrollTo(0, 0); };
+    if (location.hash) return;
+    var toTop = function () { if (!location.hash) scrollTo(0, 0); };
+    toTop();
     addEventListener('DOMContentLoaded', toTop);
     addEventListener('load', toTop);
-    /* iOS restores the position late, and again when a page comes back from
-       the back/forward cache, after load has already fired. */
+    /* iOS restores late, after load has fired, and again on a back/forward
+       cache restore. */
     addEventListener('pageshow', function () { toTop(); setTimeout(toTop, 0); });
   })();
 </script>
@@ -97,7 +102,7 @@
 <link rel="preload" href="assets/fonts/lora-latin-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" as="image" href="assets/img/founders-700.webp" type="image/webp" fetchpriority="high">
 
-<link rel="stylesheet" href="assets/css/styles.css?v=d5561f9d">
+<link rel="stylesheet" href="assets/css/styles.css?v=524aefdd">
 <script>document.documentElement.classList.replace('no-js','js');</script>
 
 <!-- Structured data. The playbook calls out FAQ schema specifically, because
