@@ -1337,6 +1337,10 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
   #audience .who li { padding-block: 1rem; }
   #audience .who { gap: 0 var(--space-l); }
   #testimonials .quotes__note { margin-top: var(--space-s); }
+  /* From a laptop up the opening's field matches the one in the closing
+     section. They are the same control doing the same job and were 432px and
+     544px, which read as two different components rather than one. */
+  .hero .capture__row { max-width: max(34rem, calc(var(--hero-size) * 5.2 + 10px)); }
   #audience .who { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   /* The rule that clears the rule above the top row counts two items,
      because the grid was two wide. At three wide the top row is three
