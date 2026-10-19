@@ -44,11 +44,30 @@ stands.
 
 Four things, all of which need a decision or a detail from Evolving Nexus.
 
-**1. The mailing list endpoint.** Both forms carry
-`data-endpoint="https://example.com/REPLACE-WITH-MAILERLITE-ENDPOINT"`. Until a
-real endpoint is set the forms fall back to a plain POST rather than faking a
-success message, so **nothing is captured**. This is the one item that stops the
-page doing its job.
+**1. The MailerLite API key.** Both forms post to `/api/subscribe`, which is
+`api/subscribe.js`. It needs two environment variables set on the host, never
+in a file here:
+
+| | |
+|---|---|
+| `MAILERLITE_API_KEY` | required. MailerLite > Integrations > API |
+| `MAILERLITE_GROUP_ID` | optional, the group new subscribers join |
+| `MAILERLITE_STATUS` | optional, defaults to `unconfirmed` |
+
+**The key cannot go in the HTML or the JavaScript.** Everything served to the
+browser is public, so a key placed there could be read and used by anyone.
+That is the whole reason this is a function rather than a direct call from the
+page.
+
+`unconfirmed` is the default status on purpose. The page promises "one email is
+on its way to confirm you wanted to join", and that is only true if MailerLite
+sends the double opt-in confirmation. `active` would add people silently and
+make the page's own words false.
+
+**This needs a host that runs functions** (Vercel, Netlify, Cloudflare).
+Static hosting will serve the page but not the endpoint, and sign-up will fail.
+The review build on GitHub Pages carries `data-demo` instead, so it shows the
+confirmation without a server behind it.
 
 **2. Controller details in `privacy.html`.** Legal name, trading status and a
 postal address. PECR requires a postal address on marketing material. The

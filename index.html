@@ -24,9 +24,13 @@
   mailto in a footer is harvested within days of going live.
 
   STILL OUTSTANDING, all of them things only the client can supply:
-    1. MailerLite endpoint  data-endpoint on both forms. Until it is set the
-                            forms fall back to a native POST rather than
-                            faking a success message.
+    1. MailerLite key ..... both forms now post to /api/subscribe, which is
+                            api/subscribe.js. Set MAILERLITE_API_KEY, and
+                            optionally MAILERLITE_GROUP_ID, in the host's
+                            environment. The key must never be put in a file
+                            here: anything in this page is public. Needs a
+                            host that runs functions; static hosting serves
+                            the page but not the endpoint.
     2. Social URLs ........ footer, and sameAs on the Organization node. Left
                             out rather than guessed: a wrong sameAs damages
                             search entity resolution.
@@ -509,8 +513,8 @@
            said nothing about what pressing it does; asking for the address
            here removes a step and states the offer plainly. -->
       <form class="capture js-join" data-demo="true" method="post"
-            action="https://example.com/REPLACE-WITH-MAILERLITE-ENDPOINT"
-            data-endpoint="https://example.com/REPLACE-WITH-MAILERLITE-ENDPOINT"
+            action="/api/subscribe"
+            data-endpoint="/api/subscribe"
             novalidate>
         <div class="capture__row">
           <label class="visually-hidden" for="email-hero">Email address</label>
@@ -1046,8 +1050,8 @@
       </p>
 
       <form class="capture js-join" data-demo="true" method="post"
-            action="https://example.com/REPLACE-WITH-MAILERLITE-ENDPOINT"
-            data-endpoint="https://example.com/REPLACE-WITH-MAILERLITE-ENDPOINT"
+            action="/api/subscribe"
+            data-endpoint="/api/subscribe"
             novalidate>
         <div class="capture__row">
           <label class="visually-hidden" for="email-foot">Email address</label>
@@ -1323,17 +1327,20 @@
          Hold the page and say plainly that it is not connected: a fake success
          would be worse, because shipped unconfigured it would swallow every
          sign-up silently. */
+      /* The review build sets data-demo so the client can see the real
+         confirmation. Tested before the endpoint check, not inside it: the
+         preview is static hosting with no function behind /api/subscribe, so
+         once a real endpoint is set it would otherwise post into nothing and
+         show a failure. Production never carries the flag. */
+      if (form.getAttribute('data-demo') === 'true') {
+        event.preventDefault();
+        form.reset(); clearStatus(); showDone();
+        return;
+      }
+
       if (!CONFIGURED) {
         event.preventDefault();
-        /* The review build sets data-demo so the client can see the real
-           confirmation. Production never has it, and a page shipped without an
-           endpoint says so plainly rather than faking a success that would
-           swallow every sign-up. */
-        if (form.getAttribute('data-demo') === 'true') {
-          form.reset(); clearStatus(); showDone();
-        } else {
-          setStatus('Sign-up is not connected yet. Set the mailing list endpoint on both forms.', 'error');
-        }
+        setStatus('Sign-up is not connected yet. Set the mailing list endpoint on both forms.', 'error');
         return;
       }
       /* No fetch: let the browser post the form the old-fashioned way. */
