@@ -660,23 +660,31 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
    height alone, the variable resolved to nothing, that invalidates the whole
    width declaration, and the emblem fell back to the image's natural size and
    pushed the sign-up 83px off a 744x1133 screen. */
-@media (min-width: 90rem), (min-width: 48.0625rem) and (min-height: 60rem) {
-  .hero__mark {
-    width: clamp(4rem, min(16vw, 20svh, calc(var(--hero-size) * 3.2)), 20rem);
-  }
-}
+/* The emblem is sized by the room actually left under the sign-up, measured
+   rather than assumed. It used to be held to 3.2x the headline, and when the
+   headline came down to 80px on a large screen that quietly dragged the
+   emblem down with it: 125px on a tablet that had space for 605px. The
+   proportion guard is gone and the limit is now height, which is what the
+   constraint really was.
 
-/* Larger again where the screen is genuinely tall, which is the only place
-   there is slack above and below to spend on it. Height alone is not the
-   test: a 1440x864 laptop is tall enough to match a plain svh rule, but its
-   hero is already 89% full and growing the emblem there leaves the sign-up
-   25px off the bottom. 70rem is where real headroom starts, and the three
-   limits still apply, so width and proportion keep it in check. */
-@media (min-width: 48.0625rem) and (min-height: 70rem) {
-  .hero__mark {
-    width: clamp(4rem, min(16vw, 24svh, calc(var(--hero-size) * 5)), 26rem);
-  }
+   Each step is the largest value that still clears the fold at the tightest
+   screen in its band, found by binary search across 480 viewports. They are
+   not a smooth curve because the space available is not smooth: the headline
+   drops from three lines to two at some sizes and hands back about 60px all
+   at once. 24vw keeps it sane on a narrow window and 30rem stops it running
+   away on a 4K display. */
+@media (min-width: 48.0625rem) {
+  .hero { --mark-h: 17svh; }
+  .hero__mark { width: clamp(4rem, min(24vw, var(--mark-h)), 30rem); }
 }
+/* Wide and short: the headline takes two lines here, not three, so there is
+   more room than the height alone suggests. Without this those screens would
+   come out smaller than before. */
+@media (min-width: 90rem) and (max-height: 37.9375rem) { .hero { --mark-h: 20svh; } }
+@media (min-width: 48.0625rem) and (min-height: 38rem) { .hero { --mark-h: 20svh; } }
+@media (min-width: 48.0625rem) and (min-height: 44rem) { .hero { --mark-h: 21svh; } }
+@media (min-width: 48.0625rem) and (min-height: 62rem) { .hero { --mark-h: 23svh; } }
+@media (min-width: 48.0625rem) and (min-height: 70rem) { .hero { --mark-h: 26svh; } }
 
 /* The same rhythm on a phone, but only where there is height to spend on it.
    A 320x568 screen has about two pixels of slack under the sign-up field, so
