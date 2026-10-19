@@ -600,10 +600,10 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
    actually in force on a laptop, a half-screen window and a tablet. */
 @media (min-width: 48.0625rem) {
   .hero {
-    --hero-size: clamp(2rem, min(6vw, 7.5svh), 5.75rem);
+    --hero-size: clamp(2rem, min(6vw, 7.5svh), 6.2rem);
     --hero-gap:  clamp(1rem, min(3.2vw, 3.4svh), 5rem);
   }
-  .hero > .shell { max-width: min(100rem, 94vw); }
+  .hero > .shell { max-width: min(116rem, 94vw); }
   .hero__mark {
     width: clamp(4rem, min(16vw, 15svh), 13rem);
     margin-bottom: calc(var(--hero-gap) * 0.75);
@@ -619,6 +619,30 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
     font-size: clamp(1.2rem, calc(var(--hero-size) * 0.33), 2.2rem);
   }
   .hero .capture { margin-top: calc(var(--hero-gap) * 1.8); }
+}
+
+/* From a small laptop up, the headline is sized to the largest it can be while
+   still breaking three ways. The ceiling is set by the measure, not by taste:
+   this sentence is a fixed 67 characters, so the point at which it takes a
+   fourth line is width over roughly nineteen. 4.95vw sits just under that, and
+   once the shell stops widening the rem cap takes over at the same place.
+
+   Narrower than this the rule is dropped on purpose. At 834px three lines would
+   mean a 41px headline and a hero only half filled, so a tablet keeps the
+   taller setting and takes a fourth line instead. */
+@media (min-width: 64rem) {
+  .hero { --hero-size: clamp(2rem, min(4.95vw, 8.4svh), 6.2rem); }
+}
+
+/* The emblem grows on a large screen, where there is height to spend. It is
+   held by three limits at once: the viewport width, the viewport height, and
+   its own proportion to the headline, so it can never outgrow the type it sits
+   above. Below 1440px it keeps the smaller size, because the short viewports
+   down there are already within about 45px of the fold. */
+@media (min-width: 90rem) {
+  .hero__mark {
+    width: clamp(4rem, min(16vw, 20svh, calc(var(--hero-size) * 3.2)), 20rem);
+  }
 }
 
 /* The same rhythm on a phone, but only where there is height to spend on it.
