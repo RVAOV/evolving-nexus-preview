@@ -637,7 +637,14 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
     padding-block: calc(clamp(1rem, 3.5svh, 3.5rem) + env(safe-area-inset-top, 0px))
                    calc(clamp(1.25rem, 4.5svh, 4.5rem) + env(safe-area-inset-bottom, 0px));
   }
-  .hero > .shell { max-width: min(116rem, 94vw); }
+  /* The measure is a multiple of the type, not a fixed rem value. Held at a
+     constant width it stopped matching the headline: on a wide screen that
+     is only 900px tall the height capped the type at 67px while the measure
+     stayed 1805px, and the sentence fell into two lines. Tying the two
+     together keeps the break at three everywhere. 21 is the middle of the
+     range that holds: below 20 it starts taking a fourth line, above 22 a
+     second. */
+  .hero > .shell { max-width: min(94vw, calc(var(--hero-size) * 21)); }
   .hero__mark {
     width: clamp(4rem, min(16vw, 15svh), 13rem);
     margin-bottom: calc(var(--hero-gap) * 0.75);
