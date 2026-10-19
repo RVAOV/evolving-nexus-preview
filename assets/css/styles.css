@@ -676,10 +676,21 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
    not a smooth curve because the space available is not smooth: the headline
    drops from three lines to two at some sizes and hands back about 60px all
    at once. 24vw keeps it sane on a narrow window and 30rem stops it running
-   away on a 4K display. */
+   away on a 4K display.
+
+   The width term was 24vw and that was the real fault: on a tall screen it,
+   not the height, was the limit. At 1280x1310 it held the emblem to 307px
+   with 206px of clearance sitting unused, which reads as a small emblem
+   floating in empty space. The height steps already stop it overrunning, so
+   the width term only has to keep it from dominating a narrow window.
+
+   The steps continue past 1200px because the room keeps growing: the text
+   block barely changes above that height while the screen does, so a single
+   coefficient for everything tall gets fixed by the shortest screen in the
+   band and wastes the rest. */
 @media (min-width: 48.0625rem) {
   .hero { --mark-h: 18svh; }
-  .hero__mark { width: clamp(4rem, min(24vw, var(--mark-h)), 34rem); }
+  .hero__mark { width: clamp(4rem, min(34vw, var(--mark-h)), 40rem); }
 }
 /* Wide and short: the headline takes two lines here, not three, so there is
    more room than the height alone suggests. Without this those screens would
@@ -689,7 +700,10 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
 @media (min-width: 48.0625rem) and (min-height: 44rem) { .hero { --mark-h: 21svh; } }
 
 @media (min-width: 48.0625rem) and (min-height: 70rem) { .hero { --mark-h: 26svh; } }
-@media (min-width: 48.0625rem) and (min-height: 75rem) { .hero { --mark-h: 28svh; } }
+@media (min-width: 48.0625rem) and (min-height: 75rem)  { .hero { --mark-h: 28svh; } }
+@media (min-width: 48.0625rem) and (min-height: 80rem)  { .hero { --mark-h: 31svh; } }
+@media (min-width: 48.0625rem) and (min-height: 87.5rem){ .hero { --mark-h: 35svh; } }
+@media (min-width: 48.0625rem) and (min-height: 100rem) { .hero { --mark-h: 40svh; } }
 
 /* The same rhythm on a phone, but only where there is height to spend on it.
    A 320x568 screen has about two pixels of slack under the sign-up field, so
