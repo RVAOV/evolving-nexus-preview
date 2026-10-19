@@ -600,7 +600,7 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
    actually in force on a laptop, a half-screen window and a tablet. */
 @media (min-width: 48.0625rem) {
   .hero {
-    --hero-size: clamp(2rem, min(6vw, 7.5svh), 6.2rem);
+    --hero-size: clamp(2rem, min(4.7vw, 8.4svh), 5.8rem);
     --hero-gap:  clamp(1rem, min(3.2vw, 3.4svh), 5rem);
   }
   .hero > .shell { max-width: min(116rem, 94vw); }
@@ -613,33 +613,33 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
     margin-bottom: calc(var(--hero-gap) * 0.45);
   }
   .hero__title { max-width: none; font-size: var(--hero-size); }
+  /* The second limit is what stops the subheading overrunning the headline.
+     Its own size bottoms out at 1.2rem so it stays readable, but the headline
+     keeps shrinking on a short screen, and at that point a fixed 54ch measure
+     is wider than the headline above it. Tying the measure to the same scale
+     means it always sits inside. On a normal screen 54ch is the smaller of
+     the two and nothing changes. */
   .hero__sub {
-    max-width: 54ch;
+    max-width: min(54ch, calc(var(--hero-size) * 12));
     margin-top: var(--hero-gap);
     font-size: clamp(1.2rem, calc(var(--hero-size) * 0.33), 2.2rem);
   }
   .hero .capture { margin-top: calc(var(--hero-gap) * 1.8); }
 }
 
-/* From a small laptop up, the headline is sized to the largest it can be while
-   still breaking three ways. The ceiling is set by the measure, not by taste:
-   this sentence is a fixed 67 characters, so the point at which it takes a
-   fourth line is width over roughly nineteen. 4.95vw sits just under that, and
-   once the shell stops widening the rem cap takes over at the same place.
+/* The emblem grows where there is room for it, which is a wide screen OR a
+   tall one: a 1920x950 monitor and an 834x1112 tablet both qualify, for
+   different reasons. It is held by three limits at once, the viewport width,
+   the viewport height, and its own proportion to the headline, so it can
+   never outgrow the type it sits above. Small and short at the same time gets
+   the base size, because those viewports are already near the fold.
 
-   Narrower than this the rule is dropped on purpose. At 834px three lines would
-   mean a 41px headline and a hero only half filled, so a tablet keeps the
-   taller setting and takes a fourth line instead. */
-@media (min-width: 64rem) {
-  .hero { --hero-size: clamp(2rem, min(4.95vw, 8.4svh), 6.2rem); }
-}
-
-/* The emblem grows on a large screen, where there is height to spend. It is
-   held by three limits at once: the viewport width, the viewport height, and
-   its own proportion to the headline, so it can never outgrow the type it sits
-   above. Below 1440px it keeps the smaller size, because the short viewports
-   down there are already within about 45px of the fold. */
-@media (min-width: 90rem) {
+   The width floor on the second condition is load bearing, not tidiness. This
+   rule reads --hero-size, which only exists above it. A tall phone matched on
+   height alone, the variable resolved to nothing, that invalidates the whole
+   width declaration, and the emblem fell back to the image's natural size and
+   pushed the sign-up 83px off a 744x1133 screen. */
+@media (min-width: 90rem), (min-width: 48.0625rem) and (min-height: 60rem) {
   .hero__mark {
     width: clamp(4rem, min(16vw, 20svh, calc(var(--hero-size) * 3.2)), 20rem);
   }
