@@ -630,7 +630,16 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
      544px control sitting under a 1385px headline, which read as an
      afterthought on a large screen. The 3rem floor is a touch target, not a
      look: it holds even where the proportional value would go under 44px. */
-  .hero .capture__row { max-width: min(46rem, calc(var(--hero-size) * 9)); }
+  /* Two guards against the button dropping below the field. The floor stops
+     the proportional width collapsing: at 770px the scale gives 324px, while
+     the field and button need 439px side by side, so the button wrapped.
+     nowrap then makes the field absorb any remaining shortfall by shrinking,
+     rather than the button breaking the line. Wrapping is a phone behaviour
+     and this block never applies there. */
+  .hero .capture__row {
+    flex-wrap: nowrap;
+    max-width: min(46rem, max(28rem, calc(var(--hero-size) * 9)));
+  }
   .hero .capture__input,
   .hero .capture .btn {
     min-height: max(3rem, calc(var(--hero-size) * 0.85));
@@ -654,6 +663,18 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
 @media (min-width: 90rem), (min-width: 48.0625rem) and (min-height: 60rem) {
   .hero__mark {
     width: clamp(4rem, min(16vw, 20svh, calc(var(--hero-size) * 3.2)), 20rem);
+  }
+}
+
+/* Larger again where the screen is genuinely tall, which is the only place
+   there is slack above and below to spend on it. Height alone is not the
+   test: a 1440x864 laptop is tall enough to match a plain svh rule, but its
+   hero is already 89% full and growing the emblem there leaves the sign-up
+   25px off the bottom. 70rem is where real headroom starts, and the three
+   limits still apply, so width and proportion keep it in check. */
+@media (min-width: 48.0625rem) and (min-height: 70rem) {
+  .hero__mark {
+    width: clamp(4rem, min(16vw, 24svh, calc(var(--hero-size) * 5)), 26rem);
   }
 }
 
