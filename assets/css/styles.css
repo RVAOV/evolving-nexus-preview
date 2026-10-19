@@ -1299,17 +1299,33 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
    client's call rather than a layout decision. */
 @media (min-width: 64rem) {
   :root {
-    --space-2xl: clamp(3.5rem, 2.4rem + 3.6vw, 5.5rem);
+    --space-2xl: clamp(2.1rem, 1.6rem + 1.7vw, 3rem);
     --space-xl:  clamp(2.6rem, 2rem + 2.4vw, 4rem);
-    --space-l:   2.2rem;
+    --space-l:   1.5rem;
     --space-m:   1.45rem;
   }
+  .h2 { margin-bottom: var(--space-xs); }
+  .lede { margin-top: var(--space-s); }
+  #audience .who li { padding-block: 1rem; }
+  #audience .who { gap: 0 var(--space-l); }
+  #testimonials .quotes__note { margin-top: var(--space-s); }
   #audience .who { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  /* The rule that clears the rule above the top row counts two items,
+     because the grid was two wide. At three wide the top row is three
+     items and the third kept a gold line its neighbours did not have. */
+  #audience .who li:nth-child(-n + 3) { border-top: 0; padding-top: 0; }
   #about .qpair  { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  /* Multi-column rather than a grid: the questions are different lengths, and
-     columns pack them by height instead of leaving a ragged second row. */
-  #questions .faq { columns: 2; column-gap: var(--space-l); }
-  #questions .faq__item { break-inside: avoid; }
+  /* A grid, not CSS columns. Columns reflow their content to stay balanced,
+     so opening one answer could push a question from one column into the
+     other and the whole right side appeared to jump. A grid fixes each item
+     in place: opening one grows its own row and nothing moves sideways. With
+     seven questions the left column simply carries the extra one. */
+  #questions .faq {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--space-xl);
+    align-items: start;
+  }
   #founders .portrait img { max-height: 46svh; width: auto; margin-inline: auto; }
   #programs .paths { gap: var(--space-l); }
 }
@@ -1318,4 +1334,4 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
    as one undifferentiated block and the section looked top heavy; the second
    is the supporting detail, so it steps down. Still above body size, so it
    does not read as fine print. */
-#join .lede + .lede { font-size: calc(var(--step-1) * 0.88); }
+#join .lede + .lede { font-size: var(--step-0); }
