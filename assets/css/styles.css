@@ -594,8 +594,16 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
    actually in force on a laptop, a half-screen window and a tablet. */
 @media (min-width: 48.0625rem) {
   .hero {
-    --hero-size: clamp(2rem, min(4.7vw, 7.8svh), 5rem);
-    --hero-gap:  clamp(1rem, min(3.2vw, 3.4svh), 5rem);
+    /* One scale. Every part of the opening is a multiple of it, so the
+       composition is the same on a tablet and on a monitor and only its
+       size changes. Before this each part had its own rule and the
+       proportions drifted: the emblem ran between 2.7 and 6.3 times the
+       headline depending on the screen, and the field between 6.8 and
+       11.4, which is why the opening looked like a different design at
+       every size. 6.6svh is the largest the scale can be while the whole
+       hero still fits one screen at the tightest aspect ratio tested. */
+    --hero-size: clamp(2rem, min(4.7vw, 6.6svh), 5rem);
+    --hero-gap:  calc(var(--hero-size) * 0.42);
   }
   /* The hero has to be one screen, and it was not. --space-l and --space-xl
      scale on width, so on a 1536x864 laptop they came out at 44 and 96, which
@@ -642,7 +650,10 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
      and this block never applies there. */
   .hero .capture__row {
     flex-wrap: nowrap;
-    max-width: min(34rem, max(28rem, calc(var(--hero-size) * 7)));
+    /* Proportional like the rest, with a floor. Purely proportional the
+       field fell to a 119px box on a small window, which is not a usable
+       control whatever the arithmetic says. */
+    max-width: max(24rem, calc(var(--hero-size) * 6.5));
   }
   .hero .capture__input,
   .hero .capture .btn {
@@ -664,46 +675,20 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
    height alone, the variable resolved to nothing, that invalidates the whole
    width declaration, and the emblem fell back to the image's natural size and
    pushed the sign-up 83px off a 744x1133 screen. */
-/* The emblem is sized by the room actually left under the sign-up, measured
-   rather than assumed. It used to be held to 3.2x the headline, and when the
-   headline came down to 80px on a large screen that quietly dragged the
-   emblem down with it: 125px on a tablet that had space for 605px. The
-   proportion guard is gone and the limit is now height, which is what the
-   constraint really was.
+/* The emblem is a multiple of the scale like everything else. It used to
+   carry its own ladder of height steps, which is what let it drift to six
+   times the headline on one screen and under three on another. Four is the
+   proportion the laptop sizes already sat near, so those barely move and
+   every other screen comes into line with them.
 
-   Each step is the largest value that still clears the fold at the tightest
-   screen in its band, found by binary search across 480 viewports. They are
-   not a smooth curve because the space available is not smooth: the headline
-   drops from three lines to two at some sizes and hands back about 60px all
-   at once. 24vw keeps it sane on a narrow window and 30rem stops it running
-   away on a 4K display.
-
-   The width term was 24vw and that was the real fault: on a tall screen it,
-   not the height, was the limit. At 1280x1310 it held the emblem to 307px
-   with 206px of clearance sitting unused, which reads as a small emblem
-   floating in empty space. The height steps already stop it overrunning, so
-   the width term only has to keep it from dominating a narrow window.
-
-   The steps continue past 1200px because the room keeps growing: the text
-   block barely changes above that height while the screen does, so a single
-   coefficient for everything tall gets fixed by the shortest screen in the
-   band and wastes the rest. */
+   Scoped to the same breakpoint as --hero-size, and that is load bearing. Left
+   at the top level it applied to phones too, where the variable does not
+   exist; that invalidates the whole width declaration, the emblem falls back
+   to the image's natural size, and the sign-up went 208px off a 320px
+   screen. */
 @media (min-width: 48.0625rem) {
-  .hero { --mark-h: 18svh; }
-  .hero__mark { width: clamp(4rem, min(34vw, var(--mark-h)), 40rem); }
+  .hero__mark { width: calc(var(--hero-size) * 4); }
 }
-/* Wide and short: the headline takes two lines here, not three, so there is
-   more room than the height alone suggests. Without this those screens would
-   come out smaller than before. */
-@media (min-width: 90rem) and (max-height: 37.9375rem) { .hero { --mark-h: 20svh; } }
-@media (min-width: 48.0625rem) and (min-height: 38rem) { .hero { --mark-h: 20svh; } }
-@media (min-width: 48.0625rem) and (min-height: 44rem) { .hero { --mark-h: 21svh; } }
-
-@media (min-width: 48.0625rem) and (min-height: 70rem) { .hero { --mark-h: 26svh; } }
-@media (min-width: 48.0625rem) and (min-height: 75rem)  { .hero { --mark-h: 28svh; } }
-@media (min-width: 48.0625rem) and (min-height: 80rem)  { .hero { --mark-h: 31svh; } }
-@media (min-width: 48.0625rem) and (min-height: 87.5rem){ .hero { --mark-h: 35svh; } }
-@media (min-width: 48.0625rem) and (min-height: 100rem) { .hero { --mark-h: 40svh; } }
 
 /* The same rhythm on a phone, but only where there is height to spend on it.
    A 320x568 screen has about two pixels of slack under the sign-up field, so
