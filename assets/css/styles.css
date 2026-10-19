@@ -633,7 +633,7 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
      means it always sits inside. On a normal screen 54ch is the smaller of
      the two and nothing changes. */
   .hero__sub {
-    max-width: min(72ch, calc(var(--hero-size) * 15));
+    max-width: min(72ch, calc(var(--hero-size) * 17));
     margin-top: var(--hero-gap);
     font-size: clamp(1.2rem, calc(var(--hero-size) * 0.48), 3rem);
   }
