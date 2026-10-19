@@ -106,7 +106,7 @@
 <link rel="preload" href="assets/fonts/lora-latin-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" as="image" href="assets/img/founders-700.webp" type="image/webp" fetchpriority="high">
 
-<link rel="stylesheet" href="assets/css/styles.css?v=3aff1296">
+<link rel="stylesheet" href="assets/css/styles.css?v=95d91f47">
 <script>document.documentElement.classList.replace('no-js','js');</script>
 
 <!-- Structured data. The playbook calls out FAQ schema specifically, because
@@ -1170,6 +1170,37 @@
     new IntersectionObserver(function (entries) {
       nav.classList.toggle('is-visible', !entries[0].isIntersecting);
     }, { rootMargin: '-120px 0px 0px 0px' }).observe(hero);
+  }
+
+  /* --- The bar steps aside while reading down ---------------------------- */
+  /* It is 73px tall and it was covering the top of every section for the whole
+     descent, which is why sections that measure under one screen still did not
+     sit in one. Reading goes downward and the bar is not wanted during it. A
+     scroll back up is what someone does when they want the menu or Join, so
+     that is what brings it back.
+
+     The 6px threshold keeps it still during the small jitters a trackpad and a
+     phone's rubber-band produce; without it the bar flickers. */
+  if (nav) {
+    var lastY = window.pageYOffset || 0;
+    var ticking = false;
+    var onScroll = function () {
+      var y = window.pageYOffset || 0;
+      var dy = y - lastY;
+      if (Math.abs(dy) > 6) {
+        /* Never tuck it near the top: there it is either already hidden over
+           the opening or just arriving, and hiding it again reads as a flicker. */
+        nav.classList.toggle('is-tucked', dy > 0 && y > 240);
+        lastY = y;
+      }
+      ticking = false;
+    };
+    window.addEventListener('scroll', function () {
+      if (!ticking) { ticking = true; window.requestAnimationFrame(onScroll); }
+    }, { passive: true });
+    /* Whatever the scroll direction, a keyboard user tabbing to something in
+       the bar must be able to see it. */
+    nav.addEventListener('focusin', function () { nav.classList.remove('is-tucked'); });
   }
 
   /* --- Quiet scroll-in --------------------------------------------------- */

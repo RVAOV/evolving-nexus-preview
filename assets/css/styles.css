@@ -292,6 +292,21 @@ p { text-wrap: pretty; }
 .nav.is-visible.is-typing, .nav.is-typing {
   transform: translateY(-100%); opacity: 0; visibility: hidden;
 }
+/* Out of the way while reading down, back on the way up.
+   The bar is 73px of a 864px laptop screen, and it was sitting over the top of
+   every section the whole way down the page, so a section had 791px to fit
+   into rather than the full height. Reading is downward, and nothing in the
+   bar is wanted during it; the moment the reader scrolls back up, which is
+   what people do when they want navigation or the Join button, it returns.
+
+   Transform and opacity only, no visibility: hidden. Hiding it that way takes
+   the links and the Join button out of the tab order altogether, so a reader
+   using a keyboard could not reach them at all once the page had scrolled.
+   Translated off the top it is just as invisible, still focusable, and the
+   focusin handler slides it back the moment anything in it is tabbed to. */
+.nav.is-visible.is-tucked {
+  transform: translateY(-100%); opacity: 0;
+}
 .no-js .nav { position: sticky; transform: none; opacity: 1; visibility: visible; }
 .nav__inner {
   display: flex; align-items: center; justify-content: space-between;
