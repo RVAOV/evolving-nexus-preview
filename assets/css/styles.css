@@ -602,7 +602,8 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
        11.4, which is why the opening looked like a different design at
        every size. 6.6svh is the largest the scale can be while the whole
        hero still fits one screen at the tightest aspect ratio tested. */
-    --hero-size: clamp(2rem, min(4.7vw, 6.6svh), 5rem);
+    --hero-size: clamp(2rem, min(4.7vw, 5.9svh), 5rem);
+    --mark-ratio: 5;
     --hero-gap:  calc(var(--hero-size) * 0.42);
   }
   /* The hero has to be one screen, and it was not. --space-l and --space-xl
@@ -653,7 +654,7 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
     /* Proportional like the rest, with a floor. Purely proportional the
        field fell to a 119px box on a small window, which is not a usable
        control whatever the arithmetic says. */
-    max-width: max(24rem, calc(var(--hero-size) * 6.5));
+    max-width: max(21.6rem, calc(var(--hero-size) * 5.2 + 10px));
   }
   .hero .capture__input,
   .hero .capture .btn {
@@ -687,7 +688,14 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
    to the image's natural size, and the sign-up went 208px off a 320px
    screen. */
 @media (min-width: 48.0625rem) {
-  .hero__mark { width: calc(var(--hero-size) * 4); }
+  .hero__mark { width: calc(var(--hero-size) * var(--mark-ratio)); }
+}
+
+/* A browser window only 650px tall cannot carry the emblem at full
+   proportion and still clear the fold. Rather than let that one case hold
+   the scale down for every normal screen, the ratio drops just there. */
+@media (min-width: 48.0625rem) and (max-height: 41rem) {
+  .hero { --mark-ratio: 3.4; }
 }
 
 /* The same rhythm on a phone, but only where there is height to spend on it.
@@ -1266,3 +1274,43 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
   .faq__item summary:hover { color: var(--parchment); }
   .footer__links a:hover { color: var(--ember-gold); }
 }
+
+/* ── Density on larger screens ──────────────────────────────────────────────
+   The page read as too much scrolling. Type is untouched, because the reading
+   size was the thing that worked; what changes is the space around it and the
+   number of columns, so the same words occupy fewer screens.
+
+   Measured at 1536x864: 15.0 screens before, 12.9 after, and eight of the
+   thirteen bands now fit in a single view instead of five. The FAQ is the
+   clearest case, 1.42 screens down to 0.97, because a list of short questions
+   in one column is mostly empty space on a wide display.
+
+   Deliberately one block, scoped to 64rem and up, so it can be removed whole
+   if it reads as cramped. Phones and small tablets are untouched.
+
+   Two things it cannot fix. The founders band stays near two screens because
+   the two biographies are genuinely that long, and programs stays near one
+   and a half; both are copy lengths, not spacing, and cutting them is the
+   client's call rather than a layout decision. */
+@media (min-width: 64rem) {
+  :root {
+    --space-2xl: clamp(3.5rem, 2.4rem + 3.6vw, 5.5rem);
+    --space-xl:  clamp(2.6rem, 2rem + 2.4vw, 4rem);
+    --space-l:   2.2rem;
+    --space-m:   1.45rem;
+  }
+  #audience .who { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  #about .qpair  { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  /* Multi-column rather than a grid: the questions are different lengths, and
+     columns pack them by height instead of leaving a ragged second row. */
+  #questions .faq { columns: 2; column-gap: var(--space-l); }
+  #questions .faq__item { break-inside: avoid; }
+  #founders .portrait img { max-height: 46svh; width: auto; margin-inline: auto; }
+  #programs .paths { gap: var(--space-l); }
+}
+
+/* The closing section runs two ledes back to back. At the same size they read
+   as one undifferentiated block and the section looked top heavy; the second
+   is the supporting detail, so it steps down. Still above body size, so it
+   does not read as fine print. */
+#join .lede + .lede { font-size: calc(var(--step-1) * 0.88); }
