@@ -600,7 +600,7 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
    actually in force on a laptop, a half-screen window and a tablet. */
 @media (min-width: 48.0625rem) {
   .hero {
-    --hero-size: clamp(2rem, min(4.7vw, 8.4svh), 5.8rem);
+    --hero-size: clamp(2rem, min(4.7vw, 7.8svh), 5rem);
     --hero-gap:  clamp(1rem, min(3.2vw, 3.4svh), 5rem);
   }
   .hero > .shell { max-width: min(116rem, 94vw); }
@@ -620,11 +620,23 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
      means it always sits inside. On a normal screen 54ch is the smaller of
      the two and nothing changes. */
   .hero__sub {
-    max-width: min(54ch, calc(var(--hero-size) * 12));
+    max-width: min(72ch, calc(var(--hero-size) * 15));
     margin-top: var(--hero-gap);
-    font-size: clamp(1.2rem, calc(var(--hero-size) * 0.33), 2.2rem);
+    font-size: clamp(1.2rem, calc(var(--hero-size) * 0.48), 3rem);
   }
   .hero .capture { margin-top: calc(var(--hero-gap) * 1.8); }
+
+  /* The field scales with the rest of it. Left at the shared 34rem it was a
+     544px control sitting under a 1385px headline, which read as an
+     afterthought on a large screen. The 3rem floor is a touch target, not a
+     look: it holds even where the proportional value would go under 44px. */
+  .hero .capture__row { max-width: min(46rem, calc(var(--hero-size) * 9)); }
+  .hero .capture__input,
+  .hero .capture .btn {
+    min-height: max(3rem, calc(var(--hero-size) * 0.85));
+  }
+  .hero .capture__input { font-size: clamp(1rem, calc(var(--hero-size) * 0.26), 1.6rem); }
+  .hero .capture .btn { font-size: clamp(0.9rem, calc(var(--hero-size) * 0.2), 1.3rem); }
 }
 
 /* The emblem grows where there is room for it, which is a wide screen OR a
