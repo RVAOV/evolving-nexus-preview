@@ -654,7 +654,12 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
     /* Proportional like the rest, with a floor. Purely proportional the
        field fell to a 119px box on a small window, which is not a usable
        control whatever the arithmetic says. */
-    max-width: max(21.6rem, calc(var(--hero-size) * 5.2 + 10px));
+    /* 24.625rem is the width this field had on a laptop when the ten extra
+       pixels were asked for (384px), plus the ten. An earlier note said the
+       box was too wide on wide screens, so the proportional term stays at
+       5.2 and only the very large displays come down; the floor is what a
+       laptop actually gets. */
+    max-width: max(24.625rem, calc(var(--hero-size) * 5.2 + 10px));
   }
   .hero .capture__input,
   .hero .capture .btn {
