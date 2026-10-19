@@ -495,6 +495,15 @@ p { text-wrap: pretty; }
 
 /* The hero emblem as a link. Inline-block so the anchor wraps the image
    exactly and does not pick up a full-width hit area. */
+/* The two hero spacings that are not on the element's own rule. These were
+   declared at the bottom of the file, after every media query, so they
+   silently beat all of them: the phone block set its own capture gap and
+   never got it, and the sign-up sat at 1.15x the gap above it on every
+   screen no matter what the breakpoints asked for. Base rules belong above
+   the overrides. */
+.hero .eyebrow { margin-bottom: calc(var(--hero-gap) * 0.55); }
+.hero .capture { margin-top: calc(var(--hero-gap) * 1.15); }
+
 /* Short viewports. A 1366x768 laptop is as tight as a phone vertically, and
    the headline is where the height comes from. */
 @media (max-height: 50rem) {
@@ -573,27 +582,57 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
    Verified against seventeen viewports including ultrawide, maximised-with-
    chrome and half-screen, which the earlier full-height 16:9 set had missed
    entirely. */
-@media (min-width: 48.0625rem) {
-  :root { --hero-gap: clamp(1rem, min(3.2vw, 3.2svh), 5rem); }
-  .hero > .shell { max-width: min(84rem, 92vw); }
-  .hero__mark { width: clamp(4rem, min(14vw, 13svh), 12rem); }
-  .hero__title {
-    max-width: none;
-    font-size: clamp(2rem, min(5.75vw, 7.5svh), 5.25rem);
-  }
-  .hero__sub {
-    max-width: 46ch;
-    font-size: clamp(1.05rem, min(3.2vw, 2.3svh), 1.95rem);
-  }
-}
-.hero .eyebrow { margin-bottom: calc(var(--hero-gap) * 0.55); }
+/* Everything here hangs off --hero-size. Each of these used to carry its own
+   clamp, tuned separately, and they drifted: the headline-to-subheading ratio
+   ran anywhere from 2.4 to 3.3 depending on the screen, the subheading fell to
+   16.8px on a short laptop, and the eyebrow was frozen at 18.4px on every
+   desktop so at 2560 it vanished under an 84px headline. One driver keeps the
+   ratio at 3.0 everywhere and gives the subheading a floor it cannot go under.
 
+   The gaps are a rhythm, not four similar numbers. The sign-up is a separate
+   unit from the sentence above it and has to read that way, so it sits at
+   1.8x the headline-to-subheading gap. It was 1.14x, which is why it looked
+   stuck to the subheading.
+
+   The opening runs close to the full width and only stops widening once the
+   screen is wider than about 1700px, where a line of display type gets too
+   long to track comfortably. Below that the cap never binds: 94vw is what is
+   actually in force on a laptop, a half-screen window and a tablet. */
+@media (min-width: 48.0625rem) {
+  .hero {
+    --hero-size: clamp(2rem, min(6vw, 7.5svh), 5.75rem);
+    --hero-gap:  clamp(1rem, min(3.2vw, 3.4svh), 5rem);
+  }
+  .hero > .shell { max-width: min(100rem, 94vw); }
+  .hero__mark {
+    width: clamp(4rem, min(16vw, 15svh), 13rem);
+    margin-bottom: calc(var(--hero-gap) * 0.75);
+  }
+  .hero .eyebrow {
+    font-size: clamp(1rem, calc(var(--hero-size) * 0.26), 1.7rem);
+    margin-bottom: calc(var(--hero-gap) * 0.45);
+  }
+  .hero__title { max-width: none; font-size: var(--hero-size); }
+  .hero__sub {
+    max-width: 54ch;
+    margin-top: var(--hero-gap);
+    font-size: clamp(1.2rem, calc(var(--hero-size) * 0.33), 2.2rem);
+  }
+  .hero .capture { margin-top: calc(var(--hero-gap) * 1.8); }
+}
+
+/* The same rhythm on a phone, but only where there is height to spend on it.
+   A 320x568 screen has about two pixels of slack under the sign-up field, so
+   it keeps the tighter gap rather than being pushed over the fold for the
+   sake of consistency. */
+@media (max-width: 48rem) and (min-height: 40rem) {
+  .hero .capture { margin-top: clamp(1.1rem, 4svh, 3.4rem); }
+}
 .hero__home { display: inline-block; text-decoration: none; }
 .hero__home:focus-visible { outline: 2px solid var(--ember-gold); outline-offset: 6px; }
 
 /* -- Capture ------------------------------------------------------------- */
 .capture { margin: var(--space-l) auto 0; }
-.hero .capture { margin-top: calc(var(--hero-gap) * 1.15); }
 
 
 .capture__row { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center;
