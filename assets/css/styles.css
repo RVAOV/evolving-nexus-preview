@@ -617,8 +617,14 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
        11.4, which is why the opening looked like a different design at
        every size. 6.6svh is the largest the scale can be while the whole
        hero still fits one screen at the tightest aspect ratio tested. */
-    --hero-size: clamp(2rem, min(4.7vw, 5.9svh), 5rem);
-    --mark-ratio: 5;
+    /* 7.4svh is the smallest scale that still breaks the headline three
+       ways on a laptop. Below it the sentence falls to two lines and the
+       opening loses its shape. The emblem ratio comes down to 3.2 to pay
+       for it: at 760px of viewport there is not enough height for both a
+       three line headline and a five times emblem, and the headline is
+       the more important of the two. */
+    --hero-size: clamp(2rem, min(4.7vw, 7.4svh), 5rem);
+    --mark-ratio: 3.2;
     --hero-gap:  calc(var(--hero-size) * 0.42);
   }
   /* The hero has to be one screen, and it was not. --space-l and --space-xl
@@ -674,7 +680,7 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
        box was too wide on wide screens, so the proportional term stays at
        5.2 and only the very large displays come down; the floor is what a
        laptop actually gets. */
-    max-width: max(24.625rem, calc(var(--hero-size) * 5.2 + 10px));
+    max-width: max(27rem, calc(var(--hero-size) * 5.2 + 10px));
   }
   .hero .capture__input,
   .hero .capture .btn {
@@ -715,7 +721,7 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
    proportion and still clear the fold. Rather than let that one case hold
    the scale down for every normal screen, the ratio drops just there. */
 @media (min-width: 48.0625rem) and (max-height: 41rem) {
-  .hero { --mark-ratio: 3.4; }
+  .hero { --hero-size: clamp(2rem, min(4.7vw, 5.9svh), 5rem); --mark-ratio: 3.2; }
 }
 
 /* The same rhythm on a phone, but only where there is height to spend on it.
