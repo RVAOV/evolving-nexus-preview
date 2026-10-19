@@ -20,7 +20,6 @@
      05 Layout  06 Components  07 Motion  08 Print
    =========================================================================== */
 
-
 /* ── 01 Fonts ───────────────────────────────────────────────────────────────
    Self-hosted Latin subsets: no render-blocking third-party request, and no
    visitor IP disclosed to a font CDN, which matters on a page that makes an
@@ -41,7 +40,6 @@
   font-style: italic; font-weight: 400 500; font-display: swap;
   src: url('../fonts/lora-italic-latin-var.woff2') format('woff2');
 }
-
 
 /* ── 02 Tokens ──────────────────────────────────────────────────────────── */
 
@@ -113,7 +111,6 @@
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
-
 /* ── 03 Reset ───────────────────────────────────────────────────────────── */
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -170,7 +167,6 @@ a { color: var(--ember-gold); text-underline-offset: 0.18em; }
   transition: transform 180ms var(--ease);
 }
 .skip-link:focus { transform: translate(-50%, 0); }
-
 
 /* ── 04 Type ────────────────────────────────────────────────────────────── */
 
@@ -236,7 +232,6 @@ p { text-wrap: pretty; }
   color: var(--parchment);
 }
 
-
 /* ── 05 Layout ──────────────────────────────────────────────────────────── */
 
 .shell {
@@ -271,7 +266,6 @@ p { text-wrap: pretty; }
   font-size: 0.6rem;
   line-height: 1;
 }
-
 
 /* ── 06 Components ──────────────────────────────────────────────────────── */
 
@@ -603,6 +597,16 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
     --hero-size: clamp(2rem, min(4.7vw, 7.8svh), 5rem);
     --hero-gap:  clamp(1rem, min(3.2vw, 3.4svh), 5rem);
   }
+  /* The hero has to be one screen, and it was not. --space-l and --space-xl
+     scale on width, so on a 1536x864 laptop they came out at 44 and 96, which
+     with the content made the section 926px tall in an 864px viewport: 62px
+     of padding hanging below the fold, and the emblem starved of the room it
+     needed. Padding in a box that must fit the screen has to be measured in
+     the screen, so these are svh. */
+  .hero {
+    padding-block: calc(clamp(1rem, 3.5svh, 3.5rem) + env(safe-area-inset-top, 0px))
+                   calc(clamp(1.25rem, 4.5svh, 4.5rem) + env(safe-area-inset-bottom, 0px));
+  }
   .hero > .shell { max-width: min(116rem, 94vw); }
   .hero__mark {
     width: clamp(4rem, min(16vw, 15svh), 13rem);
@@ -638,7 +642,7 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
      and this block never applies there. */
   .hero .capture__row {
     flex-wrap: nowrap;
-    max-width: min(46rem, max(28rem, calc(var(--hero-size) * 9)));
+    max-width: min(34rem, max(28rem, calc(var(--hero-size) * 7)));
   }
   .hero .capture__input,
   .hero .capture .btn {
@@ -674,8 +678,8 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
    at once. 24vw keeps it sane on a narrow window and 30rem stops it running
    away on a 4K display. */
 @media (min-width: 48.0625rem) {
-  .hero { --mark-h: 17svh; }
-  .hero__mark { width: clamp(4rem, min(24vw, var(--mark-h)), 30rem); }
+  .hero { --mark-h: 18svh; }
+  .hero__mark { width: clamp(4rem, min(24vw, var(--mark-h)), 34rem); }
 }
 /* Wide and short: the headline takes two lines here, not three, so there is
    more room than the height alone suggests. Without this those screens would
@@ -683,8 +687,9 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
 @media (min-width: 90rem) and (max-height: 37.9375rem) { .hero { --mark-h: 20svh; } }
 @media (min-width: 48.0625rem) and (min-height: 38rem) { .hero { --mark-h: 20svh; } }
 @media (min-width: 48.0625rem) and (min-height: 44rem) { .hero { --mark-h: 21svh; } }
-@media (min-width: 48.0625rem) and (min-height: 62rem) { .hero { --mark-h: 23svh; } }
+
 @media (min-width: 48.0625rem) and (min-height: 70rem) { .hero { --mark-h: 26svh; } }
+@media (min-width: 48.0625rem) and (min-height: 75rem) { .hero { --mark-h: 28svh; } }
 
 /* The same rhythm on a phone, but only where there is height to spend on it.
    A 320x568 screen has about two pixels of slack under the sign-up field, so
@@ -698,7 +703,6 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
 
 /* -- Capture ------------------------------------------------------------- */
 .capture { margin: var(--space-l) auto 0; }
-
 
 .capture__row { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center;
                max-width: 34rem; margin-inline: auto; }
@@ -861,12 +865,14 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
    heading and wrong for a four-line sentence, which was arriving as a wall of
    caps and taking real effort to read. The endorsement is the most persuasive
    sentence on the page and it has to be effortless. Set as a book sets a pull
-   quote: the text face, italic, a size above body, gold for emphasis. */
+   quote: the text face, a size above body, gold for emphasis. Roman rather
+   than italic. A long italic passage is slower to read than the same words
+   upright, and this is the most persuasive sentence on the page, so the size
+   and the colour carry the emphasis instead. */
 .endorse blockquote p {
   margin-inline: auto;
   font-family: var(--font-text);
   font-size: var(--step-1);
-  font-style: italic;
   line-height: 1.62;
   color: var(--ember-gold);
 }
@@ -1003,7 +1009,6 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
 .doc li { margin-top: 0.3rem; }
 .doc .footer, .doc .nav__inner { text-align: center; }
 
-
 /* A document opens directly under its masthead; it does not need the band of
    air a landing-page section opens with. */
 .doc main > .section { padding-top: var(--space-l); }
@@ -1051,7 +1056,6 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
   [data-animate] { opacity: 1 !important; }
 }
 
-
 /* ── 08 Print ───────────────────────────────────────────────────────────── */
 
 @media print {
@@ -1064,7 +1068,6 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
   [data-animate] { opacity: 1 !important; }
   a[href^='http']::after { content:' (' attr(href) ')'; font-size:0.85em; color:#555; }
 }
-
 
 /* The FAQ deck is the longest line on the page: it needs 1135px and the
    shell's gutter leaves 1056, so it broke in two above 1920. Past 78rem the
@@ -1139,7 +1142,6 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
 }
 .prose p + p { margin-top: var(--space-m); }
 
-
 /* The client's gloss on each path, under the question. */
 .path__desc {
   margin: var(--space-xs) auto 0;
@@ -1210,7 +1212,6 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
 .coda .signature { margin-top: var(--space-l); }
 .coda .signature__names { font-size: var(--step-0); }
 .coda .signature__role { margin-top: 0.3rem; }
-
 
 /* ═══════════ SIGN-UP CONFIRMATION ═══════════
    Replaces the form rather than sitting under it. A form that still looks
