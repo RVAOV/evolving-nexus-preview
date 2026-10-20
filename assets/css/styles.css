@@ -663,18 +663,13 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
      nowrap then makes the field absorb any remaining shortfall by shrinking,
      rather than the button breaking the line. Wrapping is a phone behaviour
      and this block never applies there. */
-  .hero .capture__row {
-    flex-wrap: nowrap;
-    /* Proportional like the rest, with a floor. Purely proportional the
-       field fell to a 119px box on a small window, which is not a usable
-       control whatever the arithmetic says. */
-    /* 24.625rem is the width this field had on a laptop when the ten extra
-       pixels were asked for (384px), plus the ten. An earlier note said the
-       box was too wide on wide screens, so the proportional term stays at
-       5.2 and only the very large displays come down; the floor is what a
-       laptop actually gets. */
-    max-width: max(27rem, calc(var(--hero-size) * 5.2 + 10px));
-  }
+  /* A share of the measure it sits in, with a ceiling, not a fixed width.
+     Held at 544px the field was 51% of a wide container and 77% of a narrow
+     one, so on a small laptop it read as spanning the whole column and on a
+     large one as normal. The ratio was drifting by 1.8x across the range,
+     which is the breaking on some screens and not others. Both forms take
+     the same rule so they cannot disagree. */
+  .hero .capture__row { flex-wrap: nowrap; }
   .hero .capture__input,
   .hero .capture .btn {
     min-height: max(3rem, calc(var(--hero-size) * 0.85));
@@ -1327,10 +1322,6 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
   #audience .who { margin-top: var(--space-s); }
   #audience .who { gap: 0 var(--space-l); }
   #testimonials .quotes__note { margin-top: var(--space-s); }
-  /* From a laptop up the opening's field matches the one in the closing
-     section. They are the same control doing the same job and were 432px and
-     544px, which read as two different components rather than one. */
-  .hero .capture__row { max-width: max(34rem, calc(var(--hero-size) * 5.2 + 10px)); }
   #audience .who { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   /* The rule that clears the rule above the top row counts two items,
      because the grid was two wide. At three wide the top row is three
@@ -1375,4 +1366,12 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
    not better. */
 @media (min-width: 75rem) {
   #audience > .shell { max-width: min(94vw, 82rem); }
+}
+
+/* Declared here, after the Capture block, on purpose. Put with the other hero
+   rules it lost to the plain .capture__row further down the file, which has
+   the same specificity and comes later, so the field stayed a fixed 544px and
+   nothing appeared to change. Base rules before overrides. */
+@media (min-width: 48.0625rem) {
+  .capture__row { max-width: min(34rem, 52%); }
 }
