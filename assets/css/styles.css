@@ -1308,12 +1308,19 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
    client's call rather than a layout decision. */
 @media (min-width: 64rem) {
   :root {
-    --space-2xl: clamp(1.8rem, 1.4rem + 1.4vw, 2.6rem);
+    /* The density pass took this to 42px and the sections read as cramped:
+       the band was tighter than the space inside it. 56px is enough air
+       around a section to separate it from its neighbours. */
+    --space-2xl: clamp(2.4rem, 1.9rem + 1.9vw, 3.5rem);
     --space-xl:  clamp(2.6rem, 2rem + 2.4vw, 4rem);
     --space-l:   1.5rem;
     --space-m:   1.45rem;
   }
-  .h2 { margin-bottom: var(--space-xs); }
+  /* The headings were closer to the text under them than their own lines
+     are to each other, which is what made the stack read as compressed.
+     A deck set at 44px needs more than 18px beneath it. */
+  .eyebrow { margin-bottom: var(--space-m); }
+  .h2 { margin-bottom: var(--space-l); }
   .lede { margin-top: var(--space-s); }
   /* Who it's for is asked to sit in a single view. The rows carried more
      padding than they needed and the deck sat a full step away from the
@@ -1374,4 +1381,19 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
    nothing appeared to change. Base rules before overrides. */
 @media (min-width: 48.0625rem) {
   .capture__row { max-width: min(34rem, 52%); }
+}
+
+/* The closing band, and the reading measure.
+
+   The closing line had 83px above and below after the last pass, which was
+   more than it needed for a single sentence; 1.1x the section padding keeps
+   it the most open band on the page without the gap becoming the subject.
+
+   58rem of prose at this size runs 81 characters to the line, past the 45 to
+   75 that is comfortable to track. 66ch brings it to 68. Note this is a
+   measure problem and not a size problem: setting the type smaller in the
+   same column would put MORE characters on each line, not fewer. */
+@media (min-width: 64rem) {
+  .coda { padding-block: calc(var(--space-2xl) * 1.1); }
+  .prose { max-width: 66ch; }
 }
