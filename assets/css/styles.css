@@ -292,21 +292,7 @@ p { text-wrap: pretty; }
 .nav.is-visible.is-typing, .nav.is-typing {
   transform: translateY(-100%); opacity: 0; visibility: hidden;
 }
-/* Out of the way while reading down, back on the way up.
-   The bar is 73px of a 864px laptop screen, and it was sitting over the top of
-   every section the whole way down the page, so a section had 791px to fit
-   into rather than the full height. Reading is downward, and nothing in the
-   bar is wanted during it; the moment the reader scrolls back up, which is
-   what people do when they want navigation or the Join button, it returns.
 
-   Transform and opacity only, no visibility: hidden. Hiding it that way takes
-   the links and the Join button out of the tab order altogether, so a reader
-   using a keyboard could not reach them at all once the page had scrolled.
-   Translated off the top it is just as invisible, still focusable, and the
-   focusin handler slides it back the moment anything in it is tabbed to. */
-.nav.is-visible.is-tucked {
-  transform: translateY(-100%); opacity: 0;
-}
 .no-js .nav { position: sticky; transform: none; opacity: 1; visibility: visible; }
 .nav__inner {
   display: flex; align-items: center; justify-content: space-between;
@@ -1327,14 +1313,18 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
    client's call rather than a layout decision. */
 @media (min-width: 64rem) {
   :root {
-    --space-2xl: clamp(2.1rem, 1.6rem + 1.7vw, 3rem);
+    --space-2xl: clamp(1.8rem, 1.4rem + 1.4vw, 2.6rem);
     --space-xl:  clamp(2.6rem, 2rem + 2.4vw, 4rem);
     --space-l:   1.5rem;
     --space-m:   1.45rem;
   }
   .h2 { margin-bottom: var(--space-xs); }
   .lede { margin-top: var(--space-s); }
-  #audience .who li { padding-block: 1rem; }
+  /* Who it's for is asked to sit in a single view. The rows carried more
+     padding than they needed and the deck sat a full step away from the
+     list; together those were most of the overflow. */
+  #audience .who li { padding-block: 0.5rem; }
+  #audience .who { margin-top: var(--space-s); }
   #audience .who { gap: 0 var(--space-l); }
   #testimonials .quotes__note { margin-top: var(--space-s); }
   /* From a laptop up the opening's field matches the one in the closing
@@ -1366,4 +1356,23 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
    as one undifferentiated block and the section looked top heavy; the second
    is the supporting detail, so it steps down. Still above body size, so it
    does not read as fine print. */
-#join .lede + .lede { font-size: var(--step-0); }
+/* The closing section sets two paragraphs one above the other. At the shared
+   1.6 the lines inside each ran looser than the gap between the two, so the
+   block read as one loose mass rather than two statements: the leading has to
+   be tighter than the separation, not the other way round. */
+#join .lede { line-height: 1.45; }
+#join .lede + .lede { font-size: var(--step-0); margin-top: 2.6rem; }
+
+/* The closing line is the last thing on the page and was sitting in the same
+   compressed band as every other section after the density pass. It is one
+   sentence and it earns the air. */
+.coda { padding-block: calc(var(--space-2xl) * 2); }
+
+/* The same section again, wider. Its six headings each want a line of their
+   own, and at the 72rem shell they were taking two, which is what pushed the
+   list past one screen. Only from 1200px up: below that 94vw is narrower than
+   the default shell and widening it this way would make the wrapping worse,
+   not better. */
+@media (min-width: 75rem) {
+  #audience > .shell { max-width: min(94vw, 82rem); }
+}
