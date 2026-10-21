@@ -1341,6 +1341,12 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
      in place: opening one grows its own row and nothing moves sideways. With
      seven questions the left column simply carries the extra one. */
   #questions .faq {
+    /* The full shell, not the 58rem that suits a single column. Split in two
+       it left 432px a side, and the summary is a flex row whose plus sign
+       takes its own space, so even a six word question broke onto a second
+       line. Wider also makes the section shorter, because the long questions
+       drop from three lines to two. */
+    max-width: 72rem;
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     column-gap: var(--space-xl);
