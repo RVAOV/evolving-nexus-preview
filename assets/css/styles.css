@@ -1421,7 +1421,11 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
    same column would put MORE characters on each line, not fewer. */
 @media (min-width: 64rem) {
   .coda { padding-block: calc(var(--space-2xl) * 1.1); }
-  .prose { max-width: 66ch; }
+  /* Was 66ch, which came out at 877px against the 1280px every other
+     paragraph in the same band takes, so the one block of running text on
+     the page looked like a column someone forgot to widen. It now takes
+     the same measure as the ledes above it. */
+  .prose { max-width: none; }
 }
 
 /* The second opening line. A step under the first and in the quieter colour,
@@ -1709,4 +1713,23 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
     padding-top: var(--space-2xl);
     border-top: 1px solid var(--hairline);
   }
+}
+
+/* ── The third founder detail joins the right column ───────────────────────
+   Spanning it across the bottom made a third row where two would do. The long
+   first entry holds the left column for both rows, and the two shorter ones
+   stack on the right, so Known for sits directly under Draws on. */
+@media (min-width: 64rem) {
+  .creds > div:nth-child(1) { grid-column: 1; grid-row: 1 / span 2; }
+  .creds > div:nth-child(2) { grid-column: 2; grid-row: 1; }
+  .creds > div:nth-child(3) { grid-column: 2; grid-row: 2; }
+}
+
+/* ── Air above the photograph and above each founder ───────────────────────
+   24px between the shared-vision paragraph and the photograph, and another
+   24px before Marie's name, read as no separation at all against a band that
+   carries 56px of padding. */
+@media (min-width: 48rem) {
+  #founders .portrait { margin-top: var(--space-2xl); }
+  #founders .bios { margin-top: var(--space-2xl); }
 }
