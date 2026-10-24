@@ -655,7 +655,11 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
      means it always sits inside. On a normal screen 54ch is the smaller of
      the two and nothing changes. */
   .hero__sub {
-    max-width: min(72ch, calc(var(--hero-size) * 17));
+    /* Wider than the headline's own ink, deliberately. The headline is set
+       with text-wrap: balance, so it never fills its column; holding the
+       paragraphs to that shorter width left a third of the measure empty
+       and pushed this sentence onto a third line. */
+    max-width: min(96ch, calc(var(--hero-size) * 23));
     margin-top: var(--hero-gap);
     font-size: clamp(1.2rem, calc(var(--hero-size) * 0.48), 3rem);
   }
@@ -1421,7 +1425,7 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
   /* A floor, not just a proportion. On a tall narrow tablet the hero scale
      is set by the width, and 0.28 of it came out at 11px, which is below
      anything that should carry a sentence. */
-  font-size: max(0.95rem, calc(var(--hero-size) * 0.28));
+  font-size: max(0.95rem, calc(var(--hero-size) * 0.34));
   line-height: 1.5;
   color: var(--fog);
 }
@@ -1497,4 +1501,37 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
 .founders__vision { margin-bottom: var(--space-l); }
 @media (min-width: 64rem) {
   .founders__vision { font-size: var(--step-0); max-width: 62ch; }
+}
+
+/* ── Shortening the page without cutting a word ────────────────────────────
+   The client's new copy added about two screens. None of this removes
+   content and none of it touches section padding; it buys the height back by
+   giving the copy more width, so the same words take fewer lines.
+
+   The quote cap is the one place width is held back. Uncapped the three
+   endorsements run 101 to 107 characters a line, well past the 75 that is
+   comfortable to track, and the extra 0.2 of a screen it saved was not worth
+   reading them as slabs. 70rem keeps them near 76. */
+@media (min-width: 64rem) {
+  .endorsements { max-width: none; }
+  .endorsements .endorse { max-width: 70rem; }
+  /* The photograph was taller than it needed to be beside two columns of
+     biography. */
+  #founders .portrait img { max-height: 34svh; }
+  /* Each program now carries two paragraphs, so the block padding that suited
+     a single sentence is doubled up four times over. */
+  .course { padding-block: var(--space-s); }
+  .course__desc + .course__desc { margin-top: var(--space-xs); }
+}
+@media (min-width: 75rem) {
+  #programs > .shell,
+  #proof > .shell,
+  #founders > .shell,
+  #testimonials > .shell,
+  #outcomes > .shell { max-width: min(94vw, 86rem); }
+  /* These sit inside the wider shell and were holding their own narrower
+     measure. .prose is deliberately NOT in this list: it is the one block
+     already at its reading limit, and widening it took it back to 81
+     characters a line. */
+  .faq, .quotes, .steps { max-width: none; }
 }
