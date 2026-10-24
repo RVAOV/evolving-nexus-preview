@@ -61,7 +61,16 @@
   (function () {
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
     if (location.hash) return;
-    var toTop = function () { if (!location.hash) scrollTo(0, 0); };
+    /* behavior:'instant', not the default. The stylesheet sets
+       scroll-behavior: smooth on the root, which makes a plain scrollTo(0,0)
+       an animation, and an animated scroll is cancelled the moment the reader
+       touches the wheel or trackpad. A refresh part way down the page then
+       stopped wherever the cancel happened instead of reaching the top. */
+    var toTop = function () {
+      if (location.hash) return;
+      try { scrollTo({ top: 0, left: 0, behavior: 'instant' }); }
+      catch (e) { scrollTo(0, 0); }
+    };
     toTop();
     addEventListener('DOMContentLoaded', toTop);
     addEventListener('load', toTop);
@@ -106,7 +115,7 @@
 <link rel="preload" href="assets/fonts/lora-latin-var.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" as="image" href="assets/img/founders-700.webp" type="image/webp" fetchpriority="high">
 
-<link rel="stylesheet" href="assets/css/styles.css?v=95b85c30">
+<link rel="stylesheet" href="assets/css/styles.css?v=011614b1">
 <script>document.documentElement.classList.replace('no-js','js');</script>
 
 <!-- Structured data. The playbook calls out FAQ schema specifically, because

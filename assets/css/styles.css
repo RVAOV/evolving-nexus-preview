@@ -156,17 +156,27 @@ a { color: var(--ember-gold); text-underline-offset: 0.18em; }
   overflow: hidden; clip-path: inset(50%); white-space: nowrap;
 }
 
+/* Hidden by being taken out of the paint entirely, not by being parked above
+   the top of the page. Translated off the top it was still a 244x57 gold
+   panel sitting at -85px, and anything that shows the area above the document
+   showed it: a trackpad overscroll, a rubber-band bounce, a browser that
+   paints the overscroll region. It read as a yellow box floating above the
+   page. Clipped to nothing, there is no panel to reveal. */
 .skip-link {
   position: absolute; top: 0; left: 50%;
-  transform: translate(-50%, -150%);
-  z-index: 100; padding: 0.8rem 1.3rem;
+  width: 1px; height: 1px; margin: -1px; padding: 0;
+  overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+  z-index: 100;
   background: var(--ember-gold); color: var(--void);
   font-family: var(--font-display); font-size: var(--step--1);
   font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
   text-decoration: none;
-  transition: transform 180ms var(--ease);
 }
-.skip-link:focus { transform: translate(-50%, 0); }
+.skip-link:focus {
+  width: auto; height: auto; margin: 0; padding: 0.8rem 1.3rem;
+  overflow: visible; clip-path: none;
+  transform: translateX(-50%);
+}
 
 /* ── 04 Type ────────────────────────────────────────────────────────────── */
 
@@ -1364,7 +1374,6 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
     column-gap: var(--space-xl);
     align-items: start;
   }
-  #founders .portrait img { max-height: 46svh; width: auto; margin-inline: auto; }
   #programs .paths { gap: var(--space-l); }
 }
 
@@ -1390,7 +1399,6 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
    the default shell and widening it this way would make the wrapping worse,
    not better. */
 @media (min-width: 75rem) {
-  #audience > .shell { max-width: min(94vw, 82rem); }
 }
 
 /* Declared here, after the Capture block, on purpose. Put with the other hero
@@ -1517,18 +1525,12 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
   .endorsements .endorse { max-width: 70rem; }
   /* The photograph was taller than it needed to be beside two columns of
      biography. */
-  #founders .portrait img { max-height: 34svh; }
   /* Each program now carries two paragraphs, so the block padding that suited
      a single sentence is doubled up four times over. */
   .course { padding-block: var(--space-s); }
   .course__desc + .course__desc { margin-top: var(--space-xs); }
 }
 @media (min-width: 75rem) {
-  #programs > .shell,
-  #proof > .shell,
-  #founders > .shell,
-  #testimonials > .shell,
-  #outcomes > .shell { max-width: min(94vw, 86rem); }
   /* These sit inside the wider shell and were holding their own narrower
      measure. .prose is deliberately NOT in this list: it is the one block
      already at its reading limit, and widening it took it back to 81
@@ -1635,12 +1637,7 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
    Section padding is left alone, as asked; this is the space between blocks
    inside a section, and a little more width. */
 @media (min-width: 75rem) {
-  #programs > .shell,
-  #proof > .shell,
-  #founders > .shell,
-  #testimonials > .shell,
   #outcomes > .shell,
-  #audience > .shell { max-width: min(96vw, 86rem); }
 }
 @media (min-width: 64rem) and (max-height: 50rem) {
   :root {
@@ -1689,4 +1686,27 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
   #audience .who li { padding-block: 0.4rem; line-height: 1.5; }
   #audience .audience__lede { max-width: 72ch; margin-bottom: var(--space-xs); }
   #audience .h2 { margin-bottom: var(--space-xs); }
+}
+
+/* ── One measure for every band ────────────────────────────────────────────
+   Six sections had been widened and four had not, so About, the FAQ, Join and
+   the closing line sat 224px narrower than their neighbours and the page
+   appeared to change width as you scrolled. Every band now takes the same
+   measure. The blocks inside that need a shorter line, .prose above all, keep
+   their own caps. */
+@media (min-width: 75rem) {
+  .section > .shell,
+  .final > .final__inner,
+  .coda > .shell { max-width: min(96vw, 86rem); }
+}
+
+/* ── Marie and Nish, told apart ────────────────────────────────────────────
+   Stacked with a 24px gap and no rule between them the two biographies read
+   as one block, with nothing to mark where the first ended. */
+@media (min-width: 48rem) {
+  .bios { gap: var(--space-2xl); }
+  .bios > .bio + .bio {
+    padding-top: var(--space-2xl);
+    border-top: 1px solid var(--hairline);
+  }
 }
