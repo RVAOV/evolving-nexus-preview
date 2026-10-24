@@ -98,9 +98,9 @@ route for everyone else.
 **No opening date is claimed anywhere.** Add one only when the date is firm.
 
 **No pricing and no `aggregateRating`.** Rating markup you award yourself
-violates Google's guidelines. The Ken Wilber endorsement is marked up as a
-`Review` on the *book*, attributed to him by name and carrying no score, which
-is legitimate and feeds answer engines without claiming a rich result.
+violates Google's guidelines. The three endorsements are marked up as `Review`
+nodes on the *book*, each attributed by name and carrying no score, which is
+legitimate and feeds answer engines without claiming a rich result.
 
 **The hero takes exactly `100svh`.** `svh` rather than `vh` or `dvh`: `vh` is
 the height with mobile browser chrome hidden, so it overflows while the chrome
