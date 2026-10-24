@@ -1501,19 +1501,20 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
   .endorsements { max-width: 62rem; margin-inline: auto; }
 }
 
-/* The supporting line under Who it's for. Set smaller than the statement above
-   it, which is the same pairing the closing section uses. */
+/* The supporting line under Who it's for. Size and measure come from .lede,
+   like every other supporting paragraph; only the space beneath it is its
+   own. */
 .audience__lede { margin-bottom: var(--space-m); }
-@media (min-width: 64rem) {
-  .audience__lede { font-size: var(--step-0); max-width: 56ch; }
-}
 
-/* The shared-vision paragraph sits between the heading and the photograph,
-   in the smaller size the client asked for. */
+/* The shared-vision paragraph sits between the heading and the photograph. */
 .founders__vision { margin-bottom: var(--space-l); }
-@media (min-width: 64rem) {
-  .founders__vision { font-size: var(--step-0); max-width: 62ch; }
-}
+/* The supporting paragraph under a section heading is one thing and is set
+   one way. It was at the lede size in About, Programs, Recognition and Join,
+   and a step smaller in Who it's for and Founders, because those two were
+   added in separate rounds and each got its own treatment. Same size, same
+   measure, every band. The one deliberate exception is the second paragraph
+   in the closing section, which the client asked to be smaller than the
+   first. */
 
 /* ── Shortening the page without cutting a word ────────────────────────────
    The client's new copy added about two screens. None of this removes
@@ -1688,7 +1689,7 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
 @media (min-width: 64rem) {
   #audience .who { margin-top: var(--space-s); }
   #audience .who li { padding-block: 0.4rem; line-height: 1.5; }
-  #audience .audience__lede { max-width: 72ch; margin-bottom: var(--space-xs); }
+  #audience .audience__lede { margin-bottom: var(--space-xs); }
   #audience .h2 { margin-bottom: var(--space-xs); }
 }
 
@@ -1720,9 +1721,13 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
    first entry holds the left column for both rows, and the two shorter ones
    stack on the right, so Known for sits directly under Draws on. */
 @media (min-width: 64rem) {
-  .creds > div:nth-child(1) { grid-column: 1; grid-row: 1 / span 2; }
-  .creds > div:nth-child(2) { grid-column: 2; grid-row: 1; }
-  .creds > div:nth-child(3) { grid-column: 2; grid-row: 2; }
+  /* Marie's third entry joins the right column under the second. Nish's third
+     is the endorsement and stays across the foot of both columns, which is
+     where a line of attribution belongs. */
+  .bio:first-child .creds > div:nth-child(1) { grid-column: 1; grid-row: 1 / span 2; }
+  .bio:first-child .creds > div:nth-child(2) { grid-column: 2; grid-row: 1; }
+  .bio:first-child .creds > div:nth-child(3) { grid-column: 2; grid-row: 2; }
+  .bio:not(:first-child) .creds > div:nth-child(3) { grid-column: 1 / -1; }
 }
 
 /* ── Air above the photograph and above each founder ───────────────────────
