@@ -522,16 +522,19 @@ p { text-wrap: pretty; }
 padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
                    calc(clamp(0.9rem, 3.6svh, 5rem) + env(safe-area-inset-bottom, 0px));
   }
+  /* All of these came down when the second opening sentence was added. On a
+     320px screen that sentence alone runs to seven lines, and the opening
+     still has to put the field on the first screen. */
   .hero__mark {
-    width: clamp(3rem, min(24vw, 11.4svh), 11rem);
-    margin-bottom: clamp(0.6rem, 2.2svh, 2.4rem);
+    width: clamp(2.4rem, min(19vw, 9svh), 8rem);
+    margin-bottom: clamp(0.4rem, 1.5svh, 1.6rem);
   }
-  .hero__title { font-size: clamp(1.45rem, min(7.4vw, 4.5svh), 3.9rem); }
+  .hero__title { font-size: clamp(1.25rem, min(6.4vw, 3.9svh), 3.4rem); }
   .hero__sub {
-    margin-top: clamp(0.7rem, 2.4svh, 2.4rem);
-    font-size: clamp(1.08rem, min(5.1vw, 2.7svh), 1.9rem);
+    margin-top: clamp(0.5rem, 1.8svh, 1.8rem);
+    font-size: clamp(0.95rem, min(4.4vw, 2.3svh), 1.7rem);
   }
-  .hero .capture { margin-top: clamp(0.8rem, 2.6svh, 2.6rem); }
+  .hero .capture { margin-top: clamp(0.6rem, 2.2svh, 2rem); }
   .hero .eyebrow {
     font-size: var(--hero-eyebrow);
     letter-spacing: clamp(0.04em, 1.4vw - 0.3rem, 0.26em);
@@ -610,8 +613,13 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
        three line headline and a five times emblem, and the headline is
        the more important of the two. */
     --hero-size: clamp(2rem, min(4.7vw, 7.4svh), 5rem);
-    --mark-ratio: 3.2;
-    --hero-gap:  calc(var(--hero-size) * 0.42);
+    /* 3.2 before the second opening sentence was added. That sentence is
+       four times the length of the first and takes three lines, and the
+       opening still has to fit one screen with the field above the fold,
+       so the emblem pays for it. Every larger ratio tested puts the field
+       under the fold on a laptop. */
+    --mark-ratio: 2.2;
+    --hero-gap:  calc(var(--hero-size) * 0.34);
   }
   /* The hero has to be one screen, and it was not. --space-l and --space-xl
      scale on width, so on a 1536x864 laptop they came out at 44 and 96, which
@@ -1402,4 +1410,91 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
 @media (min-width: 64rem) {
   .coda { padding-block: calc(var(--space-2xl) * 1.1); }
   .prose { max-width: 66ch; }
+}
+
+/* The second opening line. A step under the first and in the quieter colour,
+   so the pair reads as statement then gloss. It also has to earn its height:
+   the opening is budgeted to one screen, and this sentence is four times the
+   length of the one above it. */
+.hero__sub--more {
+  margin-top: calc(var(--hero-gap) * 0.55);
+  /* A floor, not just a proportion. On a tall narrow tablet the hero scale
+     is set by the width, and 0.28 of it came out at 11px, which is below
+     anything that should carry a sentence. */
+  font-size: max(0.95rem, calc(var(--hero-size) * 0.28));
+  line-height: 1.5;
+  color: var(--fog);
+}
+@media (max-width: 48rem) {
+  .hero__sub--more {
+    margin-top: clamp(0.3rem, 1.1svh, 1rem);
+    font-size: clamp(0.76rem, min(3.3vw, 1.75svh), 1.25rem);
+  }
+}
+
+/* The path heading is the stream; the courses under it are the programs. The
+   client asked for the two to be told apart, and they were not: the heading
+   block and the course blocks sat in the same column with the same weight, so
+   a reader had to infer the hierarchy from the type sizes alone.
+
+   The head now sits on its own ground with a rule beneath it, which is the
+   same device the page already uses to separate one course from the next, so
+   it reads as the parent of the list rather than the first item in it. */
+.path__head {
+  margin: calc(var(--space-m) * -1) calc(var(--space-m) * -1) 0;
+  padding: var(--space-m) var(--space-m) var(--space-m);
+  border-bottom: 1px solid var(--hairline);
+  background: linear-gradient(180deg,
+    rgba(230, 186, 117, 0.05), rgba(230, 186, 117, 0));
+}
+.path__head .path__mark { margin-inline: auto; }
+/* The first course already has the head's rule above it. */
+.courses > .course:first-child { border-top: 0; }
+/* Each program now carries two paragraphs rather than one. */
+.course__desc + .course__desc { margin-top: var(--space-s); }
+
+/* Five takeaways, not four steps. A four-column track leaves one card alone on
+   a second row, so this is its own grid: five across where there is room,
+   three then two below that, and a single column on a phone. auto-fit with a
+   minimum keeps the two rows balanced rather than leaving an orphan. */
+.steps--five { grid-template-columns: 1fr; }
+@media (min-width: 40rem) {
+  .steps--five { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+/* Three then two. auto-fit chose four at this width, which leaves the fifth
+   card alone on its own row. */
+@media (min-width: 64rem) {
+  .steps--five { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (min-width: 100rem) {
+  .steps--five { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+}
+
+/* Three endorsements where there was one. Stacked rather than in columns: the
+   quotes are different lengths and three unequal columns leave two of them
+   short with a ragged base, while a stack keeps each one a paragraph the eye
+   can take in a line at a time. The rule between them does the separating. */
+.endorse__source { margin-bottom: var(--space-l); }
+.endorsements { display: grid; gap: var(--space-l); }
+.endorsements .endorse + .endorse {
+  padding-top: var(--space-l);
+  border-top: 1px solid var(--hairline-faint);
+}
+.endorsements .endorse__by { border-top: 0; padding-top: 0; margin-top: var(--space-m); }
+@media (min-width: 75rem) {
+  .endorsements { max-width: 62rem; margin-inline: auto; }
+}
+
+/* The supporting line under Who it's for. Set smaller than the statement above
+   it, which is the same pairing the closing section uses. */
+.audience__lede { margin-bottom: var(--space-m); }
+@media (min-width: 64rem) {
+  .audience__lede { font-size: var(--step-0); max-width: 56ch; }
+}
+
+/* The shared-vision paragraph sits between the heading and the photograph,
+   in the smaller size the client asked for. */
+.founders__vision { margin-bottom: var(--space-l); }
+@media (min-width: 64rem) {
+  .founders__vision { font-size: var(--step-0); max-width: 62ch; }
 }
