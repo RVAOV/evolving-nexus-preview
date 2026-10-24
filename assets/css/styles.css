@@ -1622,3 +1622,35 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
   }
   .endorsements > .endorse:nth-child(-n + 2) blockquote p { font-size: var(--step-0); }
 }
+
+/* ── The short laptop ──────────────────────────────────────────────────────
+   1366x768 was the worst case on the page. Not because anything is broken
+   there: the sections come out within a few pixels of their height on a
+   larger screen, and the page is actually 192px SHORTER in absolute terms
+   than at 1536x864. It simply has 96px less viewport to show them in, so the
+   same content reads as more scrolling.
+
+   Two things do genuinely grow at this width. The measure is narrower, so
+   copy wraps more, and the vertical rhythm is tuned for a taller screen.
+   Section padding is left alone, as asked; this is the space between blocks
+   inside a section, and a little more width. */
+@media (min-width: 75rem) {
+  #programs > .shell,
+  #proof > .shell,
+  #founders > .shell,
+  #testimonials > .shell,
+  #outcomes > .shell,
+  #audience > .shell { max-width: min(96vw, 86rem); }
+}
+@media (min-width: 64rem) and (max-height: 50rem) {
+  :root {
+    --space-xl: clamp(1.8rem, 1.4rem + 1.6vw, 2.6rem);
+    --space-l: 1.2rem;
+  }
+  .bios { gap: var(--space-l); }
+  #testimonials .quotes,
+  #testimonials .quotes__note { margin-top: var(--space-s); }
+  #questions .faq { margin-top: var(--space-s); }
+  .faq__item summary { padding-block: 0.65rem; }
+  .faq__item p { margin-bottom: var(--space-s); }
+}
