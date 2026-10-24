@@ -1654,3 +1654,39 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
   .faq__item summary { padding-block: 0.65rem; }
   .faq__item p { margin-bottom: var(--space-s); }
 }
+
+/* ── Each founder's details in two columns ─────────────────────────────────
+   Stacking the founders fixed the reading order but left every detail row
+   spanning the full measure, which is both dead space and unreadable: the
+   longest ran 132 characters to the line, nearly twice what the eye tracks
+   comfortably. Two columns brings that to 66 and takes about 115px off the
+   section. The third entry spans, because three in two columns otherwise
+   leaves a half-row of nothing. */
+@media (min-width: 64rem) {
+  .creds {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--space-xl);
+  }
+  .creds > div:nth-child(3) { grid-column: 1 / -1; }
+}
+
+/* ── Who it's for, using the width it has ──────────────────────────────────
+   The list carried its own 58rem cap while the section around it had been
+   widened to 86rem, so the six cards sat in 297px columns holding 24
+   characters to the line. That is a column of fragments, and it made the
+   section 1130px tall for six short paragraphs.
+
+   At the full measure the cards are 411px and 34 characters, and the section
+   comes down to 836px, which fits a 1536x864 screen. The slightly tighter
+   leading is what closes the last 60px; at this size the cards are three or
+   four lines each, so 1.5 still reads easily. */
+@media (min-width: 48rem) {
+  #audience .who { max-width: none; }
+}
+@media (min-width: 64rem) {
+  #audience .who { margin-top: var(--space-s); }
+  #audience .who li { padding-block: 0.4rem; line-height: 1.5; }
+  #audience .audience__lede { max-width: 72ch; margin-bottom: var(--space-xs); }
+  #audience .h2 { margin-bottom: var(--space-xs); }
+}
