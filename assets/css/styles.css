@@ -1535,3 +1535,27 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
      characters a line. */
   .faq, .quotes, .steps { max-width: none; }
 }
+
+/* ── The two opening paragraphs, on phones and tablets ─────────────────────
+   Both were set smaller than the page's own body copy: 12.9px against 18.9px
+   on a phone, which is the size a footnote gets, not the sentence that says
+   what Evolving Nexus is. Meanwhile a tablet was leaving 300 to 390px of the
+   opening empty above and below.
+
+   Gated on height, not just width, because the room is what makes this safe.
+   A 320x568 phone has about ten pixels of slack under the field and keeps the
+   smaller setting; anything taller than 704px has the height to spend.
+
+   Desktop is deliberately untouched. Raising the same ratios there took the
+   subheading to 48px at 1920, which is not what was asked for. */
+@media (max-width: 48rem) and (min-height: 44rem) {
+  .hero__sub { font-size: clamp(1rem, min(5.4vw, 2.6svh), 1.9rem); }
+  .hero__sub--more { font-size: clamp(0.9rem, min(4.4vw, 2.1svh), 1.6rem); }
+}
+@media (min-width: 48.0625rem) and (max-width: 64rem) and (min-height: 46rem) {
+  .hero__sub { font-size: clamp(1.3rem, calc(var(--hero-size) * 0.6), 3rem); }
+  /* 1.25rem, not 1.15: at 834 the proportional value lands under the page's
+     own body size, and the sentence that introduces the whole site should
+     not be set smaller than the paragraphs further down it. */
+  .hero__sub--more { font-size: max(1.25rem, calc(var(--hero-size) * 0.46)); }
+}
