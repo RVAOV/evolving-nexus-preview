@@ -1559,3 +1559,66 @@ padding-block: calc(clamp(0.7rem, 3svh, 4rem) + env(safe-area-inset-top, 0px))
      not be set smaller than the paragraphs further down it. */
   .hero__sub--more { font-size: max(1.25rem, calc(var(--hero-size) * 0.46)); }
 }
+
+/* The opening's side margin on a phone.
+
+   The paragraphs were already full width: max-width is none here and the box
+   is the shell. What made them look narrow was the shell's own gutter, about
+   25px a side, so on a 390px screen an eighth of the display was empty margin
+   and the subheading's longest line only reached 75% of the width.
+
+   0.9rem takes it to 92%, and because the lines now fill the measure the
+   subheading drops from five to four, so this gives the opening about 30px
+   back rather than spending any. Hero only: body copy further down wants the
+   wider margin. */
+@media (max-width: 48rem) {
+  .hero > .shell { padding-inline: 0.9rem; }
+}
+
+/* ── Founders, read top to bottom ──────────────────────────────────────────
+   Two columns meant reading one biography down the page and then scrolling
+   back up to start the other. The section does not fit one screen either way,
+   so the order matters more than the footprint: stacked, a reader meets Marie
+   and then Nish without going backwards. It costs about 350px. */
+@media (min-width: 48rem) {
+  .bios { grid-template-columns: minmax(0, 1fr); gap: var(--space-l); }
+}
+
+/* ── The last row of takeaways fills the width ─────────────────────────────
+   Five cards in a three-wide grid left the final two sitting in the first two
+   tracks with a third of the row empty beside them. On a six-track grid the
+   first three take two tracks each and the last two take three, so both rows
+   reach the full measure. */
+/* Two across on a tablet leaves the fifth card alone on the last row; it
+   takes the whole width rather than half of it. */
+@media (min-width: 40rem) and (max-width: 63.9375rem) {
+  .steps--five > .step:nth-child(5) { grid-column: 1 / -1; }
+}
+@media (min-width: 64rem) and (max-width: 99.9375rem) {
+  .steps--five { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .steps--five > .step:nth-child(-n + 3) { grid-column: span 2; }
+  .steps--five > .step:nth-child(n + 4) { grid-column: span 3; }
+}
+
+/* ── Endorsements: two up, one across ─────────────────────────────────────
+   Three stacked quotes ran 1433px, most of two screens for three sentences.
+   Two side by side with the longest across the bottom brings it to 1192px.
+
+   The two in columns take the body size rather than the lede size. At the
+   lede size a half-width column holds only 43 characters a line, below the 45
+   that reads comfortably; a step down puts them at 51 and 53. The third keeps
+   the larger size and its own 70rem cap, because full width at the lede size
+   is 101 characters, which is as bad in the other direction.
+
+   Only from 1024px up. At 834 a half column is 28 characters a line, which is
+   a column of broken phrases, so a tablet keeps them stacked. */
+@media (min-width: 64rem) {
+  .endorsements { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .endorsements > .endorse { max-width: none; }
+  .endorsements > .endorse:nth-child(3) {
+    grid-column: 1 / -1;
+    max-width: 70rem;
+    margin-inline: auto;
+  }
+  .endorsements > .endorse:nth-child(-n + 2) blockquote p { font-size: var(--step-0); }
+}
