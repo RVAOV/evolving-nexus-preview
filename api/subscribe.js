@@ -44,14 +44,17 @@ function readBody(req) {
 }
 
 /* Without JavaScript the browser does a normal form post and then renders
-   whatever comes back, so that path needs a page rather than JSON. Same words
-   as the on-page confirmation, so the two cannot drift apart in tone. */
-function plainConfirmation() {
+   whatever comes back, so that path needs a page rather than JSON. Every
+   outcome gets one, not only success: a reader who mistypes an address, or who
+   arrives while the list is unreachable, would otherwise be shown a bare
+   sentence or a blob of JSON in an otherwise empty window. Same words and the
+   same colours as the page they came from, so the two cannot drift apart. */
+function page(title, heading, body) {
   return `<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>You are on the list | Evolving Nexus</title>
+<title>${title} | Evolving Nexus</title>
 <style>
   body { margin:0; min-height:100vh; display:grid; place-items:center;
          background:#070D10; color:#EDE3CC; text-align:center;
@@ -62,11 +65,35 @@ function plainConfirmation() {
 </style></head>
 <body><div class="m">
   <p aria-hidden="true" style="color:#E6BA75;font-size:1.4rem;margin:0 0 .6rem">&#9670;</p>
-  <h1>Welcome, you&rsquo;re on the list!</h1>
-  <p>Check your inbox. One email is on its way to confirm you wanted to join.
-     If it is not there in a few minutes, please look in your spam folder.</p>
+  <h1>${heading}</h1>
+  ${body}
   <p><a href="/">Back to Evolving Nexus</a></p>
 </div></body></html>`;
+}
+
+function plainConfirmation() {
+  return page('You are on the list', 'Welcome, you&rsquo;re on the list!',
+    `<p>Check your inbox. One email is on its way to confirm you wanted to join.
+       If it is not there in a few minutes, please look in your spam folder.</p>`);
+}
+
+function plainInvalid() {
+  return page('Check that address', 'That address doesn&rsquo;t quite look right',
+    `<p>Please go back and check it, then try again.</p>`);
+}
+
+function plainUnavailable() {
+  return page('Sign-up unavailable', 'Something went wrong on our end',
+    `<p>Your address was not added. Please try again in a few minutes.</p>`);
+}
+
+/* One place decides whether a caller gets JSON or a page, so a new branch
+   cannot quietly answer a no-JavaScript visitor with JSON the way three of
+   these used to. */
+function reply(res, wantsJson, code, json, html) {
+  if (wantsJson) return res.status(code).json(json);
+  res.setHeader('Content-Type', 'text/html; charset=utf-8');
+  return res.status(code).send(html);
 }
 
 module.exports = async function handler(req, res) {
@@ -85,15 +112,12 @@ module.exports = async function handler(req, res) {
      Checked here as well as in the browser, because a bot posting straight to
      this URL never runs the page's JavaScript. */
   if (body.company) {
-    return wantsJson
-      ? res.status(200).json({ ok: true })
-      : res.status(200).setHeader('Content-Type', 'text/html; charset=utf-8').send(plainConfirmation());
+    return reply(res, wantsJson, 200, { ok: true }, plainConfirmation());
   }
 
   if (!looksLikeEmail(email)) {
-    return wantsJson
-      ? res.status(400).json({ error: 'Please enter a valid email address.' })
-      : res.status(400).send('Please go back and enter a valid email address.');
+    return reply(res, wantsJson, 400,
+      { error: 'Please enter a valid email address.' }, plainInvalid());
   }
 
   const key = process.env.MAILERLITE_API_KEY;
@@ -101,7 +125,8 @@ module.exports = async function handler(req, res) {
     /* Logged for the operator, generic for the visitor: an error message is
        not the place to describe how the server is configured. */
     console.error('MAILERLITE_API_KEY is not set; sign-up cannot be delivered');
-    return res.status(500).json({ error: 'Sign-up is unavailable right now.' });
+    return reply(res, wantsJson, 500,
+      { error: 'Sign-up is unavailable right now.' }, plainUnavailable());
   }
 
   const payload = { email: email, status: process.env.MAILERLITE_STATUS || 'unconfirmed' };
@@ -120,7 +145,8 @@ module.exports = async function handler(req, res) {
     });
   } catch (err) {
     console.error('MailerLite request failed', err);
-    return res.status(502).json({ error: 'Sign-up is unavailable right now.' });
+    return reply(res, wantsJson, 502,
+      { error: 'Sign-up is unavailable right now.' }, plainUnavailable());
   }
 
   /* 200 created, 201 created, 422 already a subscriber. The last one is a
@@ -128,12 +154,21 @@ module.exports = async function handler(req, res) {
      on the list. Telling them it failed would invite a second attempt that
      cannot succeed either. */
   if (upstream.ok || upstream.status === 422) {
-    return wantsJson
-      ? res.status(200).json({ ok: true })
-      : res.status(200).setHeader('Content-Type', 'text/html; charset=utf-8').send(plainConfirmation());
+    /* A 422 is reported to the reader as success, so log it. MailerLite also
+       returns 422 for an address it considers malformed, and the validation
+       here is deliberately permissive, so this is the one branch where the
+       reader could be told it worked when nothing was added. Silent, it would
+       be invisible; logged, it is a line in the function's output. */
+    if (upstream.status === 422) {
+      const why = await upstream.text().catch(function () { return ''; });
+      console.warn('MailerLite returned 422, reported to the reader as success',
+        why.slice(0, 500));
+    }
+    return reply(res, wantsJson, 200, { ok: true }, plainConfirmation());
   }
 
   const detail = await upstream.text().catch(function () { return ''; });
   console.error('MailerLite rejected the sign-up', upstream.status, detail.slice(0, 500));
-  return res.status(502).json({ error: 'Sign-up is unavailable right now.' });
+  return reply(res, wantsJson, 502,
+    { error: 'Sign-up is unavailable right now.' }, plainUnavailable());
 };

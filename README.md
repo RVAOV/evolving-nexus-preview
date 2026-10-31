@@ -45,8 +45,8 @@ stands.
 Four things, all of which need a decision or a detail from Evolving Nexus.
 
 **1. The MailerLite API key.** Both forms post to `/api/subscribe`, which is
-`api/subscribe.js`. It needs two environment variables set on the host, never
-in a file here:
+`api/subscribe.js`. It reads three environment variables, one required and two
+optional, all set on the host and never in a file here:
 
 | | |
 |---|---|

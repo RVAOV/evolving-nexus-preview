@@ -113,7 +113,16 @@
 <link rel="manifest" href="site.webmanifest">
 
 <link rel="preload" href="assets/fonts/lora-latin-var.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" as="image" href="assets/img/founders-700.webp" type="image/webp" fetchpriority="high">
+
+<!-- The founders photograph used to be preloaded here at high priority. Two
+     things were wrong with that. It asked for founders-700.webp, but the sizes
+     attribute on the picture resolves to roughly 1036px on a phone and 626px
+     on a laptop, so the browser picked founders-1000.webp and the preloaded
+     file was downloaded and never shown: 39KB wasted on every visit. And the
+     photograph sits several screens down, while the largest element painted in
+     the first screen is the hero paragraph, so the preload was spending
+     priority on something nobody was waiting for and taking bandwidth from the
+     thing they were. Measured under Slow 4G with a 4x CPU throttle. -->
 
 <link rel="stylesheet" href="assets/css/styles.css?v=a4c7ae83">
 <script>document.documentElement.classList.replace('no-js','js');</script>
@@ -524,8 +533,11 @@
       <a class="hero__home" href="#home" aria-label="Evolving Nexus, home">
         <picture>
           <source srcset="assets/img/emblem-nexus.webp" type="image/webp">
+          <!-- The one image in the first screen, so it is the one that earns
+               high priority. It used to have none while the photograph far
+               below it had high, which is backwards. -->
           <img class="hero__mark" src="assets/img/emblem-nexus.png"
-               width="456" height="472" decoding="async"
+               width="456" height="472" fetchpriority="high" decoding="async"
                alt="The Evolving Nexus emblem: a star tetrahedron enclosed by a circle.">
         </picture>
       </a>
@@ -1018,7 +1030,7 @@
                srcset="assets/img/founders-480.jpg 480w,
                        assets/img/founders-700.jpg 700w,
                        assets/img/founders-1000.jpg 1000w"
-               width="1000" height="655" fetchpriority="high" decoding="async"
+               width="1000" height="655" loading="lazy" decoding="async"
                alt="Marie Murtagh and Nish Dubashia, co-founders of Evolving Nexus, photographed together.">
         </picture>
         <figcaption>Marie Murtagh and Nish Dubashia, co-founders</figcaption>
